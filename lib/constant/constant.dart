@@ -1,0 +1,1 @@
+int kmydefault = 16;
