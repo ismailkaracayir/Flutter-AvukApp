@@ -23,3 +23,13 @@ class PagePadding extends EdgeInsets {
   const PagePadding.symtcHrztNormal() : super.symmetric(horizontal: 20);
   const PagePadding.symtcHrztLow() : super.symmetric(horizontal: 16);
 }
+
+class DefaultPadding extends EdgeInsets {
+  const DefaultPadding.allLow() : super.all(16);
+  const DefaultPadding.allNormal() : super.all(20);
+  const DefaultPadding.allHigh() : super.all(24);
+  const DefaultPadding.allSoHigh() : super.all(32);
+  const DefaultPadding.symtcHrztHigh() : super.symmetric(horizontal: 26);
+  const DefaultPadding.symtcHrztNormal() : super.symmetric(horizontal: 20);
+  const DefaultPadding.symtcHrztLow() : super.symmetric(horizontal: 16);
+}

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'constant/my_constant.dart';
-import 'pages/home_page.dart';
-import 'pages/message_page.dart';
-import 'pages/notification_page.dart';
-import 'pages/profile_page.dart';
+import '../constant/my_constant.dart';
+import '../pages/home_page.dart';
+import '../pages/message_page.dart';
+import '../pages/notification_page.dart';
+import '../pages/profile_page.dart';
 
 class MyPageManager extends StatefulWidget {
   const MyPageManager({super.key});
@@ -19,6 +19,24 @@ class _MyPageManagerState extends State<MyPageManager> {
   final int _duration = 600;
   final double _animateContainerWitdth = 74;
 
+  String getAppName(int pageIndex) {
+    switch (pageIndex) {
+      case 0:
+        return "Ana Sayfa";
+
+      case 1:
+        return "Mesajlar";
+
+      case 2:
+        return "Bildirimler";
+
+      case 3:
+        return "Profil Sayfası";
+      default:
+        return "-";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     PageController myPage = PageController(initialPage: selectinIndex);
@@ -26,7 +44,18 @@ class _MyPageManagerState extends State<MyPageManager> {
       appBar: AppBar(
         leadingWidth: 80,
         toolbarHeight: 70,
-        title: const Text("AvukApp"),
+        title: Text(
+          getAppName(selectinIndex),
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20),
+          ),
+        ),
         backgroundColor: kMyBackgroundColor,
         elevation: 0,
         centerTitle: true,
@@ -45,8 +74,13 @@ class _MyPageManagerState extends State<MyPageManager> {
         ],
       ),
       body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
+        // physics: const NeverScrollableScrollPhysics(),
         controller: myPage,
+        onPageChanged: (value) {
+          setState(() {
+            selectinIndex = value;
+          });
+        },
         children: const [
           MyHomePage(),
           MyMessagePage(),
@@ -55,12 +89,6 @@ class _MyPageManagerState extends State<MyPageManager> {
         ],
       ),
       bottomNavigationBar: homeBottomBar(myPage),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {},
-      //   backgroundColor: kMyBackgroundColor,
-      //   child: const Text("+"),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 

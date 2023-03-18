@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'screens/home/page_manager.dart';
+import 'screens/home/manager/page_manager.dart';
 
 void main() {
   runApp(const MyApp());
