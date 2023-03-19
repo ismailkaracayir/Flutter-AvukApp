@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constant/my_constant.dart';
+
 class MyCustomListTileWidget extends StatelessWidget {
   final String backgroundUrl;
   final String titleName;
@@ -14,7 +16,7 @@ class MyCustomListTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.black12,
+        color: kNavyBlueColor.withOpacity(0.3),
         borderRadius: BorderRadius.circular(20),
       ),
       height: 74,
@@ -44,8 +46,8 @@ class MyCustomListTileWidget extends StatelessWidget {
                   Text(
                     titleName,
                     style: const TextStyle(
-                      color: Colors.green,
-                      fontSize: 18,
+                      color: kNavyBlueColor,
+                      fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -57,6 +59,7 @@ class MyCustomListTileWidget extends StatelessWidget {
               child: Icon(
                 Icons.keyboard_arrow_right_outlined,
                 size: 32,
+                color: kWineRedColor,
               ),
             ),
           ],

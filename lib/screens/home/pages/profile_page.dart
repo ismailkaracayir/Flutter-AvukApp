@@ -14,10 +14,11 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const PagePadding.allNormal(),
+        padding: const PagePadding.symtcHrztNormal(),
         child: SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(
@@ -92,6 +93,15 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
                 ),
               ),
               const SizedBox(height: 10),
+              GestureDetector(
+                onTap: () {},
+                child: const MyCustomListTileWidget(
+                  backgroundUrl:
+                      "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
+                  titleName: "Randevularım",
+                ),
+              ),
+              const SizedBox(height: 10),
               const Divider(
                 thickness: 2,
               ),
@@ -102,8 +112,9 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
                   Text(
                     "Genel Ayarlar",
                     style: TextStyle(
-                      color: Colors.green,
+                      color: kNavyBlueColor,
                       fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -131,7 +142,17 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
                 backgroundUrl:
                     "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
                 titleName: "terms & conditions",
-              )
+              ),
+              const SizedBox(height: 10),
+              GestureDetector(
+                onTap: () {},
+                child: const MyCustomListTileWidget(
+                  backgroundUrl:
+                      "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
+                  titleName: "Profil Düzenle",
+                ),
+              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),

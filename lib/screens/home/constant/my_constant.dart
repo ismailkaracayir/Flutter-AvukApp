@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 // ! const Color
-const kMyBackgroundColor = Colors.green;
-const kMyPrimaryColor = Color.fromARGB(255, 166, 19, 127);
-const kMyPrimaryTextColor = Color(0xFFD0BED4);
-const kMyPrimaryBlack = Color(0xFF0B0B11);
+const kNavyBlueColor = Color(0xFF0A2A5E);
+const kCreamColor = Color(0xFFF5F5DC);
+const kWineRedColor = Color(0xFF800000);
+const kBlackColor = Color(0xFF000000);
+const kWhiteColor = Color(0xFFFFFFFF);
 
 // ! const Font Size
 
@@ -24,6 +25,7 @@ class PagePadding extends EdgeInsets {
   const PagePadding.symtcHrztLow() : super.symmetric(horizontal: 16);
 }
 
+// ! const General Paddin
 class DefaultPadding extends EdgeInsets {
   const DefaultPadding.allLow() : super.all(16);
   const DefaultPadding.allNormal() : super.all(20);

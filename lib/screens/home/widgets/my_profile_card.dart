@@ -27,7 +27,7 @@ class MyProfileCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.0),
         ),
-        color: Colors.green.shade400,
+        color: kNavyBlueColor.withOpacity(0.3),
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Row(

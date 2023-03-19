@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 width: width * 0.65,
                 height: height * 0.15,
                 decoration: BoxDecoration(
-                  color: Colors.green.shade200,
+                  color: kNavyBlueColor.withOpacity(0.4),
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
@@ -72,11 +72,11 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.only(left: 12.0, right: 6),
         child: Icon(
           Icons.search,
-          color: kMyBackgroundColor,
+          color: kNavyBlueColor,
         ),
       ),
-      hintStyle: const TextStyle(color: kMyBackgroundColor),
-      labelStyle: const TextStyle(color: kMyBackgroundColor),
+      hintStyle: const TextStyle(color: kWineRedColor),
+      labelStyle: const TextStyle(color: kWineRedColor),
       // floatingLabelBehavior: FloatingLabelBehavior.always,
       contentPadding: const EdgeInsets.symmetric(
         horizontal: 20,
@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(28),
         borderSide: const BorderSide(
-          color: kMyPrimaryTextColor,
+          color: kWineRedColor,
           width: 1.5,
         ),
         gapPadding: 10,
@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(28),
         borderSide: const BorderSide(
-          color: kMyBackgroundColor,
+          color: kWineRedColor,
           width: 1.5,
         ),
         gapPadding: 10,

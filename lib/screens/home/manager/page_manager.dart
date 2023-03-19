@@ -49,6 +49,7 @@ class _MyPageManagerState extends State<MyPageManager> {
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
+            color: kCreamColor,
           ),
         ),
         shape: const RoundedRectangleBorder(
@@ -56,8 +57,8 @@ class _MyPageManagerState extends State<MyPageManager> {
             bottom: Radius.circular(20),
           ),
         ),
-        backgroundColor: kMyBackgroundColor,
-        elevation: 0,
+        backgroundColor: kNavyBlueColor,
+        elevation: 10,
         centerTitle: true,
         leading: const Icon(
           Icons.menu,
@@ -101,7 +102,7 @@ class _MyPageManagerState extends State<MyPageManager> {
             topLeft: Radius.circular(36),
             topRight: Radius.circular(36),
           ),
-          color: kMyBackgroundColor,
+          color: kNavyBlueColor,
         ),
         padding: const EdgeInsets.all(10),
         child: SizedBox(
@@ -116,7 +117,7 @@ class _MyPageManagerState extends State<MyPageManager> {
                   duration: Duration(milliseconds: _duration),
                   width: _animateContainerWitdth,
                   decoration: BoxDecoration(
-                    color: selectinIndex == 0 ? Colors.purple : null,
+                    color: selectinIndex == 0 ? kCreamColor : null,
                     borderRadius: BorderRadius.circular(36),
                   ),
                   child: IconButton(
@@ -126,9 +127,9 @@ class _MyPageManagerState extends State<MyPageManager> {
                         myPage.jumpToPage(selectinIndex);
                       });
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.home,
-                      color: Colors.white,
+                      color: selectinIndex == 0 ? kNavyBlueColor : kCreamColor,
                       size: 32,
                     ),
                   ),
@@ -137,7 +138,7 @@ class _MyPageManagerState extends State<MyPageManager> {
                   duration: Duration(milliseconds: _duration),
                   width: _animateContainerWitdth,
                   decoration: BoxDecoration(
-                    color: selectinIndex == 1 ? Colors.purple : null,
+                    color: selectinIndex == 1 ? kCreamColor : null,
                     borderRadius: BorderRadius.circular(36),
                   ),
                   child: Stack(
@@ -150,9 +151,10 @@ class _MyPageManagerState extends State<MyPageManager> {
                             myPage.jumpToPage(selectinIndex);
                           });
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.message,
-                          color: Colors.white,
+                          color:
+                              selectinIndex == 1 ? kNavyBlueColor : kCreamColor,
                           size: 32,
                         ),
                       ),
@@ -163,13 +165,13 @@ class _MyPageManagerState extends State<MyPageManager> {
                           width: 22,
                           height: 22,
                           decoration: BoxDecoration(
-                            color: Colors.red,
+                            color: kWineRedColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Center(
                             child: Text(
                               "1",
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: kCreamColor),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -182,7 +184,7 @@ class _MyPageManagerState extends State<MyPageManager> {
                   duration: Duration(milliseconds: _duration),
                   width: _animateContainerWitdth,
                   decoration: BoxDecoration(
-                    color: selectinIndex == 2 ? Colors.purple : null,
+                    color: selectinIndex == 2 ? kCreamColor : null,
                     borderRadius: BorderRadius.circular(36),
                   ),
                   child: IconButton(
@@ -192,9 +194,9 @@ class _MyPageManagerState extends State<MyPageManager> {
                         myPage.jumpToPage(selectinIndex);
                       });
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.notifications,
-                      color: Colors.white,
+                      color: selectinIndex == 2 ? kNavyBlueColor : kCreamColor,
                       size: 32,
                     ),
                   ),
@@ -203,7 +205,7 @@ class _MyPageManagerState extends State<MyPageManager> {
                   duration: Duration(milliseconds: _duration),
                   width: _animateContainerWitdth,
                   decoration: BoxDecoration(
-                    color: selectinIndex == 3 ? Colors.purple : null,
+                    color: selectinIndex == 3 ? kCreamColor : null,
                     borderRadius: BorderRadius.circular(36),
                   ),
                   child: IconButton(
@@ -213,9 +215,9 @@ class _MyPageManagerState extends State<MyPageManager> {
                         myPage.jumpToPage(selectinIndex);
                       });
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.person,
-                      color: Colors.white,
+                      color: selectinIndex == 3 ? kNavyBlueColor : kCreamColor,
                       size: 32,
                     ),
                   ),
