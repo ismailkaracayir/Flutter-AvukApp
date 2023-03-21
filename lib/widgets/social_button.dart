@@ -1,3 +1,4 @@
+import 'package:avukapp/constant/constant.dart';
 import 'package:flutter/material.dart';
 
 class SocialButtonWidget extends StatelessWidget {
@@ -8,37 +9,43 @@ class SocialButtonWidget extends StatelessWidget {
   final Widget buttonIcon;
   final double buttonHeight;
   final VoidCallback onPress;
+  final double buttonWidth;
 
   const SocialButtonWidget(
       {super.key,
       required this.buttonText,
       required this.buttonIcon,
-      this.buttonColor = Colors.red,
-      this.textColor = Colors.black,
-      this.buttonHeight = 20,
+      this.buttonColor = navyBlueColor,
+      this.textColor = whiteColor,
+      required this.buttonHeight,
+      required this.buttonWidth,
       required this.onPress});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
         style: ButtonStyle(
-          iconSize: MaterialStateProperty.all(buttonHeight),
+          iconSize: MaterialStateProperty.all(20),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: const BorderSide(color: Colors.black38))),
-          alignment: Alignment.centerLeft,
-          fixedSize: MaterialStateProperty.all(const Size(300, 60)),
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+              side: const BorderSide(color: Colors.black38),
+            ),
+          ),
+          alignment: Alignment.center,
+          fixedSize: MaterialStateProperty.all(Size(buttonWidth, buttonHeight)),
           backgroundColor: MaterialStateProperty.all(buttonColor),
-          overlayColor: MaterialStateProperty.all(textColor.withOpacity(0.3)),
-          elevation: MaterialStateProperty.all(20),
+          overlayColor: MaterialStateProperty.all(
+            textColor.withOpacity(0.3),
+          ),
+          // elevation: MaterialStateProperty.all(20),
         ),
         onPressed: onPress,
         icon: buttonIcon,
         label: Text(
           buttonText,
           style: TextStyle(
-              color: textColor, fontWeight: FontWeight.bold, fontSize: 20),
+              color: textColor, fontWeight: FontWeight.bold, fontSize: 15),
         ));
   }
 }
@@ -49,6 +56,7 @@ class PressButtonWidget extends StatelessWidget {
   final Color buttonColor;
   final Color textColor;
   final double buttonHeight;
+  final double buttonWeight;
   final VoidCallback onPress;
 
   const PressButtonWidget(
@@ -57,6 +65,7 @@ class PressButtonWidget extends StatelessWidget {
       required this.buttonColor,
       required this.textColor,
       required this.buttonHeight,
+      required this.buttonWeight,
       required this.onPress});
 
   @override
@@ -66,11 +75,11 @@ class PressButtonWidget extends StatelessWidget {
           iconSize: MaterialStateProperty.all(buttonHeight),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
+            borderRadius: BorderRadius.circular(10.0),
           )),
           backgroundColor: MaterialStateProperty.all(buttonColor),
-          fixedSize: MaterialStateProperty.all(const Size(250, 40)),
-          elevation: MaterialStateProperty.all(20),
+          fixedSize:
+              MaterialStateProperty.all(Size(buttonWeight, buttonHeight)),
         ),
         onPressed: onPress,
         child: Text(
@@ -110,7 +119,7 @@ class WhiteSmallPressButton extends StatelessWidget {
                     side: const BorderSide(color: Colors.black38))),
             backgroundColor: MaterialStateProperty.all(buttonColor),
             fixedSize: MaterialStateProperty.all(const Size(150, 20)),
-            elevation: MaterialStateProperty.all(20),
+            // elevation: MaterialStateProperty.all(20),
           ),
           onPressed: onPress,
           child: Text(

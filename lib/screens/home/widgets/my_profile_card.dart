@@ -1,6 +1,8 @@
 import 'package:avukapp/screens/home/constant/my_constant.dart';
 import 'package:flutter/material.dart';
 
+import '../../appointment/page/appointment_page.dart';
+
 class MyProfileCard extends StatelessWidget {
   final String ad;
   final String deneyim;
@@ -25,7 +27,7 @@ class MyProfileCard extends StatelessWidget {
         elevation: 20,
         margin: const DefaultPadding.allLow(),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(8),
         ),
         color: kNavyBlueColor.withOpacity(0.3),
         child: Padding(
@@ -105,7 +107,13 @@ class MyProfileCard extends StatelessWidget {
                   Row(
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AppointmentPage(),
+                              ));
+                        },
                         child: newCardStyleMethod(question: "Randevu Al"),
                       ),
                       const SizedBox(
@@ -130,14 +138,14 @@ class MyProfileCard extends StatelessWidget {
       width: 84,
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(18)),
+        borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       child: Center(
         child: Text(
           question,
           style: const TextStyle(
-            color: Colors.green,
-            fontWeight: FontWeight.w600,
+            color: kNavyBlueColor,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),

@@ -1,9 +1,8 @@
-import 'package:avukapp/screens/home/manager/page_manager.dart';
+import 'package:avukapp/constant/constant.dart';
+import 'package:avukapp/screens/login/login.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,11 +10,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.green,
+      title: 'Material App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        iconTheme: IconThemeData(
+          color: kWineRedColor,
         ),
-        home: const MyPageManager());
+      ),
+      home: LoginScreen(),
+    );
   }
 }
