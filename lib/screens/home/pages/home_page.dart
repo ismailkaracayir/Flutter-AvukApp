@@ -19,6 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Padding(
         padding: const PagePadding.symtcHrztNormal(),
         child: SingleChildScrollView(
+          // physics: BouncingScrollPhysics(),
           child: Column(
             children: [
               const SizedBox(height: 10),
@@ -26,19 +27,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 decoration: homeTextFieldDecoration(),
               ),
               const SizedBox(height: 10),
-              Container(
-                width: width * 0.65,
-                height: height * 0.15,
-                decoration: BoxDecoration(
-                  color: kNavyBlueColor.withOpacity(0.4),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              const SizedBox(height: 10),
               SizedBox(
                 height: 450,
                 width: width,
                 child: GridView.builder(
+                  // physics: BouncingScrollPhysics(),
                   itemCount: 10,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,

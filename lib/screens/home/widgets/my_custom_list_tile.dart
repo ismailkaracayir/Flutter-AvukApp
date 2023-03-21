@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constant/my_constant.dart';
 
@@ -17,7 +18,7 @@ class MyCustomListTileWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: kNavyBlueColor.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(8),
       ),
       height: 74,
       child: Padding(
@@ -26,12 +27,7 @@ class MyCustomListTileWidget extends StatelessWidget {
           children: [
             Expanded(
               flex: 2,
-              child: CircleAvatar(
-                radius: 40,
-                backgroundImage: NetworkImage(
-                  backgroundUrl,
-                ),
-              ),
+              child: SvgPicture.asset(backgroundUrl, height: 46),
             ),
             const Expanded(
               flex: 1,
