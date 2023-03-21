@@ -6,7 +6,7 @@ class RegisterWithMailScreen extends StatefulWidget {
   const RegisterWithMailScreen({super.key});
 
   @override
-  _RegisterWithMailScreenState createState() => _RegisterWithMailScreenState();
+  State<RegisterWithMailScreen> createState() => _RegisterWithMailScreenState();
 }
 
 class _RegisterWithMailScreenState extends State<RegisterWithMailScreen> {
@@ -62,8 +62,8 @@ class _RegisterWithMailScreenState extends State<RegisterWithMailScreen> {
                   )),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: creamColor,
-                      border: Border.all(color: navyBlueColor, width: 1)),
+                      color: kCreamColor,
+                      border: Border.all(color: kNavyBlueColor, width: 1)),
                 ),
                 SizedBox(
                   height: height / 20,
@@ -131,12 +131,12 @@ class _RegisterWithMailScreenState extends State<RegisterWithMailScreen> {
                     ),
                     SizedBox(height: height / 25),
                     PressButtonWidget(
-                      buttonColor: navyBlueColor,
+                      buttonColor: kNavyBlueColor,
                       buttonHeight: height / 15,
                       buttonWeight: width,
                       buttonText: 'Sign up',
                       onPress: _submit,
-                      textColor: whiteColor,
+                      textColor: kWhiteColor,
                     ),
                   ],
                 ),

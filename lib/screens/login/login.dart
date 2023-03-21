@@ -1,17 +1,17 @@
 import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/screens/login/login_with_phone.dart';
 import 'package:avukapp/screens/register/registration.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
 import '../../widgets/social_button.dart';
-import '../register/register_with_mail.dart';
+import '../home/manager/page_manager.dart';
+import '../home/pages/home_page.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -21,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late bool _passwordVisible;
   @override
   void initState() {
+    super.initState();
     _passwordVisible = false;
   }
 
@@ -45,8 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
             )),
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: creamColor,
-                border: Border.all(color: navyBlueColor, width: 1)),
+                color: kCreamColor,
+                border: Border.all(color: kNavyBlueColor, width: 1)),
           ),
           /* SizedBox(
               width: 100,
@@ -111,10 +112,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     PressButtonWidget(
                       buttonText: 'Login',
-                      onPress: () {},
-                      buttonColor: navyBlueColor,
+                      onPress: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyPageManager()));
+                      },
+                      buttonColor: kNavyBlueColor,
                       buttonHeight: 50,
-                      textColor: whiteColor,
+                      textColor: kWhiteColor,
                       buttonWeight: 250,
                     ),
                     SizedBox(height: 10),
@@ -122,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       buttonText: "Login with Google",
                       buttonIcon: Icon(
                         MdiIcons.googlePlus,
-                        color: whiteColor,
+                        color: kWhiteColor,
                       ),
                       onPress: () {},
                       buttonHeight: 40,
@@ -132,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       buttonText: "Login with phone",
                       buttonIcon: Icon(
                         MdiIcons.phone,
-                        color: whiteColor,
+                        color: kWhiteColor,
                       ),
                       onPress: () {
                         Navigator.push(
@@ -157,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(
                             "Register",
                             style: TextStyle(
-                              color: wineRedColor,
+                              color: kWineRedColor,
                             ),
                           ),
                         ],

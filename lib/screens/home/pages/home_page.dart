@@ -28,14 +28,14 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 10),
               SizedBox(
-                height: 450,
+                height: height / 1.4,
                 width: width,
                 child: GridView.builder(
                   // physics: BouncingScrollPhysics(),
                   itemCount: 10,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    childAspectRatio: 1.8,
+                    childAspectRatio: 1.6,
                   ),
                   itemBuilder: (context, index) {
                     return MyProfileCard(

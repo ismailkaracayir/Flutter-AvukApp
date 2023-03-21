@@ -100,7 +100,7 @@ class RegistrationScreen extends StatelessWidget {
                   },
                   child: const Text(
                     'Oturum aç',
-                    style: TextStyle(color: wineRedColor),
+                    style: TextStyle(color: kWineRedColor),
                   ),
                 ),
               ),
