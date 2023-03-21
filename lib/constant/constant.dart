@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 // ! const Color
 const kNavyBlueColor = Color(0xFF0A2A5E);
 const kCreamColor = Color(0xFFF5F5DC);
@@ -35,3 +36,4 @@ class DefaultPadding extends EdgeInsets {
   const DefaultPadding.symtcHrztNormal() : super.symmetric(horizontal: 20);
   const DefaultPadding.symtcHrztLow() : super.symmetric(horizontal: 16);
 }
+
