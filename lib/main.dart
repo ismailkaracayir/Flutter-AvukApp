@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         iconTheme: IconThemeData(
-          color: wineRedColor,
+          color: kWineRedColor,
         ),
       ),
       home: LoginScreen(),

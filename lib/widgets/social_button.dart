@@ -15,8 +15,8 @@ class SocialButtonWidget extends StatelessWidget {
       {super.key,
       required this.buttonText,
       required this.buttonIcon,
-      this.buttonColor = navyBlueColor,
-      this.textColor = whiteColor,
+      this.buttonColor = kNavyBlueColor,
+      this.textColor = kWhiteColor,
       required this.buttonHeight,
       required this.buttonWidth,
       required this.onPress});

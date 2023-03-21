@@ -67,8 +67,8 @@ class _LoginWithPhoneScreenState extends State<LoginWithPhoneScreen> {
             SizedBox(height: 16.0),
             PressButtonWidget(
                 buttonText: "Giriş Yap",
-                buttonColor: navyBlueColor,
-                textColor: whiteColor,
+                buttonColor: kNavyBlueColor,
+                textColor: kWhiteColor,
                 buttonHeight: height / 50,
                 buttonWeight: width,
                 onPress: () {})

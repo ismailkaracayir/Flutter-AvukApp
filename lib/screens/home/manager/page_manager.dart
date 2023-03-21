@@ -58,21 +58,8 @@ class _MyPageManagerState extends State<MyPageManager> {
           ),
         ),
         backgroundColor: kNavyBlueColor,
-        elevation: 10,
         centerTitle: true,
-        leading: const Icon(
-          Icons.menu,
-          size: 32,
-        ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: Icon(
-              Icons.person_2,
-              size: 32,
-            ),
-          ),
-        ],
+        leading: SizedBox(),
       ),
       // drawer: Drawer(),
       body: PageView(

@@ -83,11 +83,11 @@ class _RegisterWithPhoneScreenState extends State<RegisterWithPhoneScreen> {
             SizedBox(height: 16.0),
             PressButtonWidget(
                 buttonText: "Kayıt Ol",
-                buttonColor: navyBlueColor,
-                textColor: whiteColor,
+                buttonColor: kNavyBlueColor,
+                textColor: kWhiteColor,
                 buttonHeight: height / 65,
                 buttonWeight: width,
-                onPress: () {})
+                onPress: () {}),
           ],
         ),
       ),
