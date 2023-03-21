@@ -10,6 +10,12 @@ class MyUserProfilePage extends StatefulWidget {
 }
 
 class _MyUserProfilePageState extends State<MyUserProfilePage> {
+  final String _iconProfile = "assets/icons/profile_design.svg";
+  final String _iconAppointMent = "assets/icons/profile_date.svg";
+  final String _iconLanguage = "assets/icons/profile_language.svg";
+  final String _iconAbout = "assets/icons/profile_about.svg";
+  final String _iconTermsCndton = "assets/icons/profile_terms_conditions.svg";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,18 +92,16 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {},
-                child: const MyCustomListTileWidget(
-                  backgroundUrl:
-                      "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
+                child: MyCustomListTileWidget(
+                  backgroundUrl: _iconProfile,
                   titleName: "Profil Düzenle",
                 ),
               ),
               const SizedBox(height: 10),
               GestureDetector(
                 onTap: () {},
-                child: const MyCustomListTileWidget(
-                  backgroundUrl:
-                      "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
+                child: MyCustomListTileWidget(
+                  backgroundUrl: _iconAppointMent,
                   titleName: "Randevularım",
                 ),
               ),
@@ -120,35 +124,30 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
                 ],
               ),
               const SizedBox(height: 10),
-              const MyCustomListTileWidget(
-                backgroundUrl:
-                    "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
+              MyCustomListTileWidget(
+                backgroundUrl: _iconProfile,
                 titleName: "Profil Düzenle",
               ),
               const SizedBox(height: 10),
-              const MyCustomListTileWidget(
-                backgroundUrl:
-                    "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
+              MyCustomListTileWidget(
+                backgroundUrl: _iconLanguage,
                 titleName: "Dil Ayarları",
               ),
               const SizedBox(height: 10),
-              const MyCustomListTileWidget(
-                backgroundUrl:
-                    "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
+              MyCustomListTileWidget(
+                backgroundUrl: _iconAbout,
                 titleName: "Hakkında",
               ),
               const SizedBox(height: 10),
-              const MyCustomListTileWidget(
-                backgroundUrl:
-                    "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
+              MyCustomListTileWidget(
+                backgroundUrl: _iconTermsCndton,
                 titleName: "terms & conditions",
               ),
               const SizedBox(height: 10),
               GestureDetector(
                 onTap: () {},
-                child: const MyCustomListTileWidget(
-                  backgroundUrl:
-                      "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
+                child: MyCustomListTileWidget(
+                  backgroundUrl: _iconTermsCndton,
                   titleName: "Profil Düzenle",
                 ),
               ),

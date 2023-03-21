@@ -74,6 +74,7 @@ class _MyPageManagerState extends State<MyPageManager> {
           ),
         ],
       ),
+      // drawer: Drawer(),
       body: PageView(
         // physics: const NeverScrollableScrollPhysics(),
         controller: myPage,
