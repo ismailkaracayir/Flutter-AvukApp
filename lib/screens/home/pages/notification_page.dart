@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constant/my_constant.dart';
+import '../../../constant/constant.dart';
 
 class MyNotificationPage extends StatefulWidget {
   const MyNotificationPage({super.key});

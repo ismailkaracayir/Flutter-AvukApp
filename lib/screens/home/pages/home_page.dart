@@ -1,5 +1,5 @@
-import 'package:avukapp/screens/home/constant/my_constant.dart';
 import 'package:flutter/material.dart';
+import '../../../constant/constant.dart';
 import '../widgets/my_profile_card.dart';
 
 class MyHomePage extends StatefulWidget {

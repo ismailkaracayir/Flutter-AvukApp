@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import '../constant/my_constant.dart';
+import '../../../constant/constant.dart';
+import '../../../manager/navigator_manager.dart';
 import '../widgets/my_custom_list_tile.dart';
+import 'profile_pages/about.dart';
+import 'profile_pages/edit_profile.dart';
+import 'profile_pages/language_settings.dart';
+import 'profile_pages/my_appointments.dart';
+import 'profile_pages/terms_conditions.dart';
 
 class MyUserProfilePage extends StatefulWidget {
   const MyUserProfilePage({super.key});
@@ -91,57 +97,81 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
               ),
               const SizedBox(height: 20),
               GestureDetector(
-                onTap: () {},
                 child: MyCustomListTileWidget(
                   backgroundUrl: _iconProfile,
                   titleName: "Profil Düzenle",
                 ),
+                onTap: () {
+                  NavigatorManager().navigatToWidget(
+                    context,
+                    const EditProfile(
+                      name: "utku",
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 10),
               GestureDetector(
-                onTap: () {},
                 child: MyCustomListTileWidget(
                   backgroundUrl: _iconAppointMent,
                   titleName: "Randevularım",
                 ),
+                onTap: () {
+                  NavigatorManager().navigatToWidget(
+                    context,
+                    const MyAppointmentPage(),
+                  );
+                },
               ),
               const SizedBox(height: 10),
               const Divider(
                 thickness: 2,
               ),
               const SizedBox(height: 10),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Genel Ayarlar",
-                    style: TextStyle(
-                      color: kNavyBlueColor,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+              textContext(),
               const SizedBox(height: 10),
               MyCustomListTileWidget(
                 backgroundUrl: _iconProfile,
-                titleName: "Profil Düzenle",
+                titleName: "Başka Birşey",
               ),
               const SizedBox(height: 10),
-              MyCustomListTileWidget(
-                backgroundUrl: _iconLanguage,
-                titleName: "Dil Ayarları",
+              GestureDetector(
+                child: MyCustomListTileWidget(
+                  backgroundUrl: _iconLanguage,
+                  titleName: "Dil Ayarları",
+                ),
+                onTap: () {
+                  NavigatorManager().navigatToWidget(
+                    context,
+                    const LanguageSettingsPage(),
+                  );
+                },
               ),
               const SizedBox(height: 10),
-              MyCustomListTileWidget(
-                backgroundUrl: _iconAbout,
-                titleName: "Hakkında",
+              GestureDetector(
+                child: MyCustomListTileWidget(
+                  backgroundUrl: _iconAbout,
+                  titleName: "Hakkında",
+                ),
+                onTap: () {
+                  NavigatorManager().navigatToWidget(
+                    context,
+                    const AboutPage(),
+                  );
+                },
               ),
               const SizedBox(height: 10),
-              MyCustomListTileWidget(
-                backgroundUrl: _iconTermsCndton,
-                titleName: "terms & conditions",
+              GestureDetector(
+                child: MyCustomListTileWidget(
+                  backgroundUrl: _iconTermsCndton,
+                  titleName: "terms & conditions",
+                ),
+                onTap: () {
+                  NavigatorManager().navigatToWidget(
+                    context,
+                    const TermsConditionsPage(),
+                  );
+                },
               ),
               const SizedBox(height: 10),
               GestureDetector(
@@ -156,6 +186,22 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
           ),
         ),
       ),
+    );
+  }
+
+  Row textContext() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        Text(
+          "Genel Ayarlar",
+          style: TextStyle(
+            color: kNavyBlueColor,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }

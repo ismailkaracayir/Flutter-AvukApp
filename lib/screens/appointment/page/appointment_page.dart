@@ -2,6 +2,8 @@ import 'package:avukapp/constant/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../constant/app_bar_widget.dart';
+import '../../../manager/navigator_manager.dart';
 import '../../home/constant/const_clock.dart';
 import '../../home/widgets/app_bar_leading_widget.dart';
 import 'pay/payment_page.dart';
@@ -44,18 +46,13 @@ class _AppointmentPageState extends State<AppointmentPage> {
     double pageWidth = MediaQuery.of(context).size.width;
     double pageHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Appointment"),
-        leading: const AppBarLeadingWidget(),
-        toolbarHeight: 80,
-        leadingWidth: 90,
-        backgroundColor: kNavyBlueColor,
-        centerTitle: true,
+      appBar: const CustomAppBar(
+        appTitle: "Appointment",
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const PagePadding.symtcHrztHigh(),
-          child: Container(
+          child: SizedBox(
             // color: Colors.black12,
             child: Center(
               child: Column(
@@ -195,9 +192,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                   GestureDetector(
                     onTap: acceptTerms == true
                         ? () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const PaymentPage(),
-                            ));
+                            NavigatorManager().navigatToWidget(
+                              context,
+                              const PaymentPage(),
+                            );
                           }
                         : null,
                     child: Container(

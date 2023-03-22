@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../constant/my_constant.dart';
+import '../../../constant/constant.dart';
 import '../pages/home_page.dart';
 import '../pages/message_page.dart';
 import '../pages/notification_page.dart';
@@ -46,10 +47,15 @@ class _MyPageManagerState extends State<MyPageManager> {
         toolbarHeight: 70,
         title: Text(
           getAppName(selectinIndex),
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+          // style: const TextStyle(
+          //   fontSize: 24,
+          //   fontWeight: FontWeight.bold,
+          //   color: kCreamColor,
+          // ),
+          style: GoogleFonts.cutiveMono(
             color: kCreamColor,
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
           ),
         ),
         shape: const RoundedRectangleBorder(

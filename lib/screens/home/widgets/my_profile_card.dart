@@ -1,6 +1,5 @@
-import 'package:avukapp/screens/home/constant/my_constant.dart';
 import 'package:flutter/material.dart';
-
+import '../../../constant/constant.dart';
 import '../../appointment/page/appointment_page.dart';
 
 class MyProfileCard extends StatelessWidget {

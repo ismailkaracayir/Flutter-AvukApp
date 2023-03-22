@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../constant/my_constant.dart';
+import '../../../constant/constant.dart';
 
 class MyCustomListTileWidget extends StatelessWidget {
   final String backgroundUrl;
