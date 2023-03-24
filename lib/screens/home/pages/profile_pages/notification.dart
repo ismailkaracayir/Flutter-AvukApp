@@ -18,7 +18,6 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kCreamColor,
       appBar: const CustomAppBar(appTitle: "Bildirim Ayarları"),
       body: Padding(
         padding: const PagePadding.symtcHrztHigh(),
