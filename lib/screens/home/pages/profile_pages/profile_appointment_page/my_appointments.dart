@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../../constant/app_bar_widget.dart';
-import '../../../../constant/constant.dart';
+import '../../../../../constant/app_bar_widget.dart';
+import '../../../../../constant/constant.dart';
 
-import '../../../../model/appointment_model.dart';
+import '../../../../../model/appointment_model.dart';
 
 class MyAppointmentPage extends StatefulWidget {
   const MyAppointmentPage({super.key});

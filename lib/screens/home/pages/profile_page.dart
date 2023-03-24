@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../../constant/constant.dart';
+import '../../../dummy/avukat_model.dart';
 import '../../../manager/navigator_manager.dart';
 import '../widgets/my_custom_list_tile.dart';
 import 'profile_pages/about.dart';
-import 'profile_pages/edit_profile.dart';
+import 'profile_pages/profile_edit_page/edit_profile.dart';
 import 'profile_pages/language_settings.dart';
-import 'profile_pages/my_appointments.dart';
+import 'profile_pages/profile_appointment_page/my_appointments.dart';
+import 'profile_pages/notification.dart';
 import 'profile_pages/terms_conditions.dart';
 
 class MyUserProfilePage extends StatefulWidget {
@@ -21,6 +23,29 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
   final String _iconLanguage = "assets/icons/profile_language.svg";
   final String _iconAbout = "assets/icons/profile_about.svg";
   final String _iconTermsCndton = "assets/icons/profile_terms_conditions.svg";
+  final String _iconNotification = "assets/icons/notification.svg";
+
+  late LawyerModel lawyerModel;
+
+  @override
+  void initState() {
+    super.initState();
+
+    lawyerModel = LawyerModel(
+      email: "utkubilgin.sau@gmail.com",
+      userName: "Utku Bilgin @biitutku",
+      pass: "bu bir şifredir benim şifremdir",
+      lawyerRegistrationNumber: "0001",
+      profilImgURL:
+          "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
+      createAt: DateTime.now(),
+      updateAt: DateTime.now(),
+      alani: "Ceza Hukuk hukuk aday adayi kemal muarrem",
+      content:
+          "deneyim aawawdawdladl lawdladla lawdladl wldaldl lw ladlwald l lawdalwdl awdll wadlldawldalwdawldldawdldl adwlawdladeneyim aawawdawdladl lawdladla lawdladl wldaldl lw ladlwald l lawdalwdl awdll wadlldawldalwdawldldawdldl adwlawdla   wdlwlda utku",
+      isLawyer: false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,55 +62,58 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
                     flex: 2,
                     child: Container(
                       height: 160,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(24)),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(24)),
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
+                            lawyerModel.profilImgURL ?? _iconProfile,
                           ),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 16),
                   Expanded(
                     flex: 4,
-                    child: Container(
-                      color: Colors.black12,
+                    child: SizedBox(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           SizedBox(
                             child: Text(
-                              "Utku Bilgin",
+                              lawyerModel.userName ?? "NULL",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
+                                color: kNavyBlueColor,
                               ),
                             ),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 10),
                           SizedBox(
                             child: Text(
-                              "Ceza Hukuku hukuk",
+                              lawyerModel.alani ?? "NULL",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18,
+                                color: kNavyBlueColor,
                               ),
                             ),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 20),
                           SizedBox(
                             child: Text(
-                              "deneyim aawawdawdladl lawdladla lawdladl wldaldl lw ladlwald l lawdalwdl awdll wadlldawldalwdawldldawdldl adwlawdla wdlwlda utku",
-                              maxLines: 5,
+                              lawyerModel.content ?? "NULL",
+                              maxLines: 8,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 15,
+                                color: kNavyBlueColor,
                               ),
                             ),
                           ),
@@ -130,9 +158,17 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
               const SizedBox(height: 10),
               textContext(),
               const SizedBox(height: 10),
-              MyCustomListTileWidget(
-                backgroundUrl: _iconProfile,
-                titleName: "Başka Birşey",
+              GestureDetector(
+                child: MyCustomListTileWidget(
+                  backgroundUrl: _iconNotification,
+                  titleName: "Bildirim Ayarları",
+                ),
+                onTap: () {
+                  NavigatorManager().navigatToWidget(
+                    context,
+                    const NotificationPage(),
+                  );
+                },
               ),
               const SizedBox(height: 10),
               GestureDetector(
@@ -164,7 +200,7 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
               GestureDetector(
                 child: MyCustomListTileWidget(
                   backgroundUrl: _iconTermsCndton,
-                  titleName: "terms & conditions",
+                  titleName: "Koşullar & Şartlar",
                 ),
                 onTap: () {
                   NavigatorManager().navigatToWidget(
@@ -177,7 +213,7 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
               GestureDetector(
                 onTap: () {},
                 child: MyCustomListTileWidget(
-                  backgroundUrl: _iconTermsCndton,
+                  backgroundUrl: _iconNotification,
                   titleName: "Profil Düzenle",
                 ),
               ),

@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../constant/app_bar_widget.dart';
 import '../../../manager/navigator_manager.dart';
 import '../../home/constant/const_clock.dart';
-import '../../home/widgets/app_bar_leading_widget.dart';
 import 'pay/payment_page.dart';
 
 class AppointmentPage extends StatefulWidget {
@@ -47,13 +46,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
     double pageHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: const CustomAppBar(
-        appTitle: "Appointment",
+        appTitle: "Randevu Al",
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const PagePadding.symtcHrztHigh(),
           child: SizedBox(
-            // color: Colors.black12,
             child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -307,7 +305,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: Text("Buradaki şartlar kabul ediliyor."),
+          content: const Text("Buradaki şartlar kabul ediliyor."),
           actions: [
             ElevatedButton(
               style: ButtonStyle(

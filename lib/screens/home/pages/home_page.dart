@@ -10,6 +10,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<String> categories = [
+    "Ceza Hukuku uufufuuf ufuuf",
+    "Mal Hukuku",
+    "Kamu Hukuku",
+    "Ceza Hukuku",
+    "Mal Hukuku",
+    "Kamu Hukuku",
+  ];
+
+  int selectedCategory = -1;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -25,6 +36,38 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(height: 10),
               TextFormField(
                 decoration: homeTextFieldDecoration(),
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: width,
+                height: 50,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: kNavyBlueColor.withOpacity(0.5),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Center(
+                            child: Text(
+                              categories[index],
+                              style: const TextStyle(
+                                color: kCreamColor,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
               const SizedBox(height: 10),
               SizedBox(
@@ -94,3 +137,25 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+/*
+
+Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: kNavyBlueColor.withOpacity(0.5),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            categories[0],
+                            style: const TextStyle(
+                              color: kCreamColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      )
+
+
+ */
