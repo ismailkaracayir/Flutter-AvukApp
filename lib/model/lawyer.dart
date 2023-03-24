@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LawyerModel {
-  final String? lawyerID;
-  String? email;
+  final String lawyerID;
+  String email;
   String? userName;
-  String? pass;
-  String? lawyerRegistrationNumber;
+  String pass;
+  final String lawyerRegistrationNumber;
   String? profilImgURL;
+  String? lawyerExperience; // avukat deneyimi
+  String? lawyerField; // avukat alanı
+  double? lawyerScore;
   DateTime? createAt;
   DateTime? updateAt;
   bool? isLawyer;
@@ -26,6 +29,9 @@ class LawyerModel {
       'pass': pass,
       'profilImgURL': profilImgURL ??
           'https://st.depositphotos.com/1779253/5140/v/950/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg',
+      'lawyerExperience': lawyerExperience,
+      'lawyerField': lawyerField,
+      'lawyerScore': lawyerScore,
       'createAt': createAt ?? FieldValue.serverTimestamp(),
       'updateAt': updateAt ?? FieldValue.serverTimestamp(),
       'level': isLawyer ?? false, // varsayılan kullanıcı yetkisi
@@ -38,7 +44,10 @@ class LawyerModel {
         userName = map['userName'],
         pass = map['pass'],
         lawyerRegistrationNumber = map['lawyerRegistrationNumber'],
+        lawyerExperience = map['lawyerExperience'],
+        lawyerField = map['lawyerField'],
         profilImgURL = map['profilImgURL'],
+        lawyerScore = map['lawyerScore'],
         createAt = (map['createAt'] as Timestamp).toDate(),
         updateAt = (map['updateAt'] as Timestamp).toDate(),
         isLawyer = map['isLawyer'];
