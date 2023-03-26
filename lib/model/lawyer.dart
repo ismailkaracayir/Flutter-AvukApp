@@ -12,7 +12,7 @@ class LawyerModel {
   double? lawyerScore;
   DateTime? createAt;
   DateTime? updateAt;
-  bool? isLawyer;
+  bool? isActive;
 
   LawyerModel(
       {required this.lawyerID,
@@ -34,7 +34,7 @@ class LawyerModel {
       'lawyerScore': lawyerScore,
       'createAt': createAt ?? FieldValue.serverTimestamp(),
       'updateAt': updateAt ?? FieldValue.serverTimestamp(),
-      'level': isLawyer ?? false, // varsayılan kullanıcı yetkisi
+      'isActive': isActive ?? false, // varsayılan kullanıcı yetkisi
     };
   }
 
@@ -50,7 +50,7 @@ class LawyerModel {
         lawyerScore = map['lawyerScore'],
         createAt = (map['createAt'] as Timestamp).toDate(),
         updateAt = (map['updateAt'] as Timestamp).toDate(),
-        isLawyer = map['isLawyer'];
+        isActive = map['isActive'];
 
 // model sınıfı ekrana yazmırmak için kullanılan tostring
   @override
