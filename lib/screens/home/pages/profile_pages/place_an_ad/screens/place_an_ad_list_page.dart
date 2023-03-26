@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../../constant/app_bar_widget.dart';
 import '../../../../../../constant/constant.dart';
 import '../../../../../../model/ilan_model.dart';

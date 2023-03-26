@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../../../constant/app_bar_widget.dart';
 import '../../../../../../constant/constant.dart';
 import '../../../../../../model/ilan_model.dart';
+import '../../../../widgets/custom_card_widget.dart';
 import '../../../../widgets/my_profile_card.dart';
 
 class PlaceAnAdPage extends StatefulWidget {
@@ -45,6 +46,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
                   hintTextS: "İlan Adını yazınız",
                   labelTextS: "İlan Adı",
                 ),
+                textInputAction: TextInputAction.next,
               ),
               const SizedBox(height: 30),
               textCustomTitle(title: "İlan İçeriğini Yazın"),
@@ -54,7 +56,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
                   hintTextS: "İlan İçeriğini yazınız",
                   labelTextS: "İlan İçeriği",
                 ),
-                maxLines: 4,
+                textInputAction: TextInputAction.done,
               ),
               const SizedBox(height: 30),
               textCustomTitle(title: "İlan Kategorisini Seçiniz"),
