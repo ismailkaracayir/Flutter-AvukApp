@@ -1,6 +1,10 @@
+import 'package:avukapp/manager/navigator_manager.dart';
+import 'package:avukapp/model/ilan_model.dart';
 import 'package:flutter/material.dart';
 import '../../../constant/constant.dart';
-import '../widgets/my_profile_card.dart';
+import '../../appointment/page/appointment_page.dart';
+import '../widgets/custom_card_widget.dart';
+import '../widgets/custom_card_widget_button.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -50,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
-                          color: kNavyBlueColor.withOpacity(0.5),
+                          color: kNavyBlueColor.withOpacity(0.7),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -71,24 +75,38 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 10),
               SizedBox(
-                height: height / 1.4,
-                width: width,
-                child: GridView.builder(
-                  // physics: BouncingScrollPhysics(),
-                  itemCount: 10,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    childAspectRatio: 1.6,
-                  ),
+                height: height * 0.7,
+                child: ListView.builder(
+                  itemCount: 5,
                   itemBuilder: (context, index) {
-                    return MyProfileCard(
-                      ad: "Utku Bilgin",
-                      alan: "Cezaaa Hukukuku",
-                      deneyim:
-                          "Sakarya Üniversitesi Hukuku dnakd njkadwjb kwaj",
-                      profilUrl: "yok",
-                      randevuButtom: Container(),
-                      soruButton: Container(),
+                    return GestureDetector(
+                      onTap: () {
+                        // ignore: avoid_print
+                        print("$index no lu avukata tıklandı");
+                      },
+                      child: CustomCardWidget(
+                        moodel: DeclareModel(
+                          declareCategory: "KAMUUU HKUUKUKU",
+                          lawyerName: "UTKU BİLGİN SAÜÜÜÜ",
+                        ),
+                        sagButton: GestureDetector(
+                          onTap: () {},
+                          child: const CustomCardWidgetButton(
+                            buttonTitle: "Soru Sor",
+                          ),
+                        ),
+                        solButton: GestureDetector(
+                          onTap: () {
+                            NavigatorManager().navigatToWidget(
+                              context,
+                              const AppointmentPage(),
+                            );
+                          },
+                          child: const CustomCardWidgetButton(
+                            buttonTitle: "Randevu Al",
+                          ),
+                        ),
+                      ),
                     );
                   },
                 ),
@@ -139,23 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 /*
 
-Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: kNavyBlueColor.withOpacity(0.5),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            categories[0],
-                            style: const TextStyle(
-                              color: kCreamColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      )
+
 
 
  */

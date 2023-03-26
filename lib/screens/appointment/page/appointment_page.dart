@@ -22,7 +22,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   // randevu tipi seçimi için kullanılıyor bunu daha sonra -1 yapabilirsin.
   int randevuTipi = 0;
   bool? acceptTerms = false;
-  String? selectedClock;
+  String? selectedClockx;
 
   // randevu tipi değişimi için kullanılıyor.
   void changeType() {
@@ -231,7 +231,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                       ),
                                       const SizedBox(width: 10),
                                       Text(
-                                        "$selectedClock",
+                                        "$selectedClockx",
                                         style: const TextStyle(
                                           fontSize: 18,
                                           color: kCreamColor,
@@ -467,7 +467,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
       // print(mySaat);
 
       setState(() {
-        selectedClock = mySaat;
+        selectedClockx = mySaat;
       });
     } else {
       mySaat == "Boş";

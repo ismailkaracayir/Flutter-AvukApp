@@ -16,12 +16,10 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   final String _editIcon = "assets/icons/profile_design.svg";
 
-  bool confirm = false;
-
   late String editedName = "-";
   late String editedPassword = "-";
   late String editedMail = "-";
-
+  bool confirm = false;
   void changeConfirm() {
     setState(() {
       confirm = !confirm;

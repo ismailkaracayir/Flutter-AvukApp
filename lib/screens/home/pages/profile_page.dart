@@ -4,6 +4,7 @@ import '../../../dummy/avukat_model.dart';
 import '../../../manager/navigator_manager.dart';
 import '../widgets/my_custom_list_tile.dart';
 import 'profile_pages/about.dart';
+import 'profile_pages/place_an_ad.dart';
 import 'profile_pages/profile_edit_page/edit_profile.dart';
 import 'profile_pages/language_settings.dart';
 import 'profile_pages/profile_appointment_page/my_appointments.dart';
@@ -24,6 +25,7 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
   final String _iconAbout = "assets/icons/profile_about.svg";
   final String _iconTermsCndton = "assets/icons/profile_terms_conditions.svg";
   final String _iconNotification = "assets/icons/notification.svg";
+  final String _iconPlaceAnAd = "assets/icons/announcement.svg";
 
   late LawyerModel lawyerModel;
 
@@ -148,6 +150,19 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
                   NavigatorManager().navigatToWidget(
                     context,
                     const MyAppointmentPage(),
+                  );
+                },
+              ),
+              const SizedBox(height: 10),
+              GestureDetector(
+                child: MyCustomListTileWidget(
+                  backgroundUrl: _iconPlaceAnAd,
+                  titleName: "İlanlarım",
+                ),
+                onTap: () {
+                  NavigatorManager().navigatToWidget(
+                    context,
+                    const PlaceAnAd(),
                   );
                 },
               ),

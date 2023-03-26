@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../../constant/constant.dart';
+import '../../../model/ilan_model.dart';
 import '../../appointment/page/appointment_page.dart';
 
 class MyProfileCard extends StatelessWidget {
-  final String ad;
-  final String deneyim;
-  final String alan;
-  final Widget randevuButtom;
-  final Widget soruButton;
-  final String profilUrl;
-
   const MyProfileCard({
     super.key,
-    required this.ad,
-    required this.deneyim,
-    required this.alan,
-    required this.randevuButtom,
-    required this.soruButton,
-    this.profilUrl = "h",
+    required this.model,
   });
+
+  final DeclareModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +64,7 @@ class MyProfileCard extends StatelessWidget {
                   SizedBox(
                     width: 150,
                     child: Text(
-                      ad,
+                      model.lawyerName ?? "NULL",
                       style: newTextStyleMethod(textSize: 20),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -83,7 +74,7 @@ class MyProfileCard extends StatelessWidget {
                   SizedBox(
                     width: 150,
                     child: Text(
-                      alan,
+                      model.declareCategory ?? "NULL",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: newTextStyleMethod(textSize: 16),
@@ -93,7 +84,7 @@ class MyProfileCard extends StatelessWidget {
                   SizedBox(
                     width: 150,
                     child: Text(
-                      deneyim,
+                      model.declareContent ?? "NULL",
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
