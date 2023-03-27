@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "63850141999",
+    "project_id": "avukapp-457a2",
+    "storage_bucket": "avukapp-457a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63850141999:android:381a00a14b0b6df45ce9da",
+        "android_client_info": {
+          "package_name": "com.example.avukapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63850141999-9of6gje1p01mdr0igcb67uia3tj93f1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn3uTHHUpRK-wVnkCvR3zAs0HGN4OheCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63850141999-9of6gje1p01mdr0igcb67uia3tj93f1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
