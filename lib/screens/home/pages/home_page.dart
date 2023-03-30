@@ -1,6 +1,10 @@
-import 'package:avukapp/screens/home/constant/my_constant.dart';
+import 'package:avukapp/manager/navigator_manager.dart';
+import 'package:avukapp/model/ilan_model.dart';
 import 'package:flutter/material.dart';
-import '../widgets/my_profile_card.dart';
+import '../../../constant/constant.dart';
+import '../../appointment/page/appointment_page.dart';
+import '../widgets/custom_card_widget.dart';
+import '../widgets/custom_card_widget_button.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -10,6 +14,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<String> categories = [
+    "Ceza Hukuku uufufuuf ufuuf",
+    "Mal Hukuku",
+    "Kamu Hukuku",
+    "Ceza Hukuku",
+    "Mal Hukuku",
+    "Kamu Hukuku",
+  ];
+
+  int selectedCategory = -1;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -28,24 +43,70 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 10),
               SizedBox(
-                height: height / 1.4,
                 width: width,
-                child: GridView.builder(
-                  // physics: BouncingScrollPhysics(),
-                  itemCount: 10,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    childAspectRatio: 1.6,
-                  ),
+                height: 50,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categories.length,
                   itemBuilder: (context, index) {
-                    return MyProfileCard(
-                      ad: "Utku Bilgin",
-                      alan: "Cezaaa Hukukuku",
-                      deneyim:
-                          "Sakarya Üniversitesi Hukuku dnakd njkadwjb kwaj",
-                      profilUrl: "yok",
-                      randevuButtom: Container(),
-                      soruButton: Container(),
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: kNavyBlueColor.withOpacity(0.7),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Center(
+                            child: Text(
+                              categories[index],
+                              style: const TextStyle(
+                                color: kCreamColor,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: height * 0.7,
+                child: ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        // ignore: avoid_print
+                        print("$index no lu avukata tıklandı");
+                      },
+                      child: CustomCardWidget(
+                        moodel: DeclareModel(
+                          declareCategory: "KAMUUU HKUUKUKU",
+                          lawyerName: "UTKU BİLGİN SAÜÜÜÜ",
+                        ),
+                        sagButton: GestureDetector(
+                          onTap: () {},
+                          child: const CustomCardWidgetButton(
+                            buttonTitle: "Soru Sor",
+                          ),
+                        ),
+                        solButton: GestureDetector(
+                          onTap: () {
+                            NavigatorManager().navigatToWidget(
+                              context,
+                              const AppointmentPage(),
+                            );
+                          },
+                          child: const CustomCardWidgetButton(
+                            buttonTitle: "Randevu Al",
+                          ),
+                        ),
+                      ),
                     );
                   },
                 ),
@@ -94,3 +155,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+/*
+
+
+
+
+ */

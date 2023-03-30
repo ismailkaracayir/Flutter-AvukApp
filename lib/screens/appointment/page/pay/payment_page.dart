@@ -1,3 +1,4 @@
+import 'package:avukapp/constant/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -39,11 +40,7 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Ödeme Yap"),
-        backgroundColor: kNavyBlueColor,
-        centerTitle: true,
-      ),
+      appBar: const CustomAppBar(appTitle: "Ödeme Yap"),
       body: Padding(
         padding: const PagePadding.allHigh(),
         child: SingleChildScrollView(

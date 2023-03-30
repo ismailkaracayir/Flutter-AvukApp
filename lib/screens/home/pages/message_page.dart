@@ -1,7 +1,7 @@
 import 'package:avukapp/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../constant/my_constant.dart';
+import '../../../constant/constant.dart';
 
 class MyMessagePage extends StatefulWidget {
   const MyMessagePage({super.key});
