@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../service/firebase_service.dart';
 import '../home/pages/home_page.dart';
+import 'lawyer_register_screen.dart';
 
 class RegisterWithMailScreen extends StatefulWidget {
   const RegisterWithMailScreen({super.key});
@@ -153,6 +154,21 @@ class _RegisterWithMailScreenState extends State<RegisterWithMailScreen> {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: height / 10,
+                ),
+                PressButtonWidget(
+                    buttonText: "Avukat mısın?\nHemen bize katıl!",
+                    buttonColor: kNavyBlueColor,
+                    textColor: kWhiteColor,
+                    buttonHeight: height / 10,
+                    buttonWeight: width,
+                    onPress: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LawyerRegisterPage()));
+                    })
               ],
             ),
           ),
