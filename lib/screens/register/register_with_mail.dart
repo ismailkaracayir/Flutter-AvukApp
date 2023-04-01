@@ -1,6 +1,10 @@
 import 'package:avukapp/constant/constant.dart';
+import 'package:avukapp/screens/login/login.dart';
 import 'package:avukapp/widgets/social_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../service/firebase_service.dart';
+import '../home/pages/home_page.dart';
 
 class RegisterWithMailScreen extends StatefulWidget {
   const RegisterWithMailScreen({super.key});
@@ -17,6 +21,7 @@ class _RegisterWithMailScreenState extends State<RegisterWithMailScreen> {
   late bool _passwordVisible;
   @override
   void initState() {
+    super.initState();
     _passwordVisible = false;
   }
 
@@ -31,6 +36,12 @@ class _RegisterWithMailScreenState extends State<RegisterWithMailScreen> {
   void _submit() {
     if (_formKey.currentState!.validate()) {
       // Submit the form data to the server
+      _formKey.currentState!.save();
+      print("kullanıcı oluşturuldu");
+      if (mounted) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
+      }
     }
   }
 
@@ -135,7 +146,9 @@ class _RegisterWithMailScreenState extends State<RegisterWithMailScreen> {
                       buttonHeight: height / 15,
                       buttonWeight: width,
                       buttonText: 'Sign up',
-                      onPress: _submit,
+                      onPress: () {
+                        _submit();
+                      },
                       textColor: kWhiteColor,
                     ),
                   ],

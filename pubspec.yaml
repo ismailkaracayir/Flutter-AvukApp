@@ -39,8 +39,25 @@ dependencies:
   cupertino_icons: ^1.0.2
   cloud_firestore: ^4.4.5
   firebase_core: ^2.8.0
-
-
+  firebase_auth: ^4.3.0
+  provider:
+  flutter_launcher_icons: ^0.12.0
+  get_it:
+  bubble:
+  equatable:
+  flutter_bloc:
+  firebase_storage:
+  qr_flutter:
+  fluttertoast:
+  percent_indicator:
+  lottie: 
+  intl:
+  community_material_icon: ^5.9.55
+  image_picker:
+  cached_network_image:
+  font_awesome_flutter: ^10.4.0
+  google_sign_in:
+  awesome_icons: ^1.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -67,6 +84,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

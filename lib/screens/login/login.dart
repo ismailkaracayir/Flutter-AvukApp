@@ -1,8 +1,13 @@
+import 'dart:math';
+
 import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/screens/login/login_with_phone.dart';
 import 'package:avukapp/screens/register/registration.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
+import '../../service/firebase_service.dart';
 import '../../widgets/social_button.dart';
 import '../home/manager/page_manager.dart';
 import '../home/pages/home_page.dart';
@@ -15,14 +20,40 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-  late String _email;
-  late String _password;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey();
   late bool _passwordVisible;
+  late FirebaseAuth auth;
+
   @override
   void initState() {
     super.initState();
     _passwordVisible = false;
+    auth = FirebaseAuth.instance;
+    auth.authStateChanges().listen((User? user) {
+      if (user == null) {
+        debugPrint("User oturumu kapalı ");
+      } else {
+        debugPrint(
+            "User oturumu açık ${user.email} ve meail durumu ${user.emailVerified} ");
+      }
+    });
+  }
+
+  void _submit() {
+    if (_formKey.currentState!.validate()) {
+      final formState = _formkey.currentState;
+      _formKey.currentState!.save();
+      print("kullanıcı oluşturuldu");
+      if (mounted) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MyPageManager()));
+      } else {
+        showError("hatalı giriş ");
+      }
+    }
   }
 
   @override
@@ -63,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     TextFormField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         labelText: 'Email',
                         border: OutlineInputBorder(
@@ -71,17 +103,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your email';
+                        } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                          return 'Please enter a valid email';
                         }
                         return null;
-                      },
-                      onSaved: (value) {
-                        _email = value!;
                       },
                     ),
                     SizedBox(
                       height: height / 65,
                     ),
                     TextFormField(
+                      controller: passwordController,
                       decoration: InputDecoration(
                           labelText: 'Password',
                           border: OutlineInputBorder(
@@ -100,11 +132,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your password';
+                        } else if (value.length < 6) {
+                          return 'Password must be at least 6 characters long';
                         }
                         return null;
-                      },
-                      onSaved: (value) {
-                        _password = value!;
                       },
                     ),
                     SizedBox(
@@ -113,10 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     PressButtonWidget(
                       buttonText: 'Login',
                       onPress: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyPageManager()));
+                        login();
                       },
                       buttonColor: kNavyBlueColor,
                       buttonHeight: 50,
@@ -177,5 +205,38 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> login() async {
+    final formState = _formkey.currentState;
+
+    try {
+      var userCredential = await auth.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      debugPrint(userCredential.toString());
+      if (mounted) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MyPageManager()));
+      }
+    } catch (e) {}
+  }
+
+  Future<dynamic> showError(String message) {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      "Close",
+                    ))
+              ],
+              title: const Text("Hata!"),
+              // contentPadding: EdgeInsets.all(10),
+              content: Text(message),
+            ));
   }
 }
