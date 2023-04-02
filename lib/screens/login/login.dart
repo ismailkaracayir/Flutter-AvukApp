@@ -1,16 +1,14 @@
-import 'dart:math';
-
 import 'package:avukapp/constant/constant.dart';
+import 'package:avukapp/model/user.dart';
 import 'package:avukapp/screens/login/login_with_phone.dart';
 import 'package:avukapp/screens/register/registration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
-import '../../service/firebase_service.dart';
+import '../../viewmodel/user_view_model.dart';
 import '../../widgets/social_button.dart';
-import '../home/manager/page_manager.dart';
-import '../home/pages/home_page.dart';
+import '../landing_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,7 +20,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKey = GlobalKey();
   late bool _passwordVisible;
   late FirebaseAuth auth;
@@ -31,30 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     _passwordVisible = false;
-    auth = FirebaseAuth.instance;
-    auth.authStateChanges().listen((User? user) {
-      if (user == null) {
-        debugPrint("User oturumu kapalı ");
-      } else {
-        debugPrint(
-            "User oturumu açık ${user.email} ve meail durumu ${user.emailVerified} ");
-      }
-    });
   }
 
-  void _submit() {
-    if (_formKey.currentState!.validate()) {
-      final formState = _formkey.currentState;
-      _formKey.currentState!.save();
-      print("kullanıcı oluşturuldu");
-      if (mounted) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const MyPageManager()));
-      } else {
-        showError("hatalı giriş ");
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     PressButtonWidget(
                       buttonText: 'Login',
                       onPress: () {
-                        login();
+                        userLogin();
+                        //login();
                       },
                       buttonColor: kNavyBlueColor,
                       buttonHeight: 50,
@@ -158,7 +134,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         MdiIcons.googlePlus,
                         color: kWhiteColor,
                       ),
-                      onPress: () {},
+                      onPress: () {
+                        singInWithGoogle();
+                      },
                       buttonHeight: 40,
                       buttonWidth: width,
                     ),
@@ -207,20 +185,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<void> login() async {
-    final formState = _formkey.currentState;
-
-    try {
-      var userCredential = await auth.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
-      debugPrint(userCredential.toString());
-      if (mounted) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const MyPageManager()));
-      }
-    } catch (e) {}
-  }
-
   Future<dynamic> showError(String message) {
     return showDialog(
         context: context,
@@ -238,5 +202,35 @@ class _LoginScreenState extends State<LoginScreen> {
               // contentPadding: EdgeInsets.all(10),
               content: Text(message),
             ));
+  }
+
+  void userLogin() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      try {
+        var userModel = Provider.of<UserViewModel>(context, listen: false);
+        final UserModel user = await userModel.singInWithEmailAndPass(
+            emailController.text, passwordController.text);
+        debugPrint('EMAİL İLE GİRİŞ YAPMA BAŞARILI');
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => LandingPage(
+            pageValue: '0',
+          ),
+        ));
+      } catch (e) {
+        debugPrint('LOGİN İŞLEMİNDE HATA  : ${e.toString()}');
+      }
+    }
+  }
+
+  void singInWithGoogle() async {
+    try {
+      final usermodel = Provider.of<UserViewModel>(context, listen: false);
+      UserModel user = await usermodel.singInWithGoogle();
+      debugPrint(
+          'GOOGLE GMAİL İLE OTURUM ACAN KULLANICI ${user.userID.toString()}');
+    } catch (e) {
+      debugPrint('GOOGLE GİRİŞ YAPMA SEÇENEGİ HATA CIKTI ${e.toString()}');
+    }
   }
 }

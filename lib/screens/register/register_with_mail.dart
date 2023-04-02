@@ -1,10 +1,10 @@
 import 'package:avukapp/constant/constant.dart';
-import 'package:avukapp/screens/login/login.dart';
+import 'package:avukapp/model/user.dart';
+import 'package:avukapp/screens/landing_screen.dart';
 import 'package:avukapp/widgets/social_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../service/firebase_service.dart';
-import '../home/pages/home_page.dart';
+import '../../viewmodel/user_view_model.dart';
 import 'lawyer_register_screen.dart';
 
 class RegisterWithMailScreen extends StatefulWidget {
@@ -34,14 +34,25 @@ class _RegisterWithMailScreenState extends State<RegisterWithMailScreen> {
     super.dispose();
   }
 
-  void _submit() {
+  void _formSubmit() async {
     if (_formKey.currentState!.validate()) {
-      // Submit the form data to the server
       _formKey.currentState!.save();
-      print("kullanıcı oluşturuldu");
-      if (mounted) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()));
+      try {
+        var userModel = Provider.of<UserViewModel>(context, listen: false);
+        final UserModel user = await userModel.createWithUserEmailAndPass(
+            _emailController.text, _passwordController.text);
+        debugPrint('EMAİL İLE KAYIT OLMA BAŞARILI');
+        if (_emailController.text.isNotEmpty) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => LandingPage(
+                pageValue: '1',
+              ),
+            ),
+          );
+        }
+      } catch (e) {
+        debugPrint('register işleminde hata : ${e.toString()}');
       }
     }
   }
@@ -148,7 +159,7 @@ class _RegisterWithMailScreenState extends State<RegisterWithMailScreen> {
                       buttonWeight: width,
                       buttonText: 'Sign up',
                       onPress: () {
-                        _submit();
+                        _formSubmit();
                       },
                       textColor: kWhiteColor,
                     ),

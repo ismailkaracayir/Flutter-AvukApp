@@ -1,7 +1,6 @@
 import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/screens/login/login.dart';
 import 'package:avukapp/screens/register/register_with_mail.dart';
-import 'package:avukapp/screens/register/register_with_phone.dart';
 import 'package:avukapp/widgets/social_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -78,19 +77,6 @@ class RegistrationScreen extends StatelessWidget {
               ),
               SizedBox(
                 height: height / 70,
-              ),
-              SocialButtonWidget(
-                buttonText: "Telefon ile Kayıt ol",
-                buttonIcon: Icon(MdiIcons.phone),
-                buttonHeight: height / 15,
-                onPress: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RegisterWithPhoneScreen()),
-                  );
-                },
-                buttonWidth: width,
               ),
               Center(
                 child: MaterialButton(
