@@ -34,6 +34,8 @@ class _LoginWithPhoneScreenState extends State<LoginWithPhoneScreen> {
             TextField(
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
+                suffixIcon:
+                    TextButton(onPressed: () {}, child: const Text('Kod Al')),
                 labelText: 'Phone number',
                 prefixIcon: Icon(Icons.phone),
                 border: OutlineInputBorder(
@@ -42,19 +44,9 @@ class _LoginWithPhoneScreenState extends State<LoginWithPhoneScreen> {
             ),
             SizedBox(height: 16.0),
             TextFormField(
-              obscureText: !_passwordVisible,
               decoration: InputDecoration(
-                  labelText: 'Password',
-                  prefixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _passwordVisible = !_passwordVisible;
-                      });
-                    },
-                    icon: _passwordVisible
-                        ? Icon(Icons.visibility)
-                        : Icon(Icons.visibility_off),
-                  ),
+                  labelText: 'Gelen Kod',
+                  prefixIcon: const Icon(Icons.key),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0))),
               validator: (value) {
