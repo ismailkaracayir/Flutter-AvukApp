@@ -13,6 +13,7 @@ class _LoginWithPhoneScreenState extends State<LoginWithPhoneScreen> {
   late bool _passwordVisible;
   @override
   void initState() {
+    super.initState();
     _passwordVisible = false;
   }
 

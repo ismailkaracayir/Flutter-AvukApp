@@ -13,9 +13,9 @@ class _PlaceAnAdSettingsState extends State<PlaceAnAdSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(appTitle: "İlan Düzenle"),
+      appBar: const CustomAppBar(appTitle: "İlan Düzenle"),
       body: Column(
-        children: [
+        children: const [
           Text("data"),
         ],
       ),

@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constant/app_bar_widget.dart';
 import '../../../manager/navigator_manager.dart';
-import '../../home/constant/const_clock.dart';
+import '../../../constant/const_clock.dart';
 import 'pay/payment_page.dart';
 
 class AppointmentPage extends StatefulWidget {

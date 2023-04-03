@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../../constant/app_bar_widget.dart';
 import '../../../../../constant/constant.dart';
-import '../../../widgets/my_custom_list_tile.dart';
+import '../../../../../widgets/my_custom_list_tile.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key, required this.name});
@@ -141,7 +141,7 @@ class _EditProfileState extends State<EditProfile> {
                     : Center(
                         child: GestureDetector(
                           onTap: () {
-                            print("Onayla");
+                            // print("Onayla");
                             changeConfirm();
                             Future.delayed(const Duration(seconds: 5), () {
                               changeConfirm();
@@ -202,7 +202,7 @@ class _EditProfileState extends State<EditProfile> {
                           },
                         ),
                         const SizedBox(height: 20),
-                        Text(
+                        const Text(
                           "Adınızı soyadınızı 14 gün içinde sadece 2 defa değiştirebilirsiniz",
                         )
                       ],
@@ -251,12 +251,12 @@ class _EditProfileState extends State<EditProfile> {
         );
       },
     );
-    print("object 1 ");
+    // print("object 1 ");
     if (edited != null) {
-      print("object 2 ");
+      // print("object 2 ");
       return edited;
     } else {
-      print("object 3 ");
+      // print("object 3 ");
       return "Düzeltilemedi";
     }
   }
