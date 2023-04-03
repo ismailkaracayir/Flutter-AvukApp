@@ -1,9 +1,6 @@
-import 'package:avukapp/model/ilan_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import '../../../../../constant/constant.dart';
 import '../../../../../manager/navigator_manager.dart';
-import '../../../widgets/my_custom_list_tile.dart';
+import '../../../../../widgets/my_custom_list_tile.dart';
 import 'screens/place_an_ad_list_page.dart';
 import 'screens/place_an_ad_page.dart';
 import 'screens/place_an_ad_settings_page.dart';

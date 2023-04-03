@@ -1,10 +1,10 @@
 import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/ilan_model.dart';
 import 'package:flutter/material.dart';
-import '../../../constant/constant.dart';
-import '../../appointment/page/appointment_page.dart';
-import '../widgets/custom_card_widget.dart';
-import '../widgets/custom_card_widget_button.dart';
+import '../../constant/constant.dart';
+import '../appointment/page/appointment_page.dart';
+import '../../widgets/custom_card_widget.dart';
+import '../../widgets/custom_card_widget_button.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});

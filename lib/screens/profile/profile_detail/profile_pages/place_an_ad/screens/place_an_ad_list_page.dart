@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../../../../constant/app_bar_widget.dart';
 import '../../../../../../constant/constant.dart';
 import '../../../../../../model/ilan_model.dart';
-import '../../../../widgets/custom_card_widget.dart';
-import '../../../../widgets/custom_card_widget_button.dart';
+import '../../../../../../widgets/custom_card_widget.dart';
+import '../../../../../../widgets/custom_card_widget_button.dart';
 
 class PlaceAnAdList extends StatefulWidget {
   const PlaceAnAdList({super.key});

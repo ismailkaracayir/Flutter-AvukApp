@@ -1,4 +1,4 @@
-import 'package:avukapp/screens/home/manager/page_manager.dart';
+import 'package:avukapp/manager/page_manager.dart';
 import 'package:avukapp/screens/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,14 +1,11 @@
 import 'package:avukapp/model/user.dart';
-import 'package:avukapp/viewmodel/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-
-import '../../../constant/constant.dart';
-import '../pages/home_page.dart';
-import '../pages/message_page.dart';
-import '../pages/notification_page.dart';
-import '../pages/profile_page.dart';
+import '../constant/constant.dart';
+import '../screens/home/home_page.dart';
+import '../screens/message/message_page.dart';
+import '../screens/notification/notification_page.dart';
+import '../screens/profile/profile_page.dart';
 
 class MyPageManager extends StatefulWidget {
   UserModel? user;
@@ -69,12 +66,6 @@ class _MyPageManagerState extends State<MyPageManager> {
         ),
         backgroundColor: kNavyBlueColor,
         centerTitle: true,
-        leading: TextButton(
-          child: Text('Çıkış Yap'),
-          onPressed: () {
-            _singOutUser(context);
-          },
-        ),
       ),
       // drawer: Drawer(),
       body: PageView(
@@ -231,10 +222,5 @@ class _MyPageManagerState extends State<MyPageManager> {
         ),
       ),
     );
-  }
-
-  Future<void> _singOutUser(BuildContext context) async {
-    final usermodel = Provider.of<UserViewModel>(context, listen: false);
-    usermodel.singOut();
   }
 }

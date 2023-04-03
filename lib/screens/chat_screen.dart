@@ -19,11 +19,11 @@ class _ChatPageState extends State<ChatPage> {
             "deneme",
             style: TextStyle(fontSize: 18),
           ),
-          actions: [
+          actions: const [
             CircleAvatar(
               radius: 25,
             ),
-            const SizedBox(
+            SizedBox(
               width: 20,
             ),
           ]),
@@ -65,45 +65,43 @@ class _ChatPageState extends State<ChatPage> {
                   ),
                 ),
               ),
-              Container(
-                  child: IconButton(
-                      iconSize: 30,
-                      onPressed: (() {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return Container(
-                              height: 250,
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    leading: const Icon(Icons.camera),
-                                    title: const Text('Kamera'),
-                                    onTap: () {},
-                                  ),
-                                  ListTile(
-                                    leading: const Icon(Icons.image),
-                                    title: const Text('Galeri'),
-                                    onTap: () {},
-                                  ),
-                                  ListTile(
-                                    leading: const Icon(Icons.video_call),
-                                    title: const Text('Video Çek'),
-                                    onTap: () {},
-                                  ),
-                                  ListTile(
-                                    leading:
-                                        const Icon(Icons.video_camera_front),
-                                    title: const Text('Video Yükle'),
-                                    onTap: () {},
-                                  ),
-                                ],
+              IconButton(
+                  iconSize: 30,
+                  onPressed: (() {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return SizedBox(
+                          height: 250,
+                          child: Column(
+                            children: [
+                              ListTile(
+                                leading: const Icon(Icons.camera),
+                                title: const Text('Kamera'),
+                                onTap: () {},
                               ),
-                            );
-                          },
+                              ListTile(
+                                leading: const Icon(Icons.image),
+                                title: const Text('Galeri'),
+                                onTap: () {},
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.video_call),
+                                title: const Text('Video Çek'),
+                                onTap: () {},
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.video_camera_front),
+                                title: const Text('Video Yükle'),
+                                onTap: () {},
+                              ),
+                            ],
+                          ),
                         );
-                      }),
-                      icon: const Icon(CupertinoIcons.paperclip))),
+                      },
+                    );
+                  }),
+                  icon: const Icon(CupertinoIcons.paperclip)),
               Container(
                 margin: const EdgeInsets.symmetric(
                   horizontal: 4,

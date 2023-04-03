@@ -3,8 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../../../constant/app_bar_widget.dart';
 import '../../../../../../constant/constant.dart';
 import '../../../../../../model/ilan_model.dart';
-import '../../../../widgets/custom_card_widget.dart';
-import '../../../../widgets/my_profile_card.dart';
 
 class PlaceAnAdPage extends StatefulWidget {
   const PlaceAnAdPage({super.key});
@@ -15,7 +13,7 @@ class PlaceAnAdPage extends StatefulWidget {
 
 class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
   final String _editIcon = "assets/icons/profile_design.svg";
-  String? _selectedCategory;
+
   String? ilanAdi = "";
   bool confirm = false;
   void changeConfirm() {
@@ -85,7 +83,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
                     : Center(
                         child: GestureDetector(
                           onTap: () {
-                            print("Onayla");
+                            // print("Onayla");
                             changeConfirm();
                             Future.delayed(const Duration(seconds: 5), () {
                               changeConfirm();
@@ -288,7 +286,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
         );
       },
     );
-    print(selectCategory);
+    // print(selectCategory);
     if (selectCategory != null) {
       return selectCategory;
     } else {

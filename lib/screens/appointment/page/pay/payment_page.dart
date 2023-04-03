@@ -1,8 +1,6 @@
 import 'package:avukapp/constant/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
-
 import '../../../../constant/constant.dart';
 import 'utility/card_utility.dart';
 
@@ -112,7 +110,7 @@ class _PaymentPageState extends State<PaymentPage> {
               const SizedBox(height: 40),
               GestureDetector(
                 onTap: () {
-                  print("Ödeme Yapılıyor");
+                  // print("Ödeme Yapılıyor");
                 },
                 child: Container(
                   width: double.infinity,

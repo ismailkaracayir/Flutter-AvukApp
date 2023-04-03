@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../constant/constant.dart';
-import '../../../model/ilan_model.dart';
+import '../constant/constant.dart';
+import '../model/ilan_model.dart';
 
 class CustomCardWidget extends StatelessWidget {
   const CustomCardWidget({

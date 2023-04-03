@@ -1,15 +1,17 @@
+import 'package:avukapp/screens/profile/profile_detail/profile_pages/profile_appointment_page/my_appointments.dart';
+import 'package:avukapp/screens/profile/profile_detail/profile_pages/profile_edit_page/edit_profile.dart';
 import 'package:flutter/material.dart';
-import '../../../constant/constant.dart';
-import '../../../dummy/avukat_model.dart';
-import '../../../manager/navigator_manager.dart';
-import '../widgets/my_custom_list_tile.dart';
-import 'profile_pages/about.dart';
-import 'profile_pages/place_an_ad.dart';
-import 'profile_pages/profile_edit_page/edit_profile.dart';
-import 'profile_pages/language_settings.dart';
-import 'profile_pages/profile_appointment_page/my_appointments.dart';
-import 'profile_pages/notification.dart';
-import 'profile_pages/terms_conditions.dart';
+import 'package:provider/provider.dart';
+import '../../constant/constant.dart';
+import '../../dummy/avukat_model.dart';
+import '../../manager/navigator_manager.dart';
+import '../../viewmodel/user_view_model.dart';
+import '../../widgets/my_custom_list_tile.dart';
+import 'profile_detail/about_detail/about.dart';
+import 'profile_detail/language_detail/language_settings.dart';
+import 'profile_detail/notification_detail/notification.dart';
+import 'profile_detail/place_an_ad_detail/place_an_ad.dart';
+import 'profile_detail/terms_conditions_detail/terms_conditions.dart';
 
 class MyUserProfilePage extends StatefulWidget {
   const MyUserProfilePage({super.key});
@@ -26,6 +28,7 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
   final String _iconTermsCndton = "assets/icons/profile_terms_conditions.svg";
   final String _iconNotification = "assets/icons/notification.svg";
   final String _iconPlaceAnAd = "assets/icons/announcement.svg";
+  final String _iconLogout = "assets/icons/logout.svg";
 
   late LawyerModel lawyerModel;
 
@@ -233,11 +236,27 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
                 ),
               ),
               const SizedBox(height: 20),
+              const SizedBox(height: 20),
+              GestureDetector(
+                child: MyCustomListTileWidget(
+                  backgroundUrl: _iconLogout,
+                  titleName: "Çıkış Yap",
+                ),
+                onTap: () {
+                  _singOutUser(context);
+                },
+              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _singOutUser(BuildContext context) async {
+    final usermodel = Provider.of<UserViewModel>(context, listen: false);
+    usermodel.singOut();
   }
 
   Row textContext() {

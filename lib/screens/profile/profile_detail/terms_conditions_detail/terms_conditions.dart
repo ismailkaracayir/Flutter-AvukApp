@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../constant/app_bar_widget.dart';
 import '../../../../constant/constant.dart';
-import '../../constant/terms_conditions.dart';
+import '../../../../constant/terms_conditions.dart';
 
 class TermsConditionsPage extends StatefulWidget {
   const TermsConditionsPage({
