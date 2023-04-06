@@ -1,3 +1,4 @@
+import 'package:avukapp/model/lawyer.dart';
 import 'package:avukapp/model/user.dart';
 import 'package:avukapp/service/db_base.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,9 +14,13 @@ class FirestoreDbService implements DBBase {
   }
 
   @override
-  Future<UserModel> readUser(String userID) {
-    // TODO: implement readUser
-    throw UnimplementedError();
+  Future<UserModel> readUser(String userID) async{
+    DocumentSnapshot okunanUser =
+        await firebaseFirestore.collection('users').doc(userID).get();
+    UserModel user = UserModel.fromMap(okunanUser.data() as Map);
+    debugPrint(
+        '**********okunan user bilgileri ${user.toString()}***********');
+    return user;
   }
 
   @override
@@ -25,12 +30,8 @@ class FirestoreDbService implements DBBase {
           .collection('users')
           .doc(user.userID)
           .set(user.ToMap());
-      debugPrint(
-          'SAVEUSER İÇİNDEKİ READ USER--------------------- ${user.userID}');
-
       DocumentSnapshot readUser =
           await firebaseFirestore.doc("users/${user.userID}").get();
-      debugPrint('SAVEUSER İÇİNDEKİ READ USER ${readUser.data().toString()}');
       Map readUserDetalys = readUser.data() as Map;
       UserModel _readUser = UserModel.fromMap(readUserDetalys);
       debugPrint(_readUser.toString());
@@ -38,6 +39,24 @@ class FirestoreDbService implements DBBase {
       debugPrint('CLOUDFİRE HATA ÇIKTI ${e.toString()} ');
     }
 
+    return true;
+  }
+
+  @override
+  Future<bool> saveLawyer(LawyerModel lawyer) async {
+    try {
+      await firebaseFirestore
+          .collection('lawyers')
+          .doc(lawyer.lawyerID)
+          .set(lawyer.toMap());
+      DocumentSnapshot readLawyer =
+          await firebaseFirestore.doc("lawyer/${lawyer.lawyerID}").get();
+      Map readUserDetalys = readLawyer.data() as Map;
+      UserModel _readLawyer = UserModel.fromMap(readUserDetalys);
+      debugPrint(_readLawyer.toString());
+    } catch (e) {
+      debugPrint('CLOUDFİRE HATA ÇIKTI ${e.toString()} ');
+    }
     return true;
   }
 }
