@@ -1,5 +1,6 @@
 import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/ilan_model.dart';
+import 'package:avukapp/model/user.dart';
 import 'package:flutter/material.dart';
 import '../../constant/constant.dart';
 import '../appointment/page/appointment_page.dart';

@@ -5,10 +5,5 @@ abstract class AuthBase {
   Future<bool> singOut();
   Future<UserModel> singInWithGoogle();
   Future<UserModel> singInWithEmailAndPass(String email, String pass);
-  Future<UserModel> createWithUserEmailAndPass(String email, String pass);
-  Future<UserModel> singINWithPhoneNumber();
- 
- 
-
-
+  Future<UserModel> createWithUserEmailAndPass(String email, String pass,String userName);
 }
