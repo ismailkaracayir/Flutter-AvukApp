@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class LawyerModel {
   final String lawyerID;
   String email;
   String? userName;
-  String pass;
-  final String lawyerRegistrationNumber;
+  final String lawyerBaroNumber;
   String? profilImgURL;
   String? lawyerExperience; // avukat deneyimi
   String? lawyerField; // avukat alanı
@@ -17,16 +17,15 @@ class LawyerModel {
   LawyerModel(
       {required this.lawyerID,
       required this.email,
-      required this.pass,
-      required this.lawyerRegistrationNumber});
+      required this.lawyerBaroNumber,
+      required this.userName});
 
   Map<String, dynamic> toMap() {
     return {
       'lawyerID': lawyerID,
-      'email': email ?? lawyerID,
-      'userName': userName ?? email!.substring(0, email?.indexOf('@')),
-      'lawyerRegistrationNumber': lawyerRegistrationNumber,
-      'pass': pass,
+      'email': email,
+      'userName': userName,
+      'lawyerBaroNumber': lawyerBaroNumber,
       'profilImgURL': profilImgURL ??
           'https://st.depositphotos.com/1779253/5140/v/950/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg',
       'lawyerExperience': lawyerExperience,
@@ -42,8 +41,7 @@ class LawyerModel {
       : lawyerID = map['lawyerID'],
         email = map['email'],
         userName = map['userName'],
-        pass = map['pass'],
-        lawyerRegistrationNumber = map['lawyerRegistrationNumber'],
+        lawyerBaroNumber = map['lawyerBaroNumber'],
         lawyerExperience = map['lawyerExperience'],
         lawyerField = map['lawyerField'],
         profilImgURL = map['profilImgURL'],

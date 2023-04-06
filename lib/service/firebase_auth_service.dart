@@ -26,6 +26,7 @@ class FireBaseAuthService implements AuthBase {
       return user;
     }
   }
+  
 
   @override
   Future<UserModel> currentUser() async {
@@ -78,6 +79,22 @@ class FireBaseAuthService implements AuthBase {
     }
   }
 
+  
+  @override
+  Future<UserModel> createWithLawyerAndUserEmailAndPass(String email, String pass,String userName,String baroNUmber)async {
+       final user = UserModel(userID: null, email: null, userName: null);
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: pass);
+      return _userModelFromFirebase(userCredential.user);
+    } catch (e) {
+      debugPrint(
+          'FİREBASE_AUTH_SERVİCES AVUKAT-USER EMAİL İLE KAYIT OLMA HATA ÇIKTI ${e.toString()}');
+      return user;
+    }
+  }
+}
+
   UserModel _userModelFromFirebase(User? user) {
     // FİREBASE DEN GELEN USER BİZİM MODELİMİZE DÖNÜŞTÜRÜR
     if (user == null) {
@@ -85,4 +102,3 @@ class FireBaseAuthService implements AuthBase {
     }
     return UserModel(userID: user.uid, email: user.email, userName: null);
   }
-}

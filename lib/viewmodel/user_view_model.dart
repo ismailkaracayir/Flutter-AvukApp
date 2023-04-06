@@ -54,11 +54,11 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
 
   @override
   Future<UserModel> createWithUserEmailAndPass(
-      String email, String pass,String userName) async {
+      String email, String pass, String userName) async {
     try {
       state = ViewState.Busy;
       _user = await _userRepository.createWithUserEmailAndPass(
-          email, pass,userName);
+          email, pass, userName);
       return _user!;
     } catch (e) {
       debugPrint(
@@ -94,6 +94,23 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
     } catch (e) {
       debugPrint('viewmodel singOut da hata cıktı ${e.toString()}');
       return false;
+    } finally {
+      state = ViewState.Idle;
+    }
+  }
+
+  @override
+  Future<UserModel> createWithLawyerAndUserEmailAndPass(
+      String email, String pass,String userName,String baroNumber) async {
+    try {
+      state = ViewState.Busy;
+      _user = await _userRepository.createWithLawyerAndUserEmailAndPass(
+          email, pass,userName,baroNumber);
+      return _user!;
+    } catch (e) {
+      debugPrint(
+          'USER VİEW MODEL createWithLawyerAndUserEmailAndPass HATA: ${e.toString()}');
+      return UserModel(userID: null, email: null, userName: null);
     } finally {
       state = ViewState.Idle;
     }

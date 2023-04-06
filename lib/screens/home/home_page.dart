@@ -2,7 +2,9 @@ import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/ilan_model.dart';
 import 'package:avukapp/model/user.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../constant/constant.dart';
+import '../../viewmodel/user_view_model.dart';
 import '../appointment/page/appointment_page.dart';
 import '../../widgets/custom_card_widget.dart';
 import '../../widgets/custom_card_widget_button.dart';
@@ -81,15 +83,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   itemCount: 5,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         // ignore: avoid_print
                         print("$index no lu avukata tıklandı");
+                       
                       },
                       child: CustomCardWidget(
                         moodel: DeclareModel(
-                          declareCategory: "KAMUUU HKUUKUKU",
-                          lawyerName: "UTKU BİLGİN SAÜÜÜÜ",
-                        ),
+                            declareCategory: "KAMUUU HKUUKUKU", lawyerName: ''),
                         sagButton: GestureDetector(
                           onTap: () {},
                           child: const CustomCardWidgetButton(
@@ -156,9 +157,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-/*
 
-
-
-
- */

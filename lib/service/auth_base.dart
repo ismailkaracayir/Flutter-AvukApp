@@ -6,4 +6,7 @@ abstract class AuthBase {
   Future<UserModel> singInWithGoogle();
   Future<UserModel> singInWithEmailAndPass(String email, String pass);
   Future<UserModel> createWithUserEmailAndPass(String email, String pass,String userName);
+    Future<UserModel> createWithLawyerAndUserEmailAndPass(String email, String pass,String userName,String baroNumber);
+
+
 }

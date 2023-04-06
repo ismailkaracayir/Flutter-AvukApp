@@ -1,3 +1,4 @@
+
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -8,9 +9,10 @@ class UserModel {
   String? profilImgURL;
   DateTime? createAt;
   DateTime? updateAt;
-  int? level;
+  int? isLawyer;
 
-  UserModel({required this.userID, required this.email,required this.userName});
+  UserModel(
+      {required this.userID, required this.email, required this.userName});
 
   Map<String, dynamic> ToMap() {
     return {
@@ -22,7 +24,7 @@ class UserModel {
           'https://st.depositphotos.com/1779253/5140/v/950/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg',
       'createAt': createAt ?? FieldValue.serverTimestamp(),
       'updateAt': updateAt ?? FieldValue.serverTimestamp(),
-      'level': level ?? 1, //   1 = varsayılan kullanıcı yetkisi
+      'isLawyer': isLawyer ?? 0, //    varsayılan kullanıcı türü
     };
   }
 
@@ -33,7 +35,7 @@ class UserModel {
         profilImgURL = map['profilImgURL'],
         createAt = (map['createAt'] as Timestamp).toDate(),
         updateAt = (map['updateAt'] as Timestamp).toDate(),
-        level = map['level'];
+        isLawyer = map['isLawyer'];
 
   String toString() {
     return 'users email :$email users nick name: $userName  users profilurl: $profilImgURL users oluşturma tarih $createAt';
