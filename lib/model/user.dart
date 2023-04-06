@@ -10,7 +10,7 @@ class UserModel {
   DateTime? updateAt;
   int? level;
 
-  UserModel({required this.userID, required this.email});
+  UserModel({required this.userID, required this.email,required this.userName});
 
   Map<String, dynamic> ToMap() {
     return {

@@ -10,6 +10,7 @@ class LoginWithPhoneScreen extends StatefulWidget {
 }
 
 class _LoginWithPhoneScreenState extends State<LoginWithPhoneScreen> {
+  final TextEditingController phoneNumberController = TextEditingController();
   late bool _passwordVisible;
   @override
   void initState() {
@@ -32,42 +33,39 @@ class _LoginWithPhoneScreenState extends State<LoginWithPhoneScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
+            TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter your email';
+                } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                  return 'Please enter a valid email';
+                }
+                return null;
+              },
+              controller: phoneNumberController,
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
-                suffixIcon:
-                    TextButton(onPressed: () {}, child: const Text('Kod Al')),
-                labelText: 'Phone number',
-                prefixIcon: Icon(Icons.phone),
+                labelText: '5xx xxx xx xx',
+                prefixIcon: const Icon(Icons.phone),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0)),
               ),
             ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              decoration: InputDecoration(
-                  labelText: 'Gelen Kod',
-                  prefixIcon: const Icon(Icons.key),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0))),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter your password';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             PressButtonWidget(
                 buttonText: "Giriş Yap",
                 buttonColor: kNavyBlueColor,
                 textColor: kWhiteColor,
                 buttonHeight: height / 50,
                 buttonWeight: width,
-                onPress: () {})
+                onPress: () {
+                  
+                })
           ],
         ),
       ),
     );
   }
+
+
 }

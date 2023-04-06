@@ -2,13 +2,12 @@ import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/model/user.dart';
 import 'package:avukapp/screens/login/login_with_phone.dart';
 import 'package:avukapp/screens/register/registration.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import '../../viewmodel/user_view_model.dart';
 import '../../widgets/social_button.dart';
-import '../landing_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,14 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
   late bool _passwordVisible;
-  late FirebaseAuth auth;
+
 
   @override
   void initState() {
     super.initState();
     _passwordVisible = false;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Container(
             width: width / 2,
             height: height / 7,
-            child: Center(
+            child:  Center(
                 child: Text(
               "Login",
               style: TextStyle(fontWeight: FontWeight.bold),
@@ -212,11 +210,13 @@ class _LoginScreenState extends State<LoginScreen> {
         final UserModel user = await userModel.singInWithEmailAndPass(
             emailController.text, passwordController.text);
         debugPrint('EMAİL İLE GİRİŞ YAPMA BAŞARILI');
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => LandingPage(
-            pageValue: '0',
-          ),
-        ));
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => LandingPage(
+        //       pageValue: '0',
+        //     ),
+        //   ),
+        // );
       } catch (e) {
         debugPrint('LOGİN İŞLEMİNDE HATA  : ${e.toString()}');
       }

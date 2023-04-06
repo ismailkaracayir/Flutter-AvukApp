@@ -8,9 +8,14 @@ class FireBaseAuthService implements AuthBase {
   User? user = FirebaseAuth.instance.currentUser;
 
   @override
-  Future<UserModel> createWithUserEmailAndPass( // NORMAL KULLANICI KAYIT OLMASI İÇİN 
-      String email, String pass) async {
-    final user = UserModel(userID: null, email: null);
+  Future<UserModel> createWithUserEmailAndPass(
+    // NORMAL KULLANICI KAYIT OLMASI İÇİN
+
+    String email,
+    String pass,
+    String userName
+  ) async {
+    final user = UserModel(userID: null, email: null, userName: null);
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: pass);
@@ -23,28 +28,27 @@ class FireBaseAuthService implements AuthBase {
   }
 
   @override
-  Future<UserModel> currentUser() async { // O ANKİ OTURUM AÇMIŞ KULLANICI BİLGİSİNİ BİZE VERİR (KULLANICI OTURM KAPATMADIGI SÜRECE ACIKDIR)
+  Future<UserModel> currentUser() async {
+    // O ANKİ OTURUM AÇMIŞ KULLANICI BİLGİSİNİ BİZE VERİR (KULLANICI OTURM KAPATMADIGI SÜRECE ACIKDIR)
     try {
       return _userModelFromFirebase(user);
     } catch (e) {
       debugPrint('hata cıktı currentuser ${e.toString()}');
-      return UserModel(userID: null, email: null);
+      return UserModel(userID: null, email: null, userName: null);
     }
   }
 
   @override
   Future<UserModel> singInWithEmailAndPass(String email, String pass) async {
-
-     UserCredential userCredential = await FirebaseAuth.instance
+    UserCredential userCredential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: pass);
     return _userModelFromFirebase(userCredential.user);
-
   }
 
   @override
-  Future<UserModel> singInWithGoogle()async {
-    try{
-         final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  Future<UserModel> singInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
 
@@ -58,16 +62,13 @@ class FireBaseAuthService implements AuthBase {
     } catch (e) {
       debugPrint(
           'google oturum acma işlemi hata çıktı firebase_auth_service${e.toString()}');
-      return UserModel(userID: null, email: null);
+      return UserModel(userID: null, email: null, userName: null);
     }
-
-
-
-
   }
 
   @override
-  Future<bool> singOut() async { // OTURUM KAPATMAK İÇİN KULLANILIR 
+  Future<bool> singOut() async {
+    // OTURUM KAPATMAK İÇİN KULLANILIR
     try {
       await FirebaseAuth.instance.signOut();
       return true;
@@ -77,15 +78,11 @@ class FireBaseAuthService implements AuthBase {
     }
   }
 
-  @override
-  Future<UserModel> singINWithPhoneNumber() {
-    throw UnimplementedError();
+  UserModel _userModelFromFirebase(User? user) {
+    // FİREBASE DEN GELEN USER BİZİM MODELİMİZE DÖNÜŞTÜRÜR
+    if (user == null) {
+      return UserModel(userID: null, email: null, userName: null);
+    }
+    return UserModel(userID: user.uid, email: user.email, userName: null);
   }
-}
-
-UserModel _userModelFromFirebase(User? user) { // FİREBASE DEN GELEN USER BİZİM MODELİMİZE DÖNÜŞTÜRÜR
-  if (user == null) {
-    return UserModel(userID: null, email: null);
-  }
-  return UserModel(userID: user.uid, email: user.email);
 }
