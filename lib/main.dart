@@ -1,6 +1,7 @@
 import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/lacator.dart';
 import 'package:avukapp/screens/landing_screen.dart';
+import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:avukapp/viewmodel/user_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +28,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => UserViewModel(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<UserViewModel>(
+          create: (context) => UserViewModel(),
+        ),
+        ChangeNotifierProvider<LawyerViewModel>(
+          create: (context) => LawyerViewModel(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Material App',
         debugShowCheckedModeBanner: false,
@@ -38,10 +46,8 @@ class _MyAppState extends State<MyApp> {
             color: kWineRedColor,
           ),
         ),
-        home:  LandingPage(),
+        home: LandingPage(),
       ),
     );
   }
 }
-
-
