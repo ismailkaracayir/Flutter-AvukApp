@@ -101,11 +101,11 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
 
   @override
   Future<UserModel> createWithLawyerAndUserEmailAndPass(
-      String email, String pass,String userName,String baroNumber) async {
+      String email, String pass, String userName, String baroNumber) async {
     try {
       state = ViewState.Busy;
       _user = await _userRepository.createWithLawyerAndUserEmailAndPass(
-          email, pass,userName,baroNumber);
+          email, pass, userName, baroNumber);
       return _user!;
     } catch (e) {
       debugPrint(
@@ -114,5 +114,9 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
     } finally {
       state = ViewState.Idle;
     }
+  }
+
+  Future<List<UserModel>> getAllUser() async {
+    return await _userRepository.getAllUser();
   }
 }

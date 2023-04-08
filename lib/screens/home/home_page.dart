@@ -1,6 +1,8 @@
+import 'package:avukapp/dummy/avukat_model.dart';
 import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/ilan_model.dart';
 import 'package:avukapp/model/user.dart';
+import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constant/constant.dart';
@@ -85,12 +87,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     return GestureDetector(
                       onTap: () async {
                         // ignore: avoid_print
+                        exampleLawyer();
                         print("$index no lu avukata tıklandı");
-                       
                       },
                       child: CustomCardWidget(
                         moodel: DeclareModel(
-                            declareCategory: "KAMUUU HKUUKUKU", lawyerName: ''),
+                            declareCategory: "KAMUUU HKUUKUKU",
+                            lawyerName: 'hasan'),
                         sagButton: GestureDetector(
                           onTap: () {},
                           child: const CustomCardWidgetButton(
@@ -156,5 +159,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-}
 
+  Future<void> exampleLawyer() async {
+    var lawyer = Provider.of<LawyerViewModel>(context, listen: false);
+    var lw = await lawyer.getAllLawyer();
+    
+  }
+}

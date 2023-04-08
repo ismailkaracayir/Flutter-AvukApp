@@ -1,5 +1,3 @@
-
-
 import 'package:avukapp/lacator.dart';
 import 'package:avukapp/model/lawyer.dart';
 import 'package:avukapp/model/user.dart';
@@ -21,7 +19,7 @@ class UserRepository implements AuthBase {
       user.userName = userName;
 
       await firestoreDbService.saveUser(user); // veritabanı kayıt yapan
-      return user;
+      return await firestoreDbService.readUser(user.userID!);
     } catch (e) {
       debugPrint(
           'USER_REPOSİTORY EMAİL İLE KAYIT OLMA HATA CIKTI ${e.toString()}');
@@ -39,13 +37,13 @@ class UserRepository implements AuthBase {
   Future<UserModel> singInWithEmailAndPass(String email, String pass) async {
     UserModel user =
         await fireBaseAuthService.singInWithEmailAndPass(email, pass);
-    return user;
+    return await firestoreDbService.readUser(user.userID!);
   }
 
   @override
   Future<UserModel> singInWithGoogle() async {
     UserModel user = await fireBaseAuthService.singInWithGoogle();
-    return user;
+    return await firestoreDbService.readUser(user.userID!);
   }
 
   @override
@@ -68,11 +66,15 @@ class UserRepository implements AuthBase {
           email: user.email!,
           lawyerBaroNumber: baroNumber,
           userName: user.userName));
-      return user;
+      return await firestoreDbService.readUser(user.userID!);
     } catch (e) {
       debugPrint(
           'USER REPOSİTORY createWithLawyerAndUserEmailAndPass HATA:${e.toString()} ');
       return UserModel(userID: null, email: null, userName: null);
     }
+  }
+
+  Future<List<UserModel>> getAllUser() async {
+    return await firestoreDbService.getAllUser();
   }
 }
