@@ -26,6 +26,6 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
     final user = Provider.of<UserViewModel>(context, listen: false);
     isLawyer = user.user!.isLawyer!;
     return Scaffold(
-        body: isLawyer == 1 ? LawyerProfilePage() : UserProfilePage());
+        body: isLawyer == 0 ? LawyerProfilePage() : UserProfilePage());
   }
 }

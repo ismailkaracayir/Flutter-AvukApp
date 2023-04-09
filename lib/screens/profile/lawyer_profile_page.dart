@@ -1,281 +1,242 @@
-import 'package:avukapp/screens/profile/profile_detail/about_detail/about.dart';
-import 'package:avukapp/screens/profile/profile_detail/language_detail/language_settings.dart';
-import 'package:avukapp/screens/profile/profile_detail/notification_detail/notification.dart';
-import 'package:avukapp/screens/profile/profile_detail/place_an_ad_detail/place_an_ad.dart';
-import 'package:avukapp/screens/profile/profile_detail/profile_pages/profile_appointment_page/my_appointments.dart';
-import 'package:avukapp/screens/profile/profile_detail/profile_pages/profile_edit_page/edit_profile.dart';
-import 'package:avukapp/screens/profile/profile_detail/terms_conditions_detail/terms_conditions.dart';
-import 'package:avukapp/screens/profile/user_profile_page.dart';
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../../constant/constant.dart';
-import '../../dummy/avukat_model.dart';
-import '../../manager/navigator_manager.dart';
 import '../../viewmodel/user_view_model.dart';
-import '../../widgets/my_custom_list_tile.dart';
+import 'common_widgets.dart';
+import 'user_profile_page.dart';
 
 class LawyerProfilePage extends StatefulWidget {
+  const LawyerProfilePage({super.key});
+
   @override
   State<LawyerProfilePage> createState() => _LawyerProfilePageState();
 }
 
 class _LawyerProfilePageState extends State<LawyerProfilePage> {
-  final String _iconProfile = "assets/icons/profile_design.svg";
+  final _formKey = GlobalKey<FormState>();
+  late final _emailController = TextEditingController();
+  late final _aboutController = TextEditingController();
+  late final _passwordController = TextEditingController();
+  String _lastSavedEmail = '';
+  String _lastSavedPassword = '';
+  String _lastSavedAbout = '';
 
-  final String _iconAppointMent = "assets/icons/profile_date.svg";
+  late bool _passwordVisible;
+  late File fileToUpload;
+  late String downloadUrl;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
-  final String _iconLanguage = "assets/icons/profile_language.svg";
+  uploadFromCamera() async {
+    var receivedFile =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    setState(() {
+      fileToUpload = File(receivedFile!.path);
+    });
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child('profilResimleri')
+        .child(auth.currentUser!.uid)
+        .child('pp.png');
+    ref.putFile(fileToUpload).then((taskSnapshot) {
+      taskSnapshot.ref.getDownloadURL().then((downloadURL) {
+        setState(() {
+          downloadUrl = downloadURL;
+        });
+      });
+    });
+  }
 
-  final String _iconAbout = "assets/icons/profile_about.svg";
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _aboutController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
-  final String _iconTermsCndton = "assets/icons/profile_terms_conditions.svg";
-
-  final String _iconNotification = "assets/icons/notification.svg";
-
-  final String _iconPlaceAnAd = "assets/icons/announcement.svg";
-
-  final String _iconLogout = "assets/icons/logout.svg";
-  late LawyerModel lawyerModel;
-  late int isLawyer;
   @override
   void initState() {
     super.initState();
     final user = Provider.of<UserViewModel>(context, listen: false);
+    _passwordVisible = false;
+    _emailController.text = user.user!.email!;
+    _aboutController.text = 'Ben bir öğrenciyim.';
+    _passwordController.text = user.user!.userID!;
+    _lastSavedEmail = _emailController.text;
+    _lastSavedPassword = _passwordController.text;
+    _lastSavedAbout = _aboutController.text;
+    downloadUrl = user.user!.profilImgURL!;
+  }
 
-    lawyerModel = LawyerModel(
-      email: user.user!.email,
-      userName: user.user!.userName,
-      pass: "bu bir şifredir benim şifremdir",
-      lawyerRegistrationNumber: "0001",
-      profilImgURL:
-          "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
-      createAt: DateTime.now(),
-      updateAt: DateTime.now(),
-      alani: user.user!.isLawyer != 1 ? user.user!.email : user.user!.userName,
-      content:
-          "deneyim aawawdawdladl lawdladla lawdladl wldaldl lw ladlwald l lawdalwdl awdll wadlldawldalwdawldldawdldl adwlawdladeneyim aawawdawdladl lawdladla lawdladl wldaldl lw ladlwald l lawdalwdl awdll wadlldawldalwdawldldawdldl adwlawdla   wdlwlda utku",
-      isLawyer: false,
-    );
+  void _saveChanges() {
+    // Metin düzenleyicisinin değerini kaydet
+    _lastSavedEmail = _emailController.text;
+    _lastSavedPassword = _passwordController.text;
+    _lastSavedAbout = _aboutController.text;
+  }
+
+  void _cancelChanges() {
+    // Metin düzenleyicisinin değerini önceki kaydedilen değere geri yükle
+    setState(() {
+      _emailController.text = _lastSavedEmail;
+      _passwordController.text = _lastSavedPassword;
+      _aboutController.text = _lastSavedAbout;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const PagePadding.symtcHrztNormal(),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Row(
+    final user = Provider.of<UserViewModel>(context, listen: false);
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    height: 160,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(24)),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                          lawyerModel.profilImgURL ?? _iconProfile,
+                userProfileImageContainer(downloadUrl, uploadFromCamera),
+                sizedBoxWidget(30),
+                Text(
+                  user.user!.userName!.toUpperCase(),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20,
+                      color: Colors.black),
+                ),
+                sizedBoxWidget(60),
+                textWidget("E-POSTA ADRESİ"),
+                SizedBox(
+                  width: 300,
+                  child: TextFormField(
+                    controller: _emailController,
+                    textAlign: TextAlign.center,
+                    // initialValue: "user.user!.email",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        color: Colors.blueGrey),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your email';
+                      } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _emailController.text = value!;
+                      debugPrint(_emailController.text);
+                    },
+                  ),
+                ),
+                sizedBoxWidget(10),
+                textWidget("HAKKINDA"),
+                SizedBox(
+                  width: 300,
+                  child: TextFormField(
+                    controller: _aboutController,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.blueGrey),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Mail alanı boş bırakılamaz';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _aboutController.text = value!;
+                      debugPrint(_aboutController.text);
+                    },
+                  ),
+                ),
+                sizedBoxWidget(20),
+                textWidget("ŞİFRE"),
+                sizedBoxWidget(10),
+                Center(
+                  child: SizedBox(
+                    width: 300,
+                    child: TextFormField(
+                      controller: _passwordController,
+                      textAlign: TextAlign.center,
+                      obscureText: !_passwordVisible,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Colors.blueGrey),
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: _passwordVisible
+                              ? Icon(Icons.visibility)
+                              : Icon(Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
                         ),
                       ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Password alanı boş bırakılamaz';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _passwordController.text = value!;
+                      },
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  flex: 4,
-                  child: SizedBox(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          child: Text(
-                            lawyerModel.userName ?? "NULL",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: kNavyBlueColor,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        SizedBox(
-                          child: Text(
-                            lawyerModel.alani ?? "NULL",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: kNavyBlueColor,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        SizedBox(
-                          child: Text(
-                            lawyerModel.content ?? "NULL",
-                            maxLines: 8,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: kNavyBlueColor,
-                            ),
-                          ),
-                        ),
-                      ],
+                sizedBoxWidget(20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    MaterialButton(
+                      onPressed: () {
+                        _cancelChanges();
+                      },
+                      child: Text(
+                        'Vazgeç',
+                        style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                )
+                    MaterialButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          // Kaydedilecek verileri burada işleyebilirsiniz
+                          _saveChanges();
+                        }
+                      },
+                      child: Text(
+                        'Kaydet',
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
-            const SizedBox(height: 20),
-            GestureDetector(
-              child: MyCustomListTileWidget(
-                backgroundUrl: _iconProfile,
-                titleName: "Profil Düzenle",
-              ),
-              onTap: () {
-                NavigatorManager().navigatToWidget(
-                  context,
-                  const EditProfile(
-                    name: "utku",
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              child: MyCustomListTileWidget(
-                backgroundUrl: _iconAppointMent,
-                titleName: "Randevularım",
-              ),
-              onTap: () {
-                NavigatorManager().navigatToWidget(
-                  context,
-                  const MyAppointmentPage(),
-                );
-              },
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              child: MyCustomListTileWidget(
-                backgroundUrl: _iconPlaceAnAd,
-                titleName: "İlanlarım",
-              ),
-              onTap: () {
-                NavigatorManager().navigatToWidget(
-                  context,
-                  const PlaceAnAd(),
-                );
-              },
-            ),
-            const SizedBox(height: 10),
-            const Divider(
-              thickness: 2,
-            ),
-            const SizedBox(height: 10),
-            textContext(),
-            const SizedBox(height: 10),
-            GestureDetector(
-              child: MyCustomListTileWidget(
-                backgroundUrl: _iconNotification,
-                titleName: "Bildirim Ayarları",
-              ),
-              onTap: () {
-                NavigatorManager().navigatToWidget(
-                  context,
-                  const NotificationPage(),
-                );
-              },
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              child: MyCustomListTileWidget(
-                backgroundUrl: _iconLanguage,
-                titleName: "Dil Ayarları",
-              ),
-              onTap: () {
-                NavigatorManager().navigatToWidget(
-                  context,
-                  const LanguageSettingsPage(),
-                );
-              },
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              child: MyCustomListTileWidget(
-                backgroundUrl: _iconAbout,
-                titleName: "Hakkında",
-              ),
-              onTap: () {
-                NavigatorManager().navigatToWidget(
-                  context,
-                  const AboutPage(),
-                );
-              },
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              child: MyCustomListTileWidget(
-                backgroundUrl: _iconTermsCndton,
-                titleName: "Koşullar & Şartlar",
-              ),
-              onTap: () {
-                NavigatorManager().navigatToWidget(
-                  context,
-                  const TermsConditionsPage(),
-                );
-              },
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              onTap: () {},
-              child: MyCustomListTileWidget(
-                backgroundUrl: _iconNotification,
-                titleName: "Profil Düzenle",
-              ),
-            ),
-            const SizedBox(height: 20),
-            const SizedBox(height: 20),
-            GestureDetector(
-              child: MyCustomListTileWidget(
-                backgroundUrl: _iconLogout,
-                titleName: "Çıkış Yap",
-              ),
-              onTap: () {
-                _singOutUser(context);
-              },
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> _singOutUser(BuildContext context) async {
-    final usermodel = Provider.of<UserViewModel>(context, listen: false);
-    usermodel.singOut();
-  }
-
-  Row textContext() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Text(
-          "Genel Ayarlar",
-          style: TextStyle(
-            color: kNavyBlueColor,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
           ),
         ),
-      ],
+      ),
     );
   }
 }
