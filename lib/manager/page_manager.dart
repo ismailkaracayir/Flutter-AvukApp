@@ -1,4 +1,5 @@
 import 'package:avukapp/model/user.dart';
+import 'package:avukapp/screens/home/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constant/constant.dart';
@@ -43,6 +44,7 @@ class _MyPageManagerState extends State<MyPageManager> {
   Widget build(BuildContext context) {
     PageController myPage = PageController(initialPage: selectinIndex);
     return Scaffold(
+      drawer: selectinIndex == 0 ? const NavBar() : null,
       appBar: AppBar(
         leadingWidth: 80,
         toolbarHeight: 70,

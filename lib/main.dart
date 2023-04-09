@@ -40,6 +40,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: 'Material App',
         debugShowCheckedModeBanner: false,
+        color: Colors.white,
         theme: ThemeData(
           primarySwatch: Colors.blue,
           iconTheme: const IconThemeData(
