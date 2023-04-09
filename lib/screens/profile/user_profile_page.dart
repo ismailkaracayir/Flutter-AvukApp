@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../viewmodel/user_view_model.dart';
+import 'common_widgets.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
@@ -87,6 +88,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
     });
   }
 
+  void visibilityPassword() {
+    setState(() {
+      _passwordVisible = !_passwordVisible;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserViewModel>(context, listen: false);
@@ -100,102 +107,23 @@ class _UserProfilePageState extends State<UserProfilePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                userProfileImageContainer(),
+                userProfileImageContainer(downloadUrl, uploadFromCamera),
                 sizedBoxWidget(30),
-                Text(
-                  user.user!.userName!.toUpperCase(),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20,
-                      color: Colors.black),
-                ),
+                nameText(user),
                 sizedBoxWidget(60),
                 textWidget("E-POSTA ADRESİ"),
-                SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    controller: _emailController,
-                    textAlign: TextAlign.center,
-                    // initialValue: "user.user!.email",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        color: Colors.blueGrey),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter your email';
-                      } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                        return 'Please enter a valid email';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      _emailController.text = value!;
-                      debugPrint(_emailController.text);
-                    },
-                  ),
-                ),
+                mailSizedboxAndTextForm(_emailController),
                 sizedBoxWidget(10),
                 textWidget("HAKKINDA"),
-                SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    controller: _aboutController,
-                    textAlign: TextAlign.center,
-                    //initialValue: "Merhaba ben Kader.",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        color: Colors.blueGrey),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Mail alanı boş bırakılamaz';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      _aboutController.text = value!;
-                      debugPrint(_aboutController.text);
-                    },
-                  ),
-                ),
+                aboutSizedboxAndTextForm(_aboutController),
                 sizedBoxWidget(20),
                 textWidget("ŞİFRE"),
                 sizedBoxWidget(10),
                 Center(
-                  child: SizedBox(
-                    width: 300,
-                    child: TextFormField(
-                      controller: _passwordController,
-                      textAlign: TextAlign.center,
-                      obscureText: !_passwordVisible,
-                      //initialValue: "user.user!.userID!",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Colors.blueGrey),
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          icon: _passwordVisible
-                              ? Icon(Icons.visibility)
-                              : Icon(Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible;
-                            });
-                          },
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Password alanı boş bırakılamaz';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _passwordController.text = value!;
-                      },
-                    ),
+                  child: passwordSizedboxAndTextForm(
+                    _passwordController,
+                    _passwordVisible,
+                    visibilityPassword,
                   ),
                 ),
                 sizedBoxWidget(20),
@@ -239,56 +167,4 @@ class _UserProfilePageState extends State<UserProfilePage> {
       ),
     );
   }
-
-  Stack userProfileImageContainer() {
-    return Stack(
-      children: [
-        Container(
-          height: 200,
-          width: 200,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: NetworkImage(downloadUrl),
-              fit: BoxFit.cover,
-            ),
-            border: Border.all(
-              color: Colors.white,
-              width: 5,
-            ),
-          ),
-        ),
-        Positioned(
-            top: 10,
-            right: 10,
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 20,
-              child: IconButton(
-                icon: Icon(Icons.add_a_photo),
-                onPressed: () {
-                  uploadFromCamera();
-                  // Profil güncelleme işlemleri burada gerçekleştirilebilir
-                },
-              ),
-            ))
-      ],
-    );
-  }
 }
-
-Widget get dividerWidget => SizedBox(
-      width: 250, // Bölücünün genişliği 200 piksel olacak
-      child: Divider(
-        thickness: 2, // Bölücünün kalınlığı 2 piksel olacak
-        color: Colors.grey[300], // Bölücünün rengi gri tonunda olacak
-      ),
-    );
-Widget sizedBoxWidget(double height) => const SizedBox(
-      height: 10,
-    );
-
-Widget textWidget(String text) => Text(
-      text,
-      style: const TextStyle(fontSize: 15, color: Colors.grey),
-    );
