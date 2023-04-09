@@ -120,10 +120,13 @@ SizedBox passwordSizedboxAndTextForm(TextEditingController _passwordController,
           fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueGrey),
       decoration: InputDecoration(
         suffixIcon: IconButton(
-            icon: _passwordVisible
-                ? Icon(Icons.visibility)
-                : Icon(Icons.visibility_off),
-            onPressed: setstatePassword()),
+          icon: _passwordVisible
+              ? Icon(Icons.visibility)
+              : Icon(Icons.visibility_off),
+          onPressed: (() {
+            setstatePassword();
+          }),
+        ),
       ),
       validator: (value) {
         if (value!.isEmpty) {

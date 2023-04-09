@@ -1,15 +1,13 @@
-import 'package:avukapp/dummy/avukat_model.dart';
 import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/ilan_model.dart';
-import 'package:avukapp/model/user.dart';
 import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constant/constant.dart';
-import '../../viewmodel/user_view_model.dart';
 import '../appointment/page/appointment_page.dart';
 import '../../widgets/custom_card_widget.dart';
 import '../../widgets/custom_card_widget_button.dart';
+import 'navbar.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -163,6 +161,5 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> exampleLawyer() async {
     var lawyer = Provider.of<LawyerViewModel>(context, listen: false);
     var lw = await lawyer.getAllLawyer();
-    
   }
 }
