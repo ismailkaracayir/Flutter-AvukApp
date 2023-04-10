@@ -1,13 +1,25 @@
+// ignore_for_file: avoid_print
+
 import 'package:avukapp/model/user.dart';
-import 'package:avukapp/screens/home/navbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../constant/constant.dart';
 import '../screens/home/home_page.dart';
+import '../screens/login/login.dart';
 import '../screens/message/message_page.dart';
 import '../screens/notification/notification_page.dart';
+import '../screens/profile/profile_detail/about_detail/about.dart';
+import '../screens/profile/profile_detail/language_detail/language_settings.dart';
+import '../screens/profile/profile_detail/notification_detail/notification.dart';
+import '../screens/profile/profile_detail/profile_pages/place_an_ad/place_an_ad_body.dart';
+import '../screens/profile/profile_detail/terms_conditions_detail/terms_conditions.dart';
 import '../screens/profile/profile_page.dart';
+import '../viewmodel/user_view_model.dart';
+import 'navigator_manager.dart';
 
+// ignore: must_be_immutable
 class MyPageManager extends StatefulWidget {
   UserModel? user;
   MyPageManager({required this.user, super.key});
@@ -21,6 +33,13 @@ class _MyPageManagerState extends State<MyPageManager> {
   final double _bottomBarHeight = 60;
   final int _duration = 600;
   final double _animateContainerWitdth = 74;
+  late FirebaseAuth auth;
+  NavigatorManager pagePushManager = NavigatorManager();
+  @override
+  void initState() {
+    super.initState();
+    auth = FirebaseAuth.instance;
+  }
 
   String getAppName(int pageIndex) {
     switch (pageIndex) {
@@ -42,11 +61,11 @@ class _MyPageManagerState extends State<MyPageManager> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserViewModel>(context, listen: false);
     PageController myPage = PageController(initialPage: selectinIndex);
     return Scaffold(
-      drawer: selectinIndex == 0 ? const NavBar() : null,
+      drawer: selectinIndex == 0 ? drawerHamburgerMenu(user, context) : null,
       appBar: AppBar(
-        leadingWidth: 80,
         toolbarHeight: 70,
         title: Text(
           getAppName(selectinIndex),
@@ -69,7 +88,6 @@ class _MyPageManagerState extends State<MyPageManager> {
         backgroundColor: kNavyBlueColor,
         centerTitle: true,
       ),
-      // drawer: Drawer(),
       body: PageView(
         // physics: const NeverScrollableScrollPhysics(),
         controller: myPage,
@@ -86,6 +104,126 @@ class _MyPageManagerState extends State<MyPageManager> {
         ],
       ),
       bottomNavigationBar: homeBottomBar(myPage),
+    );
+  }
+
+  Drawer drawerHamburgerMenu(UserViewModel user, BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: Text(
+              auth.currentUser!.displayName.toString().toUpperCase(),
+              style: const TextStyle(color: Colors.black),
+            ),
+            accountEmail: Text(
+              auth.currentUser!.email.toString(),
+              style: const TextStyle(color: Colors.black),
+            ),
+            currentAccountPicture: SizedBox(
+              width: 100,
+              height: 50,
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(user.user!.profilImgURL!),
+              ),
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              image: DecorationImage(
+                  image: NetworkImage(
+                    "https://i.pinimg.com/736x/1a/61/10/1a611036f4275ca78c58277e1fb260b6.jpg",
+                  ),
+                  fit: BoxFit.cover),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.receipt_long_outlined,
+              color: Colors.black,
+            ),
+            title: const Text("İlan Ayarları"),
+            onTap: () {
+              pagePushManager.navigatToWidget(
+                context,
+                const PlaceAnAdBody(),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.edit_notifications_sharp,
+              color: Colors.black,
+            ),
+            title: const Text("Bildirim Ayarları"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationPage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.language,
+              color: Colors.black,
+            ),
+            title: const Text("Dil Ayarları"),
+            onTap: () {
+              pagePushManager.navigatToWidget(
+                context,
+                const LanguageSettingsPage(),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.account_box_outlined,
+              color: Colors.black,
+            ),
+            title: const Text("Hakkında"),
+            onTap: () {
+              pagePushManager.navigatToWidget(
+                context,
+                const AboutPage(),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.rule_folder,
+              color: Colors.black,
+            ),
+            title: const Text("Şartlar & Koşullar"),
+            onTap: () {
+              pagePushManager.navigatToWidget(
+                context,
+                const TermsConditionsPage(),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+            title: const Text("Settings"),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.exit_to_app,
+              color: Colors.black,
+            ),
+            title: const Text("Exit"),
+            onTap: () {
+              showExitPopup(context);
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -223,6 +361,59 @@ class _MyPageManagerState extends State<MyPageManager> {
           ),
         ),
       ),
+    );
+  }
+
+  Future showExitPopup(context) async {
+    return await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SizedBox(
+            height: 90,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("Do you want to exit?"),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          print('yes selected');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginScreen()));
+                        },
+                        style: ElevatedButton.styleFrom(),
+                        child: const Text("Yes"),
+                      ),
+                    ),
+                    const SizedBox(width: 15),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          print('no selected');
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            //primary: ColorConstants.instance.flower,
+                            ),
+                        child: const Text(
+                          "No",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

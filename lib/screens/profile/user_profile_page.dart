@@ -133,7 +133,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       onPressed: () {
                         _cancelChanges();
                       },
-                      child: Text(
+                      child: const Text(
                         'Vazgeç',
                         style: TextStyle(
                             color: Colors.blueGrey,
@@ -149,7 +149,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           _saveChanges();
                         }
                       },
-                      child: Text(
+                      child: const Text(
                         'Kaydet',
                         style: TextStyle(
                             color: Colors.grey,

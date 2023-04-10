@@ -42,7 +42,7 @@ Stack userProfileImageContainer(String downloadUrl, Function uploadFromCamera) {
             backgroundColor: Colors.white,
             radius: 20,
             child: IconButton(
-              icon: Icon(Icons.add_a_photo),
+              icon: const Icon(Icons.add_a_photo),
               onPressed: () {
                 uploadFromCamera();
                 // Profil güncelleme işlemleri burada gerçekleştirilebilir
