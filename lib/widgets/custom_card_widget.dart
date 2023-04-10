@@ -44,7 +44,7 @@ class CustomCardWidget extends StatelessWidget {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            "https://avatars.githubusercontent.com/u/61207150?s=400&u=11f6bd41453a4ce6432b0effcf1a11417b5fded7&v=4",
+                            "https://imgs.search.brave.com/RU0yRHJk_pU92g_cE88XYWs-HrLaxwScJqMBD1t_Sz8/rs:fit:844:225:1/g:ce/aHR0cHM6Ly90c2Uy/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC55/b0haN09DTWZyWkc5/WGVWak42Q1dRSGFF/SyZwaWQ9QXBp",
                           ),
                         ),
                       ),

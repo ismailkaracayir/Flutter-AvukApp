@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/ilan_model.dart';
 import 'package:avukapp/viewmodel/lawyer_view_model.dart';
@@ -7,7 +9,6 @@ import '../../constant/constant.dart';
 import '../appointment/page/appointment_page.dart';
 import '../../widgets/custom_card_widget.dart';
 import '../../widgets/custom_card_widget_button.dart';
-import 'navbar.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -40,10 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
           // physics: BouncingScrollPhysics(),
           child: Column(
             children: [
-              const SizedBox(height: 10),
-              TextFormField(
-                decoration: homeTextFieldDecoration(),
-              ),
               const SizedBox(height: 10),
               SizedBox(
                 width: width,
@@ -84,7 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () async {
-                        // ignore: avoid_print
                         exampleLawyer();
                         print("$index no lu avukata tıklandı");
                       },
