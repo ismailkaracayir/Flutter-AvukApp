@@ -38,6 +38,15 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
             children: [
               const SizedBox(height: 40),
               TextFormField(
+                controller: emailController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter your email';
+                  } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                    return 'Please enter a valid email';
+                  }
+                  return null;
+                },
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 decoration: _inputDecoration(
@@ -47,6 +56,7 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
               ),
               const SizedBox(height: 40),
               TextFormField(
+                controller: passwordController,
                 textInputAction: TextInputAction.next,
                 decoration: _inputDecoration(
                   labelText: "Yönetici Şifre",
@@ -65,6 +75,14 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
                   ),
                 ),
                 obscureText: passwordVisible,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter your password';
+                  } else if (value.length < 6) {
+                    return 'Password must be at least 6 characters long';
+                  }
+                  return null;
+                },
               ),
               const Spacer(),
               GestureDetector(
@@ -72,10 +90,7 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
                   buttonName: "Giriş Yap",
                 ),
                 onTap: () {
-                  NavigatorManager().navigatToWidget(
-                    context,
-                    const AdminPanelPage(),
-                  );
+                  _formSubmit(context);
                 },
               )
             ],
@@ -117,5 +132,18 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
         gapPadding: 10,
       ),
     );
+  }
+
+  void _formSubmit(BuildContext context) {
+    if (_formAdminKey.currentState!.validate()) {
+      _formAdminKey.currentState!.save();
+      if (emailController.text == 'avukap@avukap.com' &&
+          passwordController.text == '123456') {
+        NavigatorManager().navigatToWidget(
+          context,
+          const AdminPanelPage(),
+        );
+      }
+    }
   }
 }
