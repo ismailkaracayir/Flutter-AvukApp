@@ -1,13 +1,14 @@
 import 'package:avukapp/constant/constant.dart';
+import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/user.dart';
 import 'package:avukapp/screens/login/login_with_phone.dart';
 import 'package:avukapp/screens/register/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
+import '../../admin/admin_login/admin_page.dart';
 import '../../viewmodel/user_view_model.dart';
 import '../../widgets/social_button.dart';
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,7 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
   late bool _passwordVisible;
-
 
   @override
   void initState() {
@@ -43,26 +43,22 @@ class _LoginScreenState extends State<LoginScreen> {
           Container(
             width: width / 2,
             height: height / 7,
-            child:  Center(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: kCreamColor,
+              border: Border.all(color: kNavyBlueColor, width: 1),
+            ),
+            child: const Center(
                 child: Text(
               "Login",
               style: TextStyle(fontWeight: FontWeight.bold),
             )),
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: kCreamColor,
-                border: Border.all(color: kNavyBlueColor, width: 1)),
           ),
-          /* SizedBox(
-              width: 100,
-              height: 100,
-              child: SvgPicture.asset('assets/images/justice.svg')),*/
-
           Form(
             key: _formKey,
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
@@ -93,8 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(10.0)),
                           suffixIcon: IconButton(
                             icon: _passwordVisible
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off),
+                                ? const Icon(Icons.visibility)
+                                : const Icon(Icons.visibility_off),
                             onPressed: () {
                               setState(() {
                                 _passwordVisible = !_passwordVisible;
@@ -111,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     PressButtonWidget(
@@ -125,10 +121,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       textColor: kWhiteColor,
                       buttonWeight: 250,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     SocialButtonWidget(
                       buttonText: "Login with Google",
-                      buttonIcon: Icon(
+                      buttonIcon: const Icon(
                         MdiIcons.googlePlus,
                         color: kWhiteColor,
                       ),
@@ -140,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SocialButtonWidget(
                       buttonText: "Login with phone",
-                      buttonIcon: Icon(
+                      buttonIcon: const Icon(
                         MdiIcons.phone,
                         color: kWhiteColor,
                       ),
@@ -148,7 +144,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LoginWithPhoneScreen()));
+                              builder: (context) =>
+                                  const LoginWithPhoneScreen(),
+                            ));
                       },
                       buttonHeight: 40,
                       buttonWidth: width,
@@ -158,12 +156,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RegistrationScreen()),
+                            builder: (context) => const RegistrationScreen(),
+                          ),
                         );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
+                        children: const [
                           Text(
                             "Register",
                             style: TextStyle(
@@ -171,6 +170,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        NavigatorManager()
+                            .navigatToWidget(context, const AdminLoginPage());
+                      },
+                      child: const Text(
+                        "Admin Giriş",
+                        style: TextStyle(
+                          color: kNavyBlueColor,
+                        ),
                       ),
                     )
                   ],
