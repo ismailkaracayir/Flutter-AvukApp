@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../constant/app_bar_widget.dart';
 import '../../../../../manager/navigator_manager.dart';
 import '../../../../../widgets/my_custom_list_tile.dart';
 import 'screens/place_an_ad_list_page.dart';
@@ -20,48 +21,55 @@ class _PlaceAnAdBodyState extends State<PlaceAnAdBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          GestureDetector(
-            child: MyCustomListTileWidget(
-              backgroundUrl: _shareIcon,
-              titleName: "İlan Ver",
+      appBar: const CustomAppBar(appTitle: "İlan Ayarları"),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 20,
+        ),
+        child: Column(
+          children: [
+            GestureDetector(
+              child: MyCustomListTileWidget(
+                backgroundUrl: _shareIcon,
+                titleName: "İlan Ver",
+              ),
+              onTap: () {
+                NavigatorManager().navigatToWidget(
+                  context,
+                  const PlaceAnAdPage(),
+                );
+              },
             ),
-            onTap: () {
-              NavigatorManager().navigatToWidget(
-                context,
-                const PlaceAnAdPage(),
-              );
-            },
-          ),
-          const SizedBox(height: 10),
-          GestureDetector(
-            child: MyCustomListTileWidget(
-              backgroundUrl: _editIcon,
-              titleName: "İlan Düzenle",
+            const SizedBox(height: 10),
+            GestureDetector(
+              child: MyCustomListTileWidget(
+                backgroundUrl: _editIcon,
+                titleName: "İlan Düzenle",
+              ),
+              onTap: () {
+                NavigatorManager().navigatToWidget(
+                  context,
+                  const PlaceAnAdSettings(),
+                );
+              },
             ),
-            onTap: () {
-              NavigatorManager().navigatToWidget(
-                context,
-                const PlaceAnAdSettings(),
-              );
-            },
-          ),
-          const SizedBox(height: 10),
-          GestureDetector(
-            child: MyCustomListTileWidget(
-              backgroundUrl: _listIcon,
-              titleName: "İlanlarım",
+            const SizedBox(height: 10),
+            GestureDetector(
+              child: MyCustomListTileWidget(
+                backgroundUrl: _listIcon,
+                titleName: "İlanlarım",
+              ),
+              onTap: () {
+                NavigatorManager().navigatToWidget(
+                  context,
+                  const PlaceAnAdList(),
+                );
+              },
             ),
-            onTap: () {
-              NavigatorManager().navigatToWidget(
-                context,
-                const PlaceAnAdList(),
-              );
-            },
-          ),
-          const SizedBox(height: 10),
-        ],
+            const SizedBox(height: 10),
+          ],
+        ),
       ),
     );
   }

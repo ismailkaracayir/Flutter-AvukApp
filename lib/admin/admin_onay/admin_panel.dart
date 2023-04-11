@@ -29,14 +29,11 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
   }
 
   void initedChange() async {
-    print("init başladı");
     await Future.delayed(const Duration(seconds: 2), () {
-      print("init bekliyor");
       setState(() {
         isInited = !isInited;
       });
     });
-    print("init bitti");
   }
 
   @override

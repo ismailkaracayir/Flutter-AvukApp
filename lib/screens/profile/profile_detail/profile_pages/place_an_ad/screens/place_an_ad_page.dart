@@ -13,6 +13,10 @@ class PlaceAnAdPage extends StatefulWidget {
 
 class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
   final String _editIcon = "assets/icons/profile_design.svg";
+  TextEditingController ilanBasligiController = TextEditingController();
+  TextEditingController ilanIcerigiController = TextEditingController();
+  TextEditingController ilanKategoriController = TextEditingController();
+  TextEditingController ilanTarihiController = TextEditingController();
 
   String? ilanAdi = "";
   bool confirm = false;
@@ -37,13 +41,14 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-              textCustomTitle(title: "İlan Adını Yazın"),
+              textCustomTitle(title: "İlan Başlığını Yazın"),
               const SizedBox(height: 10),
               TextFormField(
                 decoration: inputDecoration(
-                  hintTextS: "İlan Adını yazınız",
-                  labelTextS: "İlan Adı",
+                  hintTextS: "İlan başlığı yazınız",
+                  labelTextS: "İlan Başlığı",
                 ),
+                controller: ilanBasligiController,
                 textInputAction: TextInputAction.next,
               ),
               const SizedBox(height: 30),
@@ -54,17 +59,51 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
                   hintTextS: "İlan İçeriğini yazınız",
                   labelTextS: "İlan İçeriği",
                 ),
+                controller: ilanIcerigiController,
                 textInputAction: TextInputAction.done,
               ),
               const SizedBox(height: 30),
               textCustomTitle(title: "İlan Kategorisini Seçiniz"),
               const SizedBox(height: 10),
-              OutlinedButton(
-                onPressed: () {
-                  _openSelectCategory(context);
-                },
-                child: const Text("Seçim Yap"),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () async {
+                        // kullanıcı kategori seçmezse null döner
+                        // onun kontrolü yapıldı.
+
+                        String? ftrKtgori = await _openSelectCategory(context);
+                        if (ftrKtgori != null) {
+                          ilanKategoriController.text = ftrKtgori;
+                          print(ilanKategoriController.text);
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: kNavyBlueColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Kategori Seçimi Yap",
+                            style: customTextStyle(
+                              textSize: 16,
+                              colorx: kCreamColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
+              const SizedBox(height: 30),
+              textCustomTitle(
+                title: "İlan Tarihiniz Bugündür.",
+              ),
+              const SizedBox(height: 10),
               const SizedBox(height: 10),
               const SizedBox(height: 10),
               Container(
@@ -83,7 +122,6 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
                     : Center(
                         child: GestureDetector(
                           onTap: () {
-                            // print("Onayla");
                             changeConfirm();
                             Future.delayed(const Duration(seconds: 5), () {
                               changeConfirm();
@@ -182,7 +220,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
     );
   }
 
-  Future<String> _openSelectCategory(BuildContext context) async {
+  Future<String?> _openSelectCategory(BuildContext context) async {
     String? selectCategory = await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -286,18 +324,15 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
         );
       },
     );
-    // print(selectCategory);
-    if (selectCategory != null) {
-      return selectCategory;
-    } else {
-      selectCategory = "Boş";
-      return selectCategory;
-    }
+    return selectCategory;
   }
 
-  TextStyle customTextStyle({required double textSize}) {
+  TextStyle customTextStyle({
+    required double textSize,
+    Color? colorx = kNavyBlueColor,
+  }) {
     return TextStyle(
-      color: kNavyBlueColor,
+      color: colorx,
       fontSize: textSize,
       fontWeight: FontWeight.w500,
     );
