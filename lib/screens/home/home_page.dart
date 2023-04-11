@@ -35,6 +35,13 @@ class _MyHomePageState extends State<MyHomePage> {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: kNavyBlueColor,
+        onPressed: () {},
+        child: Icon(
+          Icons.add,
+        ),
+      ),
       body: Padding(
         padding: const PagePadding.symtcHrztNormal(),
         child: SingleChildScrollView(

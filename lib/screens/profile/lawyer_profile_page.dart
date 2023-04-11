@@ -95,7 +95,7 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
                 const SizedBox(
                   height: 30,
                 ),
-                textWidget("Uzmanlık Alanı"),
+                textWidget("UZMANLIK ALANI"),
                 SizedBox(
                     width: 300,
                     height: 40,
