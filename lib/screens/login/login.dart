@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../admin/admin_login/admin_page.dart';
 import '../../viewmodel/user_view_model.dart';
 import '../../widgets/social_button.dart';
+import '../landing_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -221,13 +222,11 @@ class _LoginScreenState extends State<LoginScreen> {
         final UserModel user = await userModel.singInWithEmailAndPass(
             emailController.text, passwordController.text);
         debugPrint('EMAİL İLE GİRİŞ YAPMA BAŞARILI');
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (context) => LandingPage(
-        //       pageValue: '0',
-        //     ),
-        //   ),
-        // );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => LandingPage(),
+          ),
+        );
       } catch (e) {
         debugPrint('LOGİN İŞLEMİNDE HATA  : ${e.toString()}');
       }

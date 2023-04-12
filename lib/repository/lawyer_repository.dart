@@ -15,4 +15,10 @@ class LawyerRepository implements DBBaselawyer {
   Future<LawyerModel> readLawyer(String lawyerID) async {
     return await firestoreDbService.readLawyer(lawyerID);
   }
+
+  @override
+  Future<bool> lawyerActiveControlAdmin(String lawyerID, bool isActive) async {
+    return await firestoreDbService.lawyerActiveControlAdmin(
+        lawyerID, isActive);
+  }
 }

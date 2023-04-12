@@ -1,7 +1,4 @@
-// ignore_for_file: avoid_print
-
 import 'package:avukapp/model/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -21,8 +18,7 @@ import 'navigator_manager.dart';
 
 // ignore: must_be_immutable
 class MyPageManager extends StatefulWidget {
-  UserModel? user;
-  MyPageManager({required this.user, super.key});
+  MyPageManager({super.key});
 
   @override
   State<MyPageManager> createState() => _MyPageManagerState();
@@ -33,12 +29,10 @@ class _MyPageManagerState extends State<MyPageManager> {
   final double _bottomBarHeight = 60;
   final int _duration = 600;
   final double _animateContainerWitdth = 74;
-  late FirebaseAuth auth;
   NavigatorManager pagePushManager = NavigatorManager();
   @override
   void initState() {
     super.initState();
-    auth = FirebaseAuth.instance;
   }
 
   String getAppName(int pageIndex) {
@@ -62,9 +56,11 @@ class _MyPageManagerState extends State<MyPageManager> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserViewModel>(context, listen: false);
+    
     PageController myPage = PageController(initialPage: selectinIndex);
     return Scaffold(
-      drawer: selectinIndex == 0 ? drawerHamburgerMenu(user, context) : null,
+      drawer:
+          selectinIndex == 0 ? drawerHamburgerMenu(user.user!, context) : null,
       appBar: AppBar(
         toolbarHeight: 70,
         title: Text(
@@ -107,25 +103,25 @@ class _MyPageManagerState extends State<MyPageManager> {
     );
   }
 
-  Drawer drawerHamburgerMenu(UserViewModel user, BuildContext context) {
+  Drawer drawerHamburgerMenu(UserModel user, BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(
-              auth.currentUser!.displayName.toString().toUpperCase(),
+              user.userName!,
               style: const TextStyle(color: Colors.black),
             ),
             accountEmail: Text(
-              auth.currentUser!.email.toString(),
+              user.email!,
               style: const TextStyle(color: Colors.black),
             ),
             currentAccountPicture: SizedBox(
               width: 100,
               height: 50,
               child: CircleAvatar(
-                backgroundImage: NetworkImage(user.user!.profilImgURL!),
+                backgroundImage: NetworkImage(user.profilImgURL ?? ''),
               ),
             ),
             decoration: const BoxDecoration(

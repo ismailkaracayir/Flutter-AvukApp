@@ -1,8 +1,12 @@
+import 'package:avukapp/viewmodel/declare_view_model.dart';
+import 'package:avukapp/viewmodel/user_view_model.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../constant/app_bar_widget.dart';
 import '../../../../../../constant/constant.dart';
-import '../../../../../../model/ilan_model.dart';
+import '../../../../../../model/declare.dart';
 
 class PlaceAnAdPage extends StatefulWidget {
   const PlaceAnAdPage({super.key});
@@ -30,6 +34,8 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
 
   @override
   Widget build(BuildContext context) {
+    final lawyer = Provider.of<UserViewModel>(context, listen: false);
+
     return Scaffold(
       appBar: const CustomAppBar(
         appTitle: "İlan Ver",
@@ -123,8 +129,9 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
                         child: GestureDetector(
                           onTap: () {
                             changeConfirm();
-                            Future.delayed(const Duration(seconds: 5), () {
+                            Future.delayed(const Duration(seconds: 1), () {
                               changeConfirm();
+                              _declareSubmit(lawyer.user?.userID, context);
                             });
                           },
                           child: const Text(
@@ -336,6 +343,61 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
       fontSize: textSize,
       fontWeight: FontWeight.w500,
     );
+  }
+
+  Future<void> _declareSubmit(String? userID, BuildContext context) async {
+    if (ilanBasligiController.text.isNotEmpty &&
+        ilanIcerigiController.text.isNotEmpty &&
+        ilanKategoriController.text.isNotEmpty) {
+      final declare = Provider.of<DeclareViewModel>(context, listen: false);
+      
+      DeclareModel _declare = DeclareModel(
+          declareTitle: ilanBasligiController.text,
+          lawyerId: userID,
+          declareCategory: ilanKategoriController.text,
+          declareContent: ilanIcerigiController.text);
+      bool temp = await declare.saveDeclare(_declare);
+      if (temp) {
+        ilanBasligiController.text = '';
+        ilanIcerigiController.text = '';
+        ilanKategoriController.text = '';
+        // ignore: use_build_context_synchronously
+        await CoolAlert.show(
+            backgroundColor: kNavyBlueColor,
+            barrierDismissible: false,
+            title: 'Başarılı!',
+            context: context,
+            type: CoolAlertType.success,
+            text: 'İlan Başarı ile Yayınlandı...',
+            autoCloseDuration: const Duration(seconds: 3),
+            confirmBtnText: ' ',
+            confirmBtnColor: Colors.white);
+      } else {
+        // ignore: use_build_context_synchronously
+        await CoolAlert.show(
+            backgroundColor: kNavyBlueColor,
+            barrierDismissible: false,
+            title: 'Hata Oluştu!',
+            context: context,
+            type: CoolAlertType.error,
+            text: 'İlan Yayınlanırken bir hata',
+            autoCloseDuration: const Duration(seconds: 3),
+            confirmBtnText: ' ',
+            confirmBtnColor: Colors.white);
+      }
+    } else {
+      // ignore: use_build_context_synchronously
+      await CoolAlert.show(
+          backgroundColor: kNavyBlueColor,
+          barrierDismissible: false,
+          title: 'Hata Oluştu!',
+          context: context,
+          type: CoolAlertType.error,
+          text: 'Lütfen tüm alanları doldurunuz!!!',
+          autoCloseDuration: const Duration(seconds: 3),
+          confirmBtnText: ' ',
+          confirmBtnColor: Colors.white);
+    }
   }
 }
 

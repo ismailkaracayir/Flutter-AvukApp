@@ -1,6 +1,7 @@
 import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/lacator.dart';
 import 'package:avukapp/screens/landing_screen.dart';
+import 'package:avukapp/viewmodel/declare_view_model.dart';
 import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:avukapp/viewmodel/user_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,6 +36,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider<LawyerViewModel>(
           create: (context) => LawyerViewModel(),
+        ),
+        ChangeNotifierProvider<DeclareViewModel>(
+          create: (context) => DeclareViewModel(),
         ),
       ],
       child: MaterialApp(

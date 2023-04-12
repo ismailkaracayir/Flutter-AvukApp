@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constant/constant.dart';
-import '../model/ilan_model.dart';
+import '../model/declare.dart';
 
 class CustomCardWidget extends StatelessWidget {
   const CustomCardWidget({
@@ -76,7 +76,7 @@ class CustomCardWidget extends StatelessWidget {
                           SizedBox(
                             width: double.infinity,
                             child: Text(
-                              moodel.lawyerName ?? "NULL UB",
+                              "NULL UB",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: newTextStyleMethod(textSize: 20),

@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:avukapp/manager/navigator_manager.dart';
-import 'package:avukapp/model/ilan_model.dart';
+import 'package:avukapp/model/declare.dart';
 import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -93,8 +93,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       child: CustomCardWidget(
                         moodel: DeclareModel(
-                            declareCategory: "KAMUUU HKUUKUKU",
-                            lawyerName: 'hasan'),
+                          declareCategory: "KAMUUU HKUUKUKU",
+                        ),
                         sagButton: GestureDetector(
                           onTap: () {},
                           child: const CustomCardWidgetButton(

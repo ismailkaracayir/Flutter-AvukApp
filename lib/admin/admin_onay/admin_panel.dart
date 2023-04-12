@@ -124,7 +124,9 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
                   "Onay",
                   style: _textStyle(),
                 )),
-                onPressed: () {
+                onPressed: () async {
+                  debugPrint(model.userName);
+                  await _activeControlAdmin(model.lawyerID, true);
                   setState(() {
                     model.isActive = true;
                   });
@@ -144,7 +146,9 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
                   "Ret",
                   style: _textStyle(),
                 )),
-                onPressed: () {
+                onPressed: () async {
+                  debugPrint(model.userName);
+                  await _activeControlAdmin(model.lawyerID, false);
                   setState(() {
                     model.isActive = false;
                   });
@@ -214,5 +218,12 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
       color: kNavyBlueColor,
       fontWeight: FontWeight.bold,
     );
+  }
+
+  Future<bool> _activeControlAdmin(String lawyerID, bool active) async {
+    final lawyer = Provider.of<LawyerViewModel>(context, listen: false);
+    bool temp = await lawyer.lawyerActiveControlAdmin(lawyerID, active);
+    debugPrint('BU AVUKATIN : $lawyerID  AKTİFLİK DURUMU $temp');
+    return temp;
   }
 }

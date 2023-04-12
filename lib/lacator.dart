@@ -1,3 +1,4 @@
+import 'package:avukapp/repository/declare_repository.dart';
 import 'package:avukapp/repository/lawyer_repository.dart';
 import 'package:avukapp/repository/user_repository.dart';
 import 'package:avukapp/service/firebase_auth_service.dart';
@@ -9,10 +10,7 @@ GetIt getIt = GetIt.instance;
 void setupLocator() {
   getIt.registerLazySingleton(() => FireBaseAuthService());
   getIt.registerLazySingleton(() => UserRepository());
-    getIt.registerLazySingleton(() => FirestoreDbService());
-      getIt.registerLazySingleton(() => LawyerRepository());
-
-
-   
-
+  getIt.registerLazySingleton(() => FirestoreDbService());
+  getIt.registerLazySingleton(() => LawyerRepository());
+  getIt.registerLazySingleton(() => DeclareRepository());
 }

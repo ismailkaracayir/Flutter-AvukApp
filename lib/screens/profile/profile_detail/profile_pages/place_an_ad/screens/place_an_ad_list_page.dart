@@ -1,7 +1,9 @@
+import 'package:avukapp/viewmodel/declare_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../constant/app_bar_widget.dart';
 import '../../../../../../constant/constant.dart';
-import '../../../../../../model/ilan_model.dart';
+import '../../../../../../model/declare.dart';
 import '../../../../../../widgets/custom_card_widget.dart';
 import '../../../../../../widgets/custom_card_widget_button.dart';
 
@@ -28,6 +30,7 @@ class _PlaceAnAdListState extends State<PlaceAnAdList> {
                 onTap: () {
                   // ignore: avoid_print
                   print("Düzenleme işlemi");
+                  _submit();
                 },
                 child: const CustomCardWidgetButton(
                   buttonTitle: "Düzenle",
@@ -47,5 +50,10 @@ class _PlaceAnAdListState extends State<PlaceAnAdList> {
         ),
       ),
     );
+  }
+
+  void _submit() {
+    final temp = Provider.of<DeclareViewModel>(context, listen: false);
+    temp.deleteDeclare('R9pTaJtAl3lHZdcVu7mS');
   }
 }

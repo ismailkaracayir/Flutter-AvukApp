@@ -1,3 +1,4 @@
+import 'package:avukapp/model/declare.dart';
 import 'package:avukapp/model/lawyer.dart';
 import 'package:avukapp/model/user.dart';
 import 'package:avukapp/service/db_base.dart';
@@ -72,8 +73,7 @@ class FirestoreDbService implements DBBase {
     return lawyer;
   }
 
-
-    Future<List<LawyerModel>> getAllLawyer() async {
+  Future<List<LawyerModel>> getAllLawyer() async {
     QuerySnapshot querySnapshot =
         await firebaseFirestore.collection('lawyers').get();
     List<LawyerModel> alllawyer = [];
@@ -82,5 +82,64 @@ class FirestoreDbService implements DBBase {
       alllawyer.add(oneLawyer);
     }
     return alllawyer;
+  }
+
+  Future<bool> lawyerActiveControlAdmin(String lawyerID, bool isActive) async {
+    if (isActive == true) {
+      await firebaseFirestore
+          .collection('lawyers')
+          .doc(lawyerID)
+          .update({'isActive': isActive});
+      return true;
+    } else {
+      await firebaseFirestore
+          .collection('lawyers')
+          .doc(lawyerID)
+          .update({'isActive': isActive});
+      return false;
+    }
+  }
+
+
+
+
+
+  Future<bool> saveDeclare(DeclareModel declare) async {
+    try {
+      var _decID = firebaseFirestore.collection('declare').doc().id;
+      declare.declareId = _decID;
+
+      await firebaseFirestore
+          .collection('declare')
+          .doc(declare.declareId)
+          .set(declare.toMap());
+
+      DocumentSnapshot readDeclare =
+          await firebaseFirestore.doc("declare/${declare.declareId}").get();
+      Map readDeclareDetalys = readDeclare.data() as Map;
+      DeclareModel _readDeclare = DeclareModel.fromMap(readDeclareDetalys);
+      debugPrint(_readDeclare.toString());
+    } catch (e) {
+      debugPrint('CLOUDFİRE DECLARE  HATA ÇIKTI ${e.toString()} ');
+    }
+    return true;
+  }
+
+  Future<List<DeclareModel>> getAllDeclate() async {
+    QuerySnapshot querySnapshot =
+        await firebaseFirestore.collection('declare').get();
+    List<DeclareModel> allDeclare = [];
+    for (DocumentSnapshot declare in querySnapshot.docs) {
+      DeclareModel oneDeclare = DeclareModel.fromMap(declare.data() as Map);
+      allDeclare.add(oneDeclare);
+    }
+    return allDeclare;
+  }
+
+  Future<bool> deleteDeclare(String declareId) async {
+    DocumentReference temp =
+        firebaseFirestore.collection('declare').doc(declareId);
+    temp.delete();
+    return true;
   }
 }
