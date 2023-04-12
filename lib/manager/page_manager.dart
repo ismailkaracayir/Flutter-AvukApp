@@ -55,12 +55,17 @@ class _MyPageManagerState extends State<MyPageManager> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserViewModel>(context, listen: false);
-    
+    final userProvider = Provider.of<UserViewModel>(context, listen: false);
+
     PageController myPage = PageController(initialPage: selectinIndex);
     return Scaffold(
-      drawer:
-          selectinIndex == 0 ? drawerHamburgerMenu(user.user!, context) : null,
+      drawer: selectinIndex == 0
+          ? drawerHamburgerMenu(
+              userProvider.user!,
+              context,
+              userProvider,
+            )
+          : null,
       appBar: AppBar(
         toolbarHeight: 70,
         title: Text(
@@ -103,7 +108,11 @@ class _MyPageManagerState extends State<MyPageManager> {
     );
   }
 
-  Drawer drawerHamburgerMenu(UserModel user, BuildContext context) {
+  Drawer drawerHamburgerMenu(
+    UserModel user,
+    BuildContext context,
+    UserViewModel userViewModel,
+  ) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -214,8 +223,55 @@ class _MyPageManagerState extends State<MyPageManager> {
               color: Colors.black,
             ),
             title: const Text("Exit"),
-            onTap: () {
-              showExitPopup(context);
+            onTap: () async {
+              // showExitPopup(context);
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    content: SizedBox(
+                      height: 90,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("Do you want to exit?"),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    userViewModel.singOut();
+                                  },
+                                  style: ElevatedButton.styleFrom(),
+                                  child: const Text("Yes"),
+                                ),
+                              ),
+                              const SizedBox(width: 15),
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    print('no selected');
+                                    Navigator.of(context).pop();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      //primary: ColorConstants.instance.flower,
+                                      ),
+                                  child: const Text(
+                                    "No",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
             },
           ),
         ],
@@ -379,9 +435,11 @@ class _MyPageManagerState extends State<MyPageManager> {
                         onPressed: () {
                           print('yes selected');
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginScreen()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(),
                         child: const Text("Yes"),

@@ -21,6 +21,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
   TextEditingController ilanIcerigiController = TextEditingController();
   TextEditingController ilanKategoriController = TextEditingController();
   TextEditingController ilanTarihiController = TextEditingController();
+  TextEditingController ilanUcretController = TextEditingController();
 
   String? ilanAdi = "";
   bool confirm = false;
@@ -86,6 +87,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
                         }
                       },
                       child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 50),
                         height: 50,
                         decoration: BoxDecoration(
                           color: kNavyBlueColor,
@@ -106,11 +108,21 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
                 ],
               ),
               const SizedBox(height: 30),
+              textCustomTitle(title: "Ücreti Belirleyiniz"),
+              const SizedBox(height: 10),
+              TextFormField(
+                decoration: inputDecoration(
+                  hintTextS: "İlan ücretini belirleyiniz",
+                  labelTextS: "Ücret",
+                ),
+                keyboardType: TextInputType.number,
+                controller: ilanUcretController,
+                textInputAction: TextInputAction.next,
+              ),
+              const SizedBox(height: 30),
               textCustomTitle(
                 title: "İlan Tarihiniz Bugündür.",
               ),
-              const SizedBox(height: 10),
-              const SizedBox(height: 10),
               const SizedBox(height: 10),
               Container(
                 width: double.infinity,
@@ -350,7 +362,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
         ilanIcerigiController.text.isNotEmpty &&
         ilanKategoriController.text.isNotEmpty) {
       final declare = Provider.of<DeclareViewModel>(context, listen: false);
-      
+
       DeclareModel _declare = DeclareModel(
           declareTitle: ilanBasligiController.text,
           lawyerId: userID,

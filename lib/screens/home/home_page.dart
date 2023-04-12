@@ -2,10 +2,12 @@
 
 import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/declare.dart';
+import 'package:avukapp/viewmodel/declare_view_model.dart';
 import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constant/constant.dart';
+import '../../model/lawyer.dart';
 import '../appointment/page/appointment_page.dart';
 import '../../widgets/custom_card_widget.dart';
 import '../../widgets/custom_card_widget_button.dart';
@@ -18,6 +20,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final double removeHeight = 240;
+  late List<LawyerModel> allLawyer = [];
+  late List<DeclareModel> allDeclare = [];
+
   List<String> categories = [
     "Ceza Hukuku uufufuuf ufuuf",
     "Mal Hukuku",
@@ -28,6 +34,12 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   int selectedCategory = -1;
+  @override
+  void initState() {
+    super.initState();
+    getAllLawyer();
+    getAllDeclare();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: kNavyBlueColor,
         onPressed: () {},
-        child: Icon(
+        child: const Icon(
           Icons.add,
         ),
       ),
@@ -82,38 +94,35 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 10),
               SizedBox(
-                height: height * 0.7,
+                height: height - removeHeight,
                 child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: allDeclare.length,
                   itemBuilder: (context, index) {
+                    DeclareModel declareModel = allDeclare[index];
                     return GestureDetector(
-                      onTap: () async {
-                        exampleLawyer();
-                        print("$index no lu avukata tıklandı");
-                      },
-                      child: CustomCardWidget(
-                        moodel: DeclareModel(
-                          declareCategory: "KAMUUU HKUUKUKU",
-                        ),
-                        sagButton: GestureDetector(
-                          onTap: () {},
-                          child: const CustomCardWidgetButton(
-                            buttonTitle: "Soru Sor",
+                        onTap: () async {
+                          print("$index no lu avukata tıklandı");
+                        },
+                        child: CustomCardWidget(
+                          moodel: declareModel,
+                          sagButton: GestureDetector(
+                            onTap: () {},
+                            child: const CustomCardWidgetButton(
+                              buttonTitle: "Soru Sor",
+                            ),
                           ),
-                        ),
-                        solButton: GestureDetector(
-                          onTap: () {
-                            NavigatorManager().navigatToWidget(
-                              context,
-                              const AppointmentPage(),
-                            );
-                          },
-                          child: const CustomCardWidgetButton(
-                            buttonTitle: "Randevu Al",
+                          solButton: GestureDetector(
+                            onTap: () {
+                              NavigatorManager().navigatToWidget(
+                                context,
+                                const AppointmentPage(),
+                              );
+                            },
+                            child: const CustomCardWidgetButton(
+                              buttonTitle: "Randevu Al",
+                            ),
                           ),
-                        ),
-                      ),
-                    );
+                        ));
                   },
                 ),
               )
@@ -161,8 +170,17 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<void> exampleLawyer() async {
+  Future<void> getAllLawyer() async {
     var lawyer = Provider.of<LawyerViewModel>(context, listen: false);
     var lw = await lawyer.getAllLawyer();
+    allLawyer = lw;
+    print(lw);
+  }
+
+  Future<void> getAllDeclare() async {
+    var declare = Provider.of<DeclareViewModel>(context, listen: false);
+    var resoult = await declare.getAllDeclare();
+    allDeclare = resoult;
+    setState(() {});
   }
 }
