@@ -21,7 +21,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
   bool editMood = false;
   late String _userName;
   final FotoSeciciViewModel _fotoViewModel = FotoSeciciViewModel();
-
+  late String downloadUrl;
   @override
   void dispose() {
     _emailController.dispose();
@@ -35,8 +35,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
       _passwordVisible = !_passwordVisible;
     });
   }
-
-  late String downloadUrl;
 
   Future<void> _resimEkleAlertDialog(String id) async {
     return showDialog(
