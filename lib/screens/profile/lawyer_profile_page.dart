@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../viewmodel/lawyer_view_model.dart';
 import '../../viewmodel/user_view_model.dart';
 import 'common_widgets.dart';
 
@@ -13,20 +14,25 @@ class LawyerProfilePage extends StatefulWidget {
 
 class _LawyerProfilePageState extends State<LawyerProfilePage> {
   final _formKey = GlobalKey<FormState>();
-  late final _emailController = TextEditingController();
-  late final _aboutController = TextEditingController();
-  late final _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _aboutController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _baroNumberController = TextEditingController();
 
   bool _passwordVisible = false;
   late File fileToUpload;
   late String downloadUrl;
   bool editMood = false;
-
+  late String _lawyerName;
+  late String _imageUrl;
+  bool fromWhere = false;
   @override
   void dispose() {
     _emailController.dispose();
     _aboutController.dispose();
     _passwordController.dispose();
+    _baroNumberController.dispose();
+
     super.dispose();
   }
 
@@ -39,6 +45,16 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserViewModel>(context, listen: false);
+    final lawyer = Provider.of<LawyerViewModel>(context, listen: false);
+    //var law = lawyer.readLawyer(user.user!.userID!);
+
+    /* if (user.user!.isLawyer == 1) {
+      _baroNumberController.text = lawyer.lawyer!.lawyerBaroNumber;
+      _emailController.text = lawyer.lawyer!.email;
+      _aboutController.text = lawyer.lawyer!.lawyerField!;
+      _passwordController.text = lawyer.lawyer!.lawyerID;
+      _lawyerName = lawyer.lawyer!.userName!;
+    }*/
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -51,14 +67,14 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
               children: [
                 Stack(
                   children: [
-                    profileImageContainer(),
+                    profileImageContainer(_imageUrl),
                     Positioned(
-                        top: 5,
-                        right: 8,
+                        top: 10,
+                        right: 115,
                         child: CircleAvatar(
                           backgroundColor:
                               Theme.of(context).scaffoldBackgroundColor,
-                          radius: 16,
+                          radius: 5,
                           child: IconButton(
                             icon: editMood
                                 ? Icon(Icons.add_a_photo)
@@ -81,7 +97,7 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
                   ],
                 ),
                 sizedBoxWidget(30),
-                nameText(user),
+                nameText(_lawyerName),
                 const SizedBox(
                   height: 20,
                 ),
@@ -115,6 +131,7 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
                     width: 300,
                     height: 35,
                     child: TextFormField(
+                      controller: _baroNumberController,
                       enabled: editMood,
                       textAlign: TextAlign.center,
                       style: const TextStyle(

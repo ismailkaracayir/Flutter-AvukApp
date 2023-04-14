@@ -6,9 +6,11 @@ import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constant/constant.dart';
+import '../../viewmodel/user_view_model.dart';
 import '../appointment/page/appointment_page.dart';
 import '../../widgets/custom_card_widget.dart';
 import '../../widgets/custom_card_widget_button.dart';
+import '../profile/profile_detail/profile_pages/place_an_ad/screens/place_an_ad_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -28,20 +30,29 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   int selectedCategory = -1;
-
+  late int isLawyer;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-
+    final user = Provider.of<UserViewModel>(context, listen: false);
+    isLawyer = user.user!.isLawyer!;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: kNavyBlueColor,
-        onPressed: () {},
-        child: Icon(
-          Icons.add,
-        ),
-      ),
+      floatingActionButton: isLawyer == 1
+          ? FloatingActionButton(
+              backgroundColor: kNavyBlueColor,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PlaceAnAdPage(),
+                    ));
+              },
+              child: Icon(
+                Icons.add,
+              ),
+            )
+          : null,
       body: Padding(
         padding: const PagePadding.symtcHrztNormal(),
         child: SingleChildScrollView(

@@ -30,6 +30,7 @@ class _MyPageManagerState extends State<MyPageManager> {
   final int _duration = 600;
   final double _animateContainerWitdth = 74;
   NavigatorManager pagePushManager = NavigatorManager();
+  late int isLawyer;
   @override
   void initState() {
     super.initState();
@@ -56,7 +57,7 @@ class _MyPageManagerState extends State<MyPageManager> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserViewModel>(context, listen: false);
-    
+    isLawyer = user.user!.isLawyer!;
     PageController myPage = PageController(initialPage: selectinIndex);
     return Scaffold(
       drawer:
@@ -138,7 +139,9 @@ class _MyPageManagerState extends State<MyPageManager> {
               Icons.receipt_long_outlined,
               color: Colors.black,
             ),
-            title: const Text("İlan Ayarları"),
+            title: isLawyer == 0
+                ? Text("Kaydettiğim İlanlar")
+                : Text("İlan Ayarları"),
             onTap: () {
               pagePushManager.navigatToWidget(
                 context,
