@@ -8,6 +8,7 @@ abstract class DBBase {
   Future<UserModel> readUser(String userID);
   Future<List<UserModel>> getAllUser();
   Future<bool> saveLawyer(LawyerModel lawyer);
+  Future<void> updateUserProfileImageUrl(String userId, String imageUrl);
 }
 
 abstract class DBBaselawyer {

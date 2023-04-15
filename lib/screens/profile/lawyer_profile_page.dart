@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../viewmodel/foto_secici_view_model.dart';
+import '../../viewmodel/lawyer_view_model.dart';
 import '../../viewmodel/user_view_model.dart';
 import 'common_widgets.dart';
 
@@ -13,20 +15,23 @@ class LawyerProfilePage extends StatefulWidget {
 
 class _LawyerProfilePageState extends State<LawyerProfilePage> {
   final _formKey = GlobalKey<FormState>();
-  late final _emailController = TextEditingController();
-  late final _aboutController = TextEditingController();
-  late final _passwordController = TextEditingController();
-
+  final _emailController = TextEditingController();
+  final _aboutController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _baroNumberController = TextEditingController();
   bool _passwordVisible = false;
-  late File fileToUpload;
-  late String downloadUrl;
   bool editMood = false;
-
+  late String _lawyerName = "";
+  final FotoSeciciViewModel _fotoViewModel = FotoSeciciViewModel();
+  late String downloadUrl =
+      "https://images.pexels.com/photos/541484/sun-flower-blossom-bloom-pollen-541484.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load";
   @override
   void dispose() {
     _emailController.dispose();
     _aboutController.dispose();
     _passwordController.dispose();
+    _baroNumberController.dispose();
+
     super.dispose();
   }
 
@@ -37,8 +42,23 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserViewModel>(context, listen: false);
+    //var law = lawyer.readLawyer(user.user!.userID!);
+
+    /* if (user.user!.isLawyer == 1) {
+      _baroNumberController.text = lawyer.lawyer!.lawyerBaroNumber;
+      _emailController.text = lawyer.lawyer!.email;
+      _aboutController.text = lawyer.lawyer!.lawyerField!;
+      _passwordController.text = lawyer.lawyer!.lawyerID;
+      _lawyerName = lawyer.lawyer!.userName!;
+    }*/
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -51,14 +71,16 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
               children: [
                 Stack(
                   children: [
-                    profileImageContainer(),
+                    profileImageContainer(_fotoViewModel.secilenFoto != null
+                        ? _fotoViewModel.secilenFoto!.path
+                        : downloadUrl),
                     Positioned(
-                        top: 5,
-                        right: 8,
+                        top: 10,
+                        right: 115,
                         child: CircleAvatar(
                           backgroundColor:
                               Theme.of(context).scaffoldBackgroundColor,
-                          radius: 16,
+                          radius: 5,
                           child: IconButton(
                             icon: editMood
                                 ? Icon(Icons.add_a_photo)
@@ -81,7 +103,7 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
                   ],
                 ),
                 sizedBoxWidget(30),
-                nameText(user),
+                nameText(_lawyerName),
                 const SizedBox(
                   height: 20,
                 ),
@@ -115,6 +137,7 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
                     width: 300,
                     height: 35,
                     child: TextFormField(
+                      controller: _baroNumberController,
                       enabled: editMood,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
@@ -172,6 +195,45 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _resimEkleAlertDialog(String id) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Resim Ekle'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                GestureDetector(
+                  child: Text('Galeriden Seç'),
+                  onTap: (() async {
+                    await _fotoViewModel.fromGallery(id);
+                    if (_fotoViewModel.secilenFoto != null) {
+                      setState(() {
+                        downloadUrl = _fotoViewModel.downloadUrl;
+                      });
+                    }
+                  }),
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                    child: const Text('Kameradan Çek'),
+                    onTap: () async {
+                      await _fotoViewModel.fromCamera(id);
+                      if (_fotoViewModel.secilenFoto != null) {
+                        setState(() {
+                          downloadUrl = _fotoViewModel.downloadUrl;
+                        });
+                      }
+                    }),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
