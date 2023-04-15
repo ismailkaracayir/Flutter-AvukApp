@@ -21,9 +21,9 @@ class LawyerViewModel extends ChangeNotifier implements DBBaselawyer {
   Future<List<LawyerModel>> getAllLawyer() async {
     return await lawyerRepository.getAllLawyer();
   }
-  
+
   @override
-  Future<bool> lawyerActiveControlAdmin(String lawyerID , bool isActive) async{
-     return await lawyerRepository.lawyerActiveControlAdmin(lawyerID, isActive);
+  Future<bool> lawyerActiveControlAdmin(String lawyerID, bool isActive) async {
+    return await lawyerRepository.lawyerActiveControlAdmin(lawyerID, isActive);
   }
 }

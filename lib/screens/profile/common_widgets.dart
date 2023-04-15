@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../viewmodel/user_view_model.dart';
 
 Widget get dividerWidget => SizedBox(
       width: 250, // Bölücünün genişliği 200 piksel olacak
@@ -17,15 +16,14 @@ Widget textWidget(String text) => Text(
       style: const TextStyle(fontSize: 15, color: Colors.grey),
     );
 
-Container profileImageContainer() {
+Container profileImageContainer(String imageUrl) {
   return Container(
     height: 200,
     width: 200,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       image: DecorationImage(
-        image: NetworkImage(
-            "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1600"),
+        image: NetworkImage(imageUrl),
         fit: BoxFit.cover,
       ),
       border: Border.all(
@@ -36,9 +34,9 @@ Container profileImageContainer() {
   );
 }
 
-Text nameText(UserViewModel user) {
+Text nameText(String userName) {
   return Text(
-    user.user!.userName!.toUpperCase(),
+    userName.toUpperCase(),
     style: const TextStyle(
         fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
   );
@@ -48,12 +46,13 @@ SizedBox mailSizedboxAndTextForm(
     TextEditingController _emailController, bool editmood) {
   return SizedBox(
     width: 300,
-    height: 34,
+    height: 40,
     child: TextFormField(
       controller: _emailController,
       enabled: editmood,
+      //initialValue: ,
       textAlign: TextAlign.center,
-      // initialValue: "user.user!.email",
+
       style: const TextStyle(
           fontWeight: FontWeight.bold, fontSize: 13, color: Colors.blueGrey),
       validator: (value) {

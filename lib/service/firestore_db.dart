@@ -100,10 +100,6 @@ class FirestoreDbService implements DBBase {
     }
   }
 
-
-
-
-
   Future<bool> saveDeclare(DeclareModel declare) async {
     try {
       var _decID = firebaseFirestore.collection('declare').doc().id;
@@ -141,5 +137,17 @@ class FirestoreDbService implements DBBase {
         firebaseFirestore.collection('declare').doc(declareId);
     temp.delete();
     return true;
+  }
+
+  @override
+  Future<void> updateUserProfileImageUrl(String userId, String imageUrl) async {
+    try {
+      await firebaseFirestore
+          .collection('users')
+          .doc(userId)
+          .update({'profilImgURL': imageUrl});
+    } catch (e) {
+      print('Error updating user profile image URL: $e');
+    }
   }
 }
