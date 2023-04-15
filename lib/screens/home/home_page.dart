@@ -5,8 +5,10 @@ import 'package:avukapp/model/declare.dart';
 import 'package:avukapp/viewmodel/declare_view_model.dart';
 import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../constant/constant.dart';
+import '../../constant/hukuk_category.dart';
 import '../../model/lawyer.dart';
 import '../appointment/page/appointment_page.dart';
 import '../../widgets/custom_card_widget.dart';
@@ -21,22 +23,42 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final double removeHeight = 240;
+  String? selectedCategory;
+  bool loading = false;
   late List<LawyerModel> allLawyer = [];
   late List<DeclareModel> allDeclare = [];
+  late List<DeclareModel> selectedDeclare = [];
 
-  List<String> categories = [
-    "Ceza Hukuku uufufuuf ufuuf",
-    "Mal Hukuku",
-    "Kamu Hukuku",
-    "Ceza Hukuku",
-    "Mal Hukuku",
-    "Kamu Hukuku",
-  ];
+  late List<String> butunHukukKategorileri;
+  Future<void> change() async {
+    await Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        loading = !loading;
+      });
+    });
+  }
 
-  int selectedCategory = -1;
+  Future<void> kotegoriyeGoreIlanListele(String kategori) async {
+    if (allDeclare.isNotEmpty) {
+      selectedDeclare.clear();
+      print(selectedDeclare.length);
+      for (int i = 0; i < allDeclare.length; i++) {
+        print(selectedDeclare.length);
+        if (allDeclare[i].declareCategory!.contains("Ceza Hukuku")) {
+          selectedDeclare.add(allDeclare[i]);
+          print(selectedDeclare.length);
+        }
+      }
+    }
+
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
+    change();
+    butunHukukKategorileri = hukukAlanlari;
     getAllLawyer();
     getAllDeclare();
   }
@@ -61,70 +83,90 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: [
               const SizedBox(height: 10),
-              SizedBox(
-                width: width,
-                height: 50,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: kNavyBlueColor.withOpacity(0.7),
+                          color: kNavyBlueColor,
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Center(
-                            child: Text(
-                              categories[index],
-                              style: const TextStyle(
-                                color: kCreamColor,
-                                fontSize: 16,
-                              ),
+                        child: TextButton(
+                          onPressed: () async {
+                            selectedCategory =
+                                await _openSelectCategory(context);
+                            loading = false;
+                            setState(() {});
+
+                            if (selectedCategory != null) {
+                              await Future.delayed(Duration(seconds: 2));
+                            }
+
+                            loading = true;
+                            setState(() {});
+
+                            // if (selectedCategory != null) {
+                            //   await kotegoriyeGoreIlanListele(
+                            //     selectedCategory!,
+                            //   );
+                            //   setState(() {
+                            //     loading = true;
+                            //   });
+                            // }
+                          },
+                          child: const Text(
+                            "Kategori Seçin",
+                            style: TextStyle(
+                              color: kCreamColor,
                             ),
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  )
+                ],
               ),
               const SizedBox(height: 10),
               SizedBox(
                 height: height - removeHeight,
-                child: ListView.builder(
-                  itemCount: allDeclare.length,
-                  itemBuilder: (context, index) {
-                    DeclareModel declareModel = allDeclare[index];
-                    return GestureDetector(
-                        onTap: () async {
-                          print("$index no lu avukata tıklandı");
+                child: loading == true
+                    ? ListView.builder(
+                        itemCount: selectedDeclare.length,
+                        itemBuilder: (context, index) {
+                          DeclareModel declareModel = allDeclare[index];
+                          return GestureDetector(
+                              onTap: () async {
+                                print("$index no lu avukata tıklandı");
+                              },
+                              child: CustomCardWidget(
+                                moodel: declareModel,
+                                sagButton: GestureDetector(
+                                  onTap: () {},
+                                  child: const CustomCardWidgetButton(
+                                    buttonTitle: "Soru Sor",
+                                  ),
+                                ),
+                                solButton: GestureDetector(
+                                  onTap: () {
+                                    NavigatorManager().navigatToWidget(
+                                      context,
+                                      const AppointmentPage(),
+                                    );
+                                  },
+                                  child: const CustomCardWidgetButton(
+                                    buttonTitle: "Randevu Al",
+                                  ),
+                                ),
+                              ));
                         },
-                        child: CustomCardWidget(
-                          moodel: declareModel,
-                          sagButton: GestureDetector(
-                            onTap: () {},
-                            child: const CustomCardWidgetButton(
-                              buttonTitle: "Soru Sor",
-                            ),
-                          ),
-                          solButton: GestureDetector(
-                            onTap: () {
-                              NavigatorManager().navigatToWidget(
-                                context,
-                                const AppointmentPage(),
-                              );
-                            },
-                            child: const CustomCardWidgetButton(
-                              buttonTitle: "Randevu Al",
-                            ),
-                          ),
-                        ));
-                  },
-                ),
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(
+                          color: kNavyBlueColor,
+                        ),
+                      ),
               )
             ],
           ),
@@ -181,6 +223,125 @@ class _MyHomePageState extends State<MyHomePage> {
     var declare = Provider.of<DeclareViewModel>(context, listen: false);
     var resoult = await declare.getAllDeclare();
     allDeclare = resoult;
+    selectedDeclare = resoult;
     setState(() {});
+  }
+
+  Future<String?> _openSelectCategory(BuildContext context) async {
+    String? selectCategory = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        int selectedClock = -1;
+
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          icon: Text(
+            "Saat Seçiniz",
+            style: customTextStyle(textSize: 20),
+          ),
+          content: StatefulBuilder(
+            builder: (context, setState) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: SizedBox(
+                  width: 400,
+                  height: 300,
+                  child: ListView.builder(
+                    itemCount: butunHukukKategorileri.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedClock = index;
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: kCreamColor,
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                color: selectedClock == index
+                                    ? kWineRedColor
+                                    : Colors.grey.shade500,
+                                width: 2,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                butunHukukKategorileri[index],
+                                style: const TextStyle(fontSize: 16),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              );
+            },
+          ),
+          actions: [
+            Row(
+              children: [
+                const SizedBox(width: 20),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        kNavyBlueColor,
+                      ),
+                    ),
+                    child: const Text("Çıkış"),
+                  ),
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        kNavyBlueColor,
+                      ),
+                    ),
+                    child: const Text("Onayla"),
+                    onPressed: () {
+                      if (selectedClock != -1) {
+                        Navigator.pop(
+                          context,
+                          butunHukukKategorileri[selectedClock],
+                        );
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(width: 20),
+              ],
+            )
+          ],
+          actionsAlignment: MainAxisAlignment.center,
+        );
+      },
+    );
+    return selectCategory;
+  }
+
+  TextStyle customTextStyle({
+    required double textSize,
+    Color? colorx = kNavyBlueColor,
+  }) {
+    return TextStyle(
+      color: colorx,
+      fontSize: textSize,
+      fontWeight: FontWeight.w500,
+    );
   }
 }
