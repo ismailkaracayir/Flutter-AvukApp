@@ -35,8 +35,9 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
         child: Form(
           key: _formAdminKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
               TextFormField(
                 controller: emailController,
                 validator: (value) {
@@ -54,7 +55,7 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
                   hintText: "Yönetici e-postasını giriniz...",
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
               TextFormField(
                 controller: passwordController,
                 textInputAction: TextInputAction.next,
@@ -84,7 +85,7 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
                   return null;
                 },
               ),
-              const Spacer(),
+              const SizedBox(height: 30),
               GestureDetector(
                 child: const CustomButtonWidget(
                   buttonName: "Giriş Yap",
@@ -139,6 +140,8 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
       _formAdminKey.currentState!.save();
       if (emailController.text == 'avukap@avukap.com' &&
           passwordController.text == '123456') {
+        emailController.clear();
+        passwordController.clear();
         NavigatorManager().navigatToWidget(
           context,
           const AdminPanelPage(),

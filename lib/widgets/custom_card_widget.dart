@@ -76,7 +76,7 @@ class CustomCardWidget extends StatelessWidget {
                           SizedBox(
                             width: double.infinity,
                             child: Text(
-                              "NULL UB",
+                              moodel.declareTitle ?? "Hata",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: newTextStyleMethod(textSize: 20),
@@ -86,7 +86,26 @@ class CustomCardWidget extends StatelessWidget {
                           SizedBox(
                             width: double.infinity,
                             child: Text(
-                              moodel.declareCategory ?? "NULL Kategori",
+                              moodel.declareCategory ?? "Hata !!",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: newTextStyleMethod(textSize: 16),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              moodel.declareDate.toString().split(' ')[0],
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: newTextStyleMethod(textSize: 16),
+                            ),
+                          ),
+                          SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              moodel.declareContent ?? "Hata",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: newTextStyleMethod(textSize: 16),
