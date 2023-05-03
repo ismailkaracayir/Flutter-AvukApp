@@ -7,15 +7,17 @@ class DeclareModel {
   String? declareTitle; // ilan sayfasından alınacak
   String? declareContent; // ilan sayfasından alınacak
   String? declareCategory; // ilan sayfasından alınacak
+  String? declarePrice;
   bool? isActive;
 
   DeclareModel(
       {this.declareId,
-       this.lawyerId,
+      this.lawyerId,
       this.declareDate,
-       this.declareTitle,
-       this.declareContent,
-       this.declareCategory,
+      this.declareTitle,
+      this.declareContent,
+      this.declareCategory,
+      this.declarePrice,
       this.isActive});
 
   Map<String, dynamic> toMap() {
@@ -26,6 +28,7 @@ class DeclareModel {
       'declareTitle': declareTitle,
       'declareContent': declareContent,
       'declareCategory': declareCategory,
+       'declarePrice': declarePrice,
       'isActive': isActive ??
           true, // varsayılan ilan aktiflik durumu İLAN DÜZENLE SAYFASI İÇİN KULLANILACAK
     };
@@ -38,6 +41,7 @@ class DeclareModel {
         declareTitle = map['declareTitle'],
         declareContent = map['declareContent'],
         declareCategory = map['declareCategory'],
+        declarePrice = map['declarePrice'],
         isActive = map['isActive'];
 
   // // declareId = json['declareId'];

@@ -41,19 +41,19 @@ class _PlaceAnAdBodyState extends State<PlaceAnAdBody> {
                 );
               },
             ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              child: MyCustomListTileWidget(
-                backgroundUrl: _editIcon,
-                titleName: "İlan Düzenle",
-              ),
-              onTap: () {
-                NavigatorManager().navigatToWidget(
-                  context,
-                  const PlaceAnAdSettings(),
-                );
-              },
-            ),
+            // const SizedBox(height: 10),
+            // GestureDetector(
+            //   child: MyCustomListTileWidget(
+            //     backgroundUrl: _editIcon,
+            //     titleName: "İlan Düzenle",
+            //   ),
+            //   onTap: () {
+            //     NavigatorManager().navigatToWidget(
+            //       context,
+            //       const PlaceAnAdSettings(),
+            //     );
+            //   },
+            // ),
             const SizedBox(height: 10),
             GestureDetector(
               child: MyCustomListTileWidget(

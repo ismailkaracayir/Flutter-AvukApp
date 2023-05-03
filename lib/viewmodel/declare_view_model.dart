@@ -12,7 +12,7 @@ class DeclareViewModel extends ChangeNotifier implements DBBaseDeclare {
   LawyerModel? get declare => _declare;
 
   @override
-  Future<List<DeclareModel>> getAllDeclare()async {
+  Future<List<DeclareModel>> getAllDeclare() async {
     return await declareRepository.getAllDeclare();
   }
 
@@ -20,9 +20,20 @@ class DeclareViewModel extends ChangeNotifier implements DBBaseDeclare {
   Future<bool> saveDeclare(DeclareModel declare) async {
     return await declareRepository.saveDeclare(declare);
   }
-  
+
   @override
-  Future<bool> deleteDeclare(String declareId) async{
+  Future<bool> deleteDeclare(String declareId) async {
     return await declareRepository.deleteDeclare(declareId);
+  }
+
+  @override
+  Future<bool> updateDeclare(
+      String declareId,
+      String declareTitle,
+      String declareContent,
+      String declareCategory,
+      String declarePrice) async {
+    return await declareRepository.updateDeclare(
+        declareId, declareTitle, declareContent, declareCategory, declarePrice);
   }
 }

@@ -121,6 +121,21 @@ class FirestoreDbService implements DBBase {
     return true;
   }
 
+  Future<bool> updateDeclare(
+      String declareId,
+      String declareTitle,
+      String declareContent,
+      String declareCategory,
+      String declarePrice) async {
+    await firebaseFirestore.collection('declare').doc(declareId).update({
+      'declareTitle': declareTitle,
+      'declareContent': declareContent,
+      'declareCategory': declareCategory,
+      'declarePrice': declarePrice,
+    });
+    return true;
+  }
+
   Future<List<DeclareModel>> getAllDeclate() async {
     QuerySnapshot querySnapshot =
         await firebaseFirestore.collection('declare').get();

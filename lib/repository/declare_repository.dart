@@ -20,4 +20,15 @@ class DeclareRepository implements DBBaseDeclare {
   Future<bool> deleteDeclare(String declareId) async {
     return await firestoreDbService.deleteDeclare(declareId);
   }
+
+  @override
+  Future<bool> updateDeclare(
+      String declareId,
+      String declareTitle,
+      String declareContent,
+      String declareCategory,
+      String declarePrice) async {
+    return await firestoreDbService.updateDeclare(
+        declareId, declareTitle, declareContent, declareCategory, declarePrice);
+  }
 }

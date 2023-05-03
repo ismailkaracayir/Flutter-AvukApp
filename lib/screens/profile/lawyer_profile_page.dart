@@ -49,15 +49,19 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    //var law = lawyer.readLawyer(user.user!.userID!);
+    var user = Provider.of<UserViewModel>(context, listen: false);
+        var lawyer = Provider.of<LawyerViewModel>(context, listen: false);
 
-    /* if (user.user!.isLawyer == 1) {
+
+   
+
+    if (user.user!.isLawyer == 1) {
       _baroNumberController.text = lawyer.lawyer!.lawyerBaroNumber;
       _emailController.text = lawyer.lawyer!.email;
       _aboutController.text = lawyer.lawyer!.lawyerField!;
       _passwordController.text = lawyer.lawyer!.lawyerID;
       _lawyerName = lawyer.lawyer!.userName!;
-    }*/
+    }
 
     return Scaffold(
       body: SingleChildScrollView(

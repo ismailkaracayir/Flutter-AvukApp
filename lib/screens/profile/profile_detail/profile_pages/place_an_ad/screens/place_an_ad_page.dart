@@ -367,7 +367,8 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
           declareTitle: ilanBasligiController.text,
           lawyerId: userID,
           declareCategory: ilanKategoriController.text,
-          declareContent: ilanIcerigiController.text);
+          declareContent: ilanIcerigiController.text,
+          declarePrice: ilanUcretController.text);
       bool temp = await declare.saveDeclare(_declare);
       if (temp) {
         ilanBasligiController.text = '';
@@ -384,6 +385,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
             autoCloseDuration: const Duration(seconds: 3),
             confirmBtnText: ' ',
             confirmBtnColor: Colors.white);
+             
       } else {
         // ignore: use_build_context_synchronously
         await CoolAlert.show(

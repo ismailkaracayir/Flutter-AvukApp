@@ -5,7 +5,6 @@ import 'package:avukapp/model/declare.dart';
 import 'package:avukapp/viewmodel/declare_view_model.dart';
 import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../constant/constant.dart';
 import '../../constant/hukuk_category.dart';
@@ -344,4 +343,6 @@ class _MyHomePageState extends State<MyHomePage> {
       fontWeight: FontWeight.w500,
     );
   }
+
+  
 }
