@@ -54,6 +54,6 @@ class _PlaceAnAdListState extends State<PlaceAnAdList> {
 
   void _submit() {
     final temp = Provider.of<DeclareViewModel>(context, listen: false);
-    temp.deleteDeclare('R9pTaJtAl3lHZdcVu7mS');
+    temp.getAllDeclare();
   }
 }
