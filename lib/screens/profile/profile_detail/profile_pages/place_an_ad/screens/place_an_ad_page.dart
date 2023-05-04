@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../constant/app_bar_widget.dart';
 import '../../../../../../constant/constant.dart';
+import '../../../../../../constant/hukuk_category.dart';
 import '../../../../../../model/declare.dart';
 
 class PlaceAnAdPage extends StatefulWidget {
@@ -261,7 +262,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
                   width: 400,
                   height: 200,
                   child: GridView.builder(
-                    itemCount: alanCategory.length,
+                    itemCount: hukukAlanlari.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -289,7 +290,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
                           ),
                           child: Center(
                               child: Text(
-                            alanCategory[index],
+                            hukukAlanlari[index],
                           )),
                         ),
                       );
@@ -329,7 +330,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
                       if (selectedClock != -1) {
                         Navigator.pop(
                           context,
-                          alanCategory[selectedClock],
+                          hukukAlanlari[selectedClock],
                         );
                       }
                     },
@@ -385,7 +386,6 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
             autoCloseDuration: const Duration(seconds: 3),
             confirmBtnText: ' ',
             confirmBtnColor: Colors.white);
-             
       } else {
         // ignore: use_build_context_synchronously
         await CoolAlert.show(
@@ -414,12 +414,3 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
     }
   }
 }
-
-List<String> alanCategory = [
-  "Ceza Hukuku",
-  "Kamu Hukuku",
-  "Mal Hukuku",
-  "Ceza Hukuku",
-  "Kamu Hukuku",
-  "Mal Hukuku",
-];

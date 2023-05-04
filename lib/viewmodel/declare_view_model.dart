@@ -36,4 +36,9 @@ class DeclareViewModel extends ChangeNotifier implements DBBaseDeclare {
     return await declareRepository.updateDeclare(
         declareId, declareTitle, declareContent, declareCategory, declarePrice);
   }
+
+  @override
+  Future<List<DeclareModel>> getForIdDeclare(String lawyerId) async {
+    return await declareRepository.getForIdDeclare(lawyerId);
+  }
 }

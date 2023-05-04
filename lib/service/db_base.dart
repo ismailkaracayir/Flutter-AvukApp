@@ -21,6 +21,7 @@ abstract class DBBaseDeclare {
   Future<bool> saveDeclare(DeclareModel declare);
   Future<List<DeclareModel>> getAllDeclare();
   Future<bool> deleteDeclare(String declareId);
-  Future<bool> updateDeclare(String declareId,String declareTitle,String declareContent,String declareCategory,String declarePrice);
-
+  Future<List<DeclareModel>> getForIdDeclare(String lawyerId);
+  Future<bool> updateDeclare(String declareId, String declareTitle,
+      String declareContent, String declareCategory, String declarePrice);
 }
