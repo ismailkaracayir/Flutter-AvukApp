@@ -165,4 +165,17 @@ class FirestoreDbService implements DBBase {
       print('Error updating user profile image URL: $e');
     }
   }
+
+  Future<List<DeclareModel>> getForIdDeclare(String lawyerId) async {
+    QuerySnapshot querySnapshot =
+        await firebaseFirestore.collection('declare').get();
+    List<DeclareModel> allDeclare = [];
+    for (DocumentSnapshot declare in querySnapshot.docs) {
+      DeclareModel oneDeclare = DeclareModel.fromMap(declare.data() as Map);
+      if (oneDeclare.lawyerId == lawyerId) {
+        allDeclare.add(oneDeclare);
+      }
+    }
+    return allDeclare;
+  }
 }

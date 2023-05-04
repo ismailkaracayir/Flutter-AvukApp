@@ -343,6 +343,4 @@ class _MyHomePageState extends State<MyHomePage> {
       fontWeight: FontWeight.w500,
     );
   }
-
-  
 }

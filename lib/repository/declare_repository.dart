@@ -31,4 +31,9 @@ class DeclareRepository implements DBBaseDeclare {
     return await firestoreDbService.updateDeclare(
         declareId, declareTitle, declareContent, declareCategory, declarePrice);
   }
+
+  @override
+  Future<List<DeclareModel>> getForIdDeclare(String lawyerId) async {
+    return await firestoreDbService.getForIdDeclare(lawyerId);
+  }
 }
