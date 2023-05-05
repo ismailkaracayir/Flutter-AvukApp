@@ -1,7 +1,10 @@
 import 'package:avukapp/constant/app_bar_widget.dart';
 import 'package:avukapp/model/declare.dart';
+import 'package:avukapp/viewmodel/declare_view_model.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../constant/constant.dart';
 import '../../../../../../constant/hukuk_category.dart';
@@ -287,5 +290,73 @@ class _IlanDuzenleState extends State<IlanDuzenle> {
       fontSize: textSize,
       fontWeight: FontWeight.w500,
     );
+  }
+
+  Future<void> _updateDeclare(
+      String declareId,
+      String declareTitle,
+      String declareContent,
+      String declareCategory,
+      String declarePrice) async {
+    if (declareTitle == widget.model.declareTitle &&
+        declareContent == widget.model.declareContent &&
+        declareCategory == widget.model.declareCategory &&
+        declarePrice == widget.model.declarePrice) {
+      await CoolAlert.show(
+          backgroundColor: kNavyBlueColor,
+          barrierDismissible: false,
+          title: 'Güncelleme Yapılmadı!!',
+          context: context,
+          type: CoolAlertType.warning,
+          text: 'Lütfen güncellemek istediğiniz alanları değiştiriniz',
+          autoCloseDuration: const Duration(seconds: 2),
+          confirmBtnText: ' ',
+          confirmBtnColor: Colors.white);
+    } else {
+      await CoolAlert.show(
+        backgroundColor: kNavyBlueColor,
+        barrierDismissible: false,
+        title: 'İlan Güncelleniyor...',
+        context: context,
+        type: CoolAlertType.info,
+        text: 'İlanı Güncellemek İstediğinden emin misin?',
+        cancelBtnText: 'Vazgeç',
+        showCancelBtn: true,
+        confirmBtnText: 'Onayla',
+        confirmBtnColor: kNavyBlueColor,
+        onConfirmBtnTap: () async {
+          final declare = Provider.of<DeclareViewModel>(context, listen: false);
+          bool temp = await declare.updateDeclare(declareId, declareTitle,
+              declareContent, declareCategory, declarePrice);
+          if (temp) {
+            // ignore: use_build_context_synchronously
+            await CoolAlert.show(
+                backgroundColor: kNavyBlueColor,
+                barrierDismissible: false,
+                title: 'Güncellendi!!',
+                context: context,
+                type: CoolAlertType.success,
+                text: 'İlan Başarılı bir Şekilde Güncellendi ',
+                autoCloseDuration: const Duration(seconds: 2),
+                confirmBtnText: ' ',
+                confirmBtnColor: Colors.white);
+            // ignore: use_build_context_synchronously
+            Navigator.pop(context);
+          } else {
+            // ignore: use_build_context_synchronously
+            await CoolAlert.show(
+                backgroundColor: kNavyBlueColor,
+                barrierDismissible: false,
+                title: 'Hata!!',
+                context: context,
+                type: CoolAlertType.error,
+                text: 'İlan Güncellenirken Beklenmedik bir Hata oluştu ',
+                autoCloseDuration: const Duration(seconds: 2),
+                confirmBtnText: ' ',
+                confirmBtnColor: Colors.white);
+          }
+        },
+      );
+    }
   }
 }

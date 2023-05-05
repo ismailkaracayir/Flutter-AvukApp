@@ -135,7 +135,7 @@ class _PlaceAnAdListState extends State<PlaceAnAdList> {
 
   Future<void> _showAlert(bool temp) async {
     if (temp) {
-      CoolAlert.show(
+     await CoolAlert.show(
           backgroundColor: kNavyBlueColor,
           barrierDismissible: false,
           title: 'Başarılı!',
