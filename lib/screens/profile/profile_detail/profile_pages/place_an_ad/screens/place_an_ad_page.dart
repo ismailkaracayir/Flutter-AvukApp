@@ -386,6 +386,8 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
             autoCloseDuration: const Duration(seconds: 3),
             confirmBtnText: ' ',
             confirmBtnColor: Colors.white);
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context);
       } else {
         // ignore: use_build_context_synchronously
         await CoolAlert.show(
