@@ -44,56 +44,81 @@ class _IlanDuzenleState extends State<IlanDuzenle> {
       appBar: const CustomAppBar(appTitle: "İlan Düzenle"),
       body: Padding(
         padding: const PagePadding.allNormal(),
-        child: Column(
-          children: [
-            TextFormField(
-              decoration: inputDecoration(
-                hintTextS: "ilan başlığı",
-                labelTextS: "başlık",
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: inputDecoration(
+                  hintTextS: "ilan başlığı",
+                  labelTextS: "başlık",
+                ),
+                controller: ilanBasligiController,
+                textInputAction: TextInputAction.next,
               ),
-              controller: ilanBasligiController,
-              textInputAction: TextInputAction.next,
-            ),
-            SizedBox(height: textfielArasiBosluk),
-            TextFormField(
-              decoration: inputDecoration(
-                hintTextS: "ilan içeriği",
-                labelTextS: "İçerik",
+              SizedBox(height: textfielArasiBosluk),
+              TextFormField(
+                decoration: inputDecoration(
+                  hintTextS: "ilan içeriği",
+                  labelTextS: "İçerik",
+                ),
+                textInputAction: TextInputAction.next,
+                controller: ilanIcerigiController,
               ),
-              textInputAction: TextInputAction.next,
-              controller: ilanIcerigiController,
-            ),
-            SizedBox(height: textfielArasiBosluk),
-            TextFormField(
-              decoration: inputDecoration(
-                hintTextS: "ilan ücreti",
-                labelTextS: "Ücret",
+              SizedBox(height: textfielArasiBosluk),
+              TextFormField(
+                decoration: inputDecoration(
+                  hintTextS: "ilan ücreti",
+                  labelTextS: "Ücret",
+                ),
+                keyboardType: TextInputType.number,
+                controller: ilanUcretController,
               ),
-              keyboardType: TextInputType.number,
-              controller: ilanUcretController,
-            ),
-            SizedBox(height: textfielArasiBosluk),
-            SizedBox(height: textfielArasiBosluk),
-            Text(
-              "Seçili Kategori: ${ilanKategoriController.text}",
-              style: customTextStyle(textSize: 16),
-            ),
-            SizedBox(height: textfielArasiBosluk),
-            Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () async {
-                      // kullanıcı kategori seçmezse null döner
-                      // onun kontrolü yapıldı.
+              SizedBox(height: textfielArasiBosluk),
+              SizedBox(height: textfielArasiBosluk),
+              Text(
+                "Seçili Kategori: ${ilanKategoriController.text}",
+                style: customTextStyle(textSize: 16),
+              ),
+              SizedBox(height: textfielArasiBosluk),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () async {
+                        // kullanıcı kategori seçmezse null döner
+                        // onun kontrolü yapıldı.
 
-                      String? ftrKtgori = await _openSelectCategory(context);
-                      if (ftrKtgori != null) {
-                        ilanKategoriController.text = ftrKtgori;
-                        print(ilanKategoriController.text);
-                      }
-                      setState(() {});
-                    },
+                        String? ftrKtgori = await _openSelectCategory(context);
+                        if (ftrKtgori != null) {
+                          ilanKategoriController.text = ftrKtgori;
+                          print(ilanKategoriController.text);
+                        }
+                        setState(() {});
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: kNavyBlueColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Kategori Seçimi Yap",
+                            style: customTextStyle(
+                              textSize: 16,
+                              colorx: kCreamColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: textfielArasiBosluk),
+              Row(
+                children: [
+                  Expanded(
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
@@ -102,7 +127,7 @@ class _IlanDuzenleState extends State<IlanDuzenle> {
                       ),
                       child: Center(
                         child: Text(
-                          "Kategori Seçimi Yap",
+                          "Vazgeç",
                           style: customTextStyle(
                             textSize: 16,
                             colorx: kCreamColor,
@@ -111,10 +136,29 @@ class _IlanDuzenleState extends State<IlanDuzenle> {
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: kNavyBlueColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Onayla",
+                          style: customTextStyle(
+                            textSize: 16,
+                            colorx: kCreamColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
