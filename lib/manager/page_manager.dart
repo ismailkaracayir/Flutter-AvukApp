@@ -142,19 +142,20 @@ class _MyPageManagerState extends State<MyPageManager> {
                   fit: BoxFit.cover),
             ),
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.receipt_long_outlined,
-              color: Colors.black,
+          if (user.isLawyer == 1)
+            ListTile(
+              leading: const Icon(
+                Icons.receipt_long_outlined,
+                color: Colors.black,
+              ),
+              title: const Text("İlan Ayarları"),
+              onTap: () {
+                pagePushManager.navigatToWidget(
+                  context,
+                  const PlaceAnAdBody(),
+                );
+              },
             ),
-            title: const Text("İlan Ayarları"),
-            onTap: () {
-              pagePushManager.navigatToWidget(
-                context,
-                const PlaceAnAdBody(),
-              );
-            },
-          ),
           ListTile(
             leading: const Icon(
               Icons.edit_notifications_sharp,
