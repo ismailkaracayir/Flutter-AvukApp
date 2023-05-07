@@ -119,18 +119,23 @@ class _IlanDuzenleState extends State<IlanDuzenle> {
               Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: kNavyBlueColor,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Vazgeç",
-                          style: customTextStyle(
-                            textSize: 16,
-                            colorx: kCreamColor,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: kNavyBlueColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Vazgeç",
+                            style: customTextStyle(
+                              textSize: 16,
+                              colorx: kCreamColor,
+                            ),
                           ),
                         ),
                       ),
@@ -138,18 +143,28 @@ class _IlanDuzenleState extends State<IlanDuzenle> {
                   ),
                   const SizedBox(width: 20),
                   Expanded(
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: kNavyBlueColor,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Onayla",
-                          style: customTextStyle(
-                            textSize: 16,
-                            colorx: kCreamColor,
+                    child: GestureDetector(
+                      onTap: () async {
+                        await _updateDeclare(
+                            widget.model.declareId!,
+                            ilanBasligiController.text,
+                            ilanIcerigiController.text,
+                            ilanKategoriController.text,
+                            ilanUcretController.text);
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: kNavyBlueColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Onayla",
+                            style: customTextStyle(
+                              textSize: 16,
+                              colorx: kCreamColor,
+                            ),
                           ),
                         ),
                       ),

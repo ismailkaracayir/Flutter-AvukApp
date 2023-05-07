@@ -39,7 +39,7 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
   @override
   void initState() {
     super.initState();
-
+    allLawyer = [];
     initedChange();
     getAllLawyer();
   }

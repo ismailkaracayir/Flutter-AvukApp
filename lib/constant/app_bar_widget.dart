@@ -34,7 +34,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         color: kCreamColor,
         fontSize: 18,
       ),
-      leading: IconButton(
+      leading: IconButton( 
         icon: const Icon(
           Icons.arrow_back_rounded,
           size: 24,
