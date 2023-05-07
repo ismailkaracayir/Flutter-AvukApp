@@ -17,6 +17,8 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final String logoUrl = "assets/images/justice.svg";
+
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -87,7 +89,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   radius: 50,
                   child: SvgPicture.asset(
-                    'assets/images/justice.svg',
+                    logoUrl,
                   ),
                 ),
               ),
@@ -116,26 +118,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 ////////////////////////////////////////////////////////////////////////////////
                     SingleChildScrollView(
                       child: Container(
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                         child: Form(
                           key: _formKey,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // Container(
-                              //   width: width / 2,
-                              //   height: height / 7,
-                              //   child: Center(
-                              //       child: Text(
-                              //     "Sign Up",
-                              //     style: TextStyle(fontWeight: FontWeight.bold),
-                              //   )),
-                              //   decoration: BoxDecoration(
-                              //       shape: BoxShape.circle,
-                              //       color: kCreamColor,
-                              //       border: Border.all(
-                              //           color: kNavyBlueColor, width: 1)),
-                              // ),
                               SizedBox(
                                 height: height / 90,
                               ),
@@ -144,34 +132,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 children: [
                                   TextFormField(
                                     controller: _nameController,
-                                    decoration: InputDecoration(
-                                      labelText: 'Name',
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0)),
+                                    decoration: inputDecoration(
+                                      labelTextS: "Adınız",
+                                      hintTextS: "Adınızı Girin",
+                                      icon: const Icon(
+                                        Icons.person,
+                                        color: kNavyBlueColor,
+                                      ),
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return 'Please enter your name';
+                                        return 'Lütfen adınızı giriniz';
                                       }
                                       return null;
                                     },
                                   ),
                                   TextFormField(
                                     controller: _emailController,
-                                    decoration: InputDecoration(
-                                      labelText: 'Email',
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                    decoration: inputDecoration(
+                                      labelTextS: "E-Posta",
+                                      hintTextS: "E-Posta Adresiniz",
+                                      icon: const Icon(
+                                        Icons.email,
+                                        color: kNavyBlueColor,
                                       ),
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return 'Please enter your email';
+                                        return 'Lütfen e-posta adresinizi girin';
                                       } else if (!RegExp(r'\S+@\S+\.\S+')
                                           .hasMatch(value)) {
-                                        return 'Please enter a valid email';
+                                        return 'lütfen geçerli bir e-posta girin';
                                       }
                                       return null;
                                     },
@@ -179,28 +170,36 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   TextFormField(
                                     controller: _passwordController,
                                     obscureText: !_passwordVisible,
-                                    decoration: InputDecoration(
-                                        labelText: 'Password',
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                        ),
-                                        suffixIcon: IconButton(
-                                          icon: _passwordVisible
-                                              ? Icon(Icons.visibility)
-                                              : Icon(Icons.visibility_off),
-                                          onPressed: () {
-                                            setState(() {
-                                              _passwordVisible =
-                                                  !_passwordVisible;
-                                            });
-                                          },
-                                        )),
+                                    decoration: inputDecoration(
+                                      hintTextS: "Şifre Girin",
+                                      labelTextS: "Şifre",
+                                      icon: const Icon(
+                                        Icons.password,
+                                        color: kNavyBlueColor,
+                                      ),
+                                      suffuxIcon: IconButton(
+                                        icon: _passwordVisible
+                                            ? const Icon(
+                                                Icons.visibility,
+                                                color: kNavyBlueColor,
+                                              )
+                                            : const Icon(
+                                                Icons.visibility_off,
+                                                color: kNavyBlueColor,
+                                              ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _passwordVisible =
+                                                !_passwordVisible;
+                                          });
+                                        },
+                                      ),
+                                    ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return 'Please enter your password';
+                                        return 'Lütfen şifre girin';
                                       } else if (value.length < 6) {
-                                        return 'Password must be at least 6 characters long';
+                                        return 'Şifre uzunluğu 6 karakterden uzun olmalı';
                                       }
                                       return null;
                                     },
@@ -210,7 +209,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     buttonColor: kNavyBlueColor,
                                     buttonHeight: height / 15,
                                     buttonWeight: width,
-                                    buttonText: 'Sign up',
+                                    buttonText: 'Kayıt Ol',
                                     onPress: () {
                                       _formSubmit(context);
                                     },
@@ -260,22 +259,65 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ],
                 ),
               ),
-              // SocialButtonWidget(
-              //   buttonText: "Mail ile kayıt ol",
-              //   buttonIcon: Icon(MdiIcons.gmail),
-              //   buttonHeight: height / 15,
-              //   onPress: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) => RegisterWithMailScreen()),
-              //     );
-              //   },
-              //   buttonWidth: width,
-              // ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  InputDecoration inputDecoration({
+    required String hintTextS,
+    required String labelTextS,
+    required Widget icon,
+    Widget suffuxIcon = const SizedBox(),
+  }) {
+    return InputDecoration(
+      hintText: hintTextS,
+      prefixIcon: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: icon,
+      ),
+      suffixIcon: suffuxIcon,
+      labelText: labelTextS,
+      labelStyle: const TextStyle(
+        color: kNavyBlueColor,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(
+          width: 2,
+          color: kNavyBlueColor,
+        ),
+        gapPadding: 10,
+      ),
+      errorStyle: const TextStyle(
+        color: kWineRedColor,
+        decoration: TextDecoration.underline,
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(
+          color: kNavyBlueColor,
+          width: 1.5,
+        ),
+        gapPadding: 10,
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(
+          color: kNavyBlueColor,
+          width: 1.5,
+        ),
+        gapPadding: 10,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(
+          color: kNavyBlueColor,
+          width: 1.5,
+        ),
+        gapPadding: 16,
       ),
     );
   }
