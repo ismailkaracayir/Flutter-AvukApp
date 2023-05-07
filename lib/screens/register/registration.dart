@@ -145,7 +145,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   TextFormField(
                                     controller: _nameController,
                                     decoration: InputDecoration(
-                                      labelText: 'Name',
+                                      labelText: 'İsim',
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10.0)),
@@ -160,7 +160,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   TextFormField(
                                     controller: _emailController,
                                     decoration: InputDecoration(
-                                      labelText: 'Email',
+                                      labelText: 'E-posta',
                                       border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
@@ -180,7 +180,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     controller: _passwordController,
                                     obscureText: !_passwordVisible,
                                     decoration: InputDecoration(
-                                        labelText: 'Password',
+                                        labelText: 'Şifre',
                                         border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10.0),
@@ -210,7 +210,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     buttonColor: kNavyBlueColor,
                                     buttonHeight: height / 15,
                                     buttonWeight: width,
-                                    buttonText: 'Sign up',
+                                    buttonText: 'Kayıt Ol',
                                     onPress: () {
                                       _formSubmit(context);
                                     },

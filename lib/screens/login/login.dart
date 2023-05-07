@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             child: const Center(
                 child: Text(
-              "Login",
+              "Giriş Yap",
               style: TextStyle(fontWeight: FontWeight.bold),
             )),
           ),
@@ -66,15 +66,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       controller: emailController,
                       decoration: InputDecoration(
-                        labelText: 'Email',
+                        labelText: 'E-posta',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please enter your email';
+                          return 'Lütfen e-postanızı girin';
                         } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                          return 'Please enter a valid email';
+                          return 'Lütfen geçerli bir e-posta girin';
                         }
                         return null;
                       },
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       controller: passwordController,
                       decoration: InputDecoration(
-                          labelText: 'Password',
+                          labelText: 'Şifre',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0)),
                           suffixIcon: IconButton(
@@ -101,9 +101,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: !_passwordVisible,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please enter your password';
+                          return 'Lütfen şifrenizi girin';
                         } else if (value.length < 6) {
-                          return 'Password must be at least 6 characters long';
+                          return 'Şifre en az 6 karakterden oluşmalı';
                         }
                         return null;
                       },
@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 10,
                     ),
                     PressButtonWidget(
-                      buttonText: 'Login',
+                      buttonText: 'Giriş',
                       onPress: () {
                         userLogin();
                         //login();
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 10),
                     SocialButtonWidget(
-                      buttonText: "Login with Google",
+                      buttonText: "Google ile giriş yap",
                       buttonIcon: const Icon(
                         MdiIcons.googlePlus,
                         color: kWhiteColor,
@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       buttonWidth: width,
                     ),
                     SocialButtonWidget(
-                      buttonText: "Login with phone",
+                      buttonText: "Telefon ile giriş yap",
                       buttonIcon: const Icon(
                         MdiIcons.phone,
                         color: kWhiteColor,
@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: const [
                           Text(
-                            "Register",
+                            "Kayıt Ol",
                             style: TextStyle(
                               color: kWineRedColor,
                             ),
@@ -205,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.of(context).pop();
                     },
                     child: Text(
-                      "Close",
+                      "Kapat",
                     ))
               ],
               title: const Text("Hata!"),
