@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../viewmodel/foto_secici_view_model.dart';
@@ -50,10 +49,7 @@ class _LawyerProfilePageState extends State<LawyerProfilePage> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<UserViewModel>(context, listen: false);
-        var lawyer = Provider.of<LawyerViewModel>(context, listen: false);
-
-
-   
+    var lawyer = Provider.of<LawyerViewModel>(context, listen: false);
 
     if (user.user!.isLawyer == 1) {
       _baroNumberController.text = lawyer.lawyer!.lawyerBaroNumber;

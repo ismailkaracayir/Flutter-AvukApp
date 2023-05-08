@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers, avoid_print
+
 import 'package:avukapp/model/declare.dart';
 import 'package:avukapp/model/lawyer.dart';
 import 'package:avukapp/model/user.dart';

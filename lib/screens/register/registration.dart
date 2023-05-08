@@ -221,10 +221,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 child: MaterialButton(
                                   onPressed: () {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                LoginScreen()));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginScreen(),
+                                      ),
+                                    );
                                   },
                                   child: const Text(
                                     'Oturum aç',

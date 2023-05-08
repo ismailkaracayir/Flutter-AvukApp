@@ -253,8 +253,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text(
-                      "Close",
+                    child: const Text(
+                      "Kapat",
                     ))
               ],
               title: const Text("Hata!"),
@@ -273,7 +273,7 @@ class _LoginScreenState extends State<LoginScreen> {
         debugPrint('EMAİL İLE GİRİŞ YAPMA BAŞARILI');
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => LandingPage(),
+            builder: (context) => const LandingPage(),
           ),
         );
       } catch (e) {

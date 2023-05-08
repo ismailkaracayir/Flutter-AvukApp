@@ -34,7 +34,7 @@ class LawyerRegisterPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
+              SizedBox(
                 width: 140,
                 height: 140,
                 child: SvgPicture.asset(
@@ -120,8 +120,9 @@ class LawyerRegisterPage extends StatelessWidget {
           await userModel.createWithLawyerAndUserEmailAndPass(
               emailController.text,
               passwordController.text,
-              ('${nameController.text} ${surnameController.text}'),baroNumberController.text);
-              
+              ('${nameController.text} ${surnameController.text}'),
+              baroNumberController.text);
+
       debugPrint('EMAİL İLE KAYIT OLMA BAŞARILI');
       // ignore: use_build_context_synchronously
       await CoolAlert.show(
@@ -136,7 +137,7 @@ class LawyerRegisterPage extends StatelessWidget {
           confirmBtnColor: Colors.white);
       // ignore: use_build_context_synchronously
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => LandingPage(),
+        builder: (context) => const LandingPage(),
       ));
     } catch (e) {
       debugPrint('register işleminde hata : ${e.toString()}');
