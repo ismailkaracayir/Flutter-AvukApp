@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
 
 Widget get dividerWidget => SizedBox(
@@ -106,19 +108,19 @@ SizedBox passwordSizedboxAndTextForm(TextEditingController _passwordController,
       controller: _passwordController,
       textAlign: TextAlign.center,
       obscureText: !_passwordVisible,
-      style: TextStyle(
+      style: const TextStyle(
           fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueGrey),
       decoration: InputDecoration(
         suffixIcon: editmood
             ? IconButton(
                 icon: _passwordVisible
-                    ? Icon(Icons.visibility)
-                    : Icon(Icons.visibility_off),
+                    ? const Icon(Icons.visibility)
+                    : const Icon(Icons.visibility_off),
                 onPressed: (() {
                   setstatePassword();
                 }),
               )
-            : SizedBox(),
+            : const SizedBox(),
       ),
       validator: (value) {
         if (value!.isEmpty) {

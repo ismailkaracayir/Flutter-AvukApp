@@ -46,7 +46,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
             child: ListBody(
               children: [
                 GestureDetector(
-                  child: Text('Galeriden Seç'),
                   onTap: (() async {
                     await _fotoViewModel.fromGallery(id);
                     if (_fotoViewModel.secilenFoto != null) {
@@ -55,6 +54,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       });
                     }
                   }),
+                  child: const Text('Galeriden Seç'),
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(
@@ -142,11 +142,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     nameText(_userName),
                     sizedBoxWidget(60),
                     textWidget("E-POSTA ADRESİ"),
-                    SizedBox(
+                    const SizedBox(
                       height: 2,
                     ),
                     mailSizedboxAndTextForm(_emailController, editMood),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     textWidget("HAKKINDA"),
@@ -190,7 +190,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                       user.user!.userID!, fileToUpload);
                                   debugPrint("profil guncelledi");*/
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     "Kaydet",
                                     style: TextStyle(
                                         color: Colors.grey,
@@ -201,7 +201,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               ),
                             ],
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                   ],
                 ),
               ),

@@ -1,10 +1,15 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../../../constant/app_bar_widget.dart';
 import '../../../../../manager/navigator_manager.dart';
+import '../../../../../model/lawyer.dart';
+import '../../../../../viewmodel/lawyer_view_model.dart';
+import '../../../../../viewmodel/user_view_model.dart';
 import '../../../../../widgets/my_custom_list_tile.dart';
 import 'screens/place_an_ad_list_page.dart';
 import 'screens/place_an_ad_page.dart';
-import 'screens/place_an_ad_settings_page.dart';
 
 class PlaceAnAdBody extends StatefulWidget {
   const PlaceAnAdBody({super.key});
@@ -14,9 +19,38 @@ class PlaceAnAdBody extends StatefulWidget {
 }
 
 class _PlaceAnAdBodyState extends State<PlaceAnAdBody> {
-  final String _editIcon = "assets/icons/profile_design.svg";
+  bool showAlert = false;
+  bool disableButton = true;
+
   final String _shareIcon = "assets/icons/share.svg";
   final String _listIcon = "assets/icons/list.svg";
+
+  Future<void> controlIsLayerAndOk() async {
+    final userProvider = Provider.of<UserViewModel>(context, listen: false);
+    final lawyerProvider = Provider.of<LawyerViewModel>(context, listen: false);
+
+    if (userProvider.user != null && userProvider.user!.isLawyer == 1) {
+      print("user nul değil ve avukat okey");
+
+      LawyerModel model = await lawyerProvider.readLawyer(
+        userProvider.user!.userID!,
+      );
+
+      if (model.isActive == true) {
+        print("avukat onaylandı");
+
+        showAlert = true;
+        disableButton = false;
+        setState(() {});
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controlIsLayerAndOk();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,48 +58,64 @@ class _PlaceAnAdBodyState extends State<PlaceAnAdBody> {
       appBar: const CustomAppBar(appTitle: "İlan Ayarları"),
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: 20,
+          vertical: 10,
           horizontal: 20,
         ),
         child: Column(
           children: [
+            if (showAlert == false)
+              Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Colors.red.shade500,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Avukat onaylama sürecinde....",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const SizedBox(height: 10),
+                ],
+              ),
             GestureDetector(
+              onTap: disableButton == false
+                  ? () {
+                      NavigatorManager().navigatToWidget(
+                        context,
+                        const PlaceAnAdPage(),
+                      );
+                    }
+                  : null,
               child: MyCustomListTileWidget(
                 backgroundUrl: _shareIcon,
                 titleName: "İlan Ver",
               ),
-              onTap: () {
-                NavigatorManager().navigatToWidget(
-                  context,
-                  const PlaceAnAdPage(),
-                );
-              },
             ),
-            // const SizedBox(height: 10),
-            // GestureDetector(
-            //   child: MyCustomListTileWidget(
-            //     backgroundUrl: _editIcon,
-            //     titleName: "İlan Düzenle",
-            //   ),
-            //   onTap: () {
-            //     NavigatorManager().navigatToWidget(
-            //       context,
-            //       const PlaceAnAdSettings(),
-            //     );
-            //   },
-            // ),
             const SizedBox(height: 10),
             GestureDetector(
+              onTap: disableButton == false
+                  ? () {
+                      NavigatorManager().navigatToWidget(
+                        context,
+                        const PlaceAnAdList(),
+                      );
+                    }
+                  : null,
               child: MyCustomListTileWidget(
                 backgroundUrl: _listIcon,
                 titleName: "İlanlarım",
               ),
-              onTap: () {
-                NavigatorManager().navigatToWidget(
-                  context,
-                  const PlaceAnAdList(),
-                );
-              },
             ),
             const SizedBox(height: 10),
           ],

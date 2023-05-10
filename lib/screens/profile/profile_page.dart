@@ -25,9 +25,12 @@ class _MyUserProfilePageState extends State<MyUserProfilePage> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserViewModel>(context, listen: false);
     isLawyer = user.user!.isLawyer!;
-    return Scaffold(
-        body: isLawyer == 1
-            ? const LawyerProfilePage()
-            : const UserProfilePage());
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+          body: isLawyer == 1
+              ? const LawyerProfilePage()
+              : const UserProfilePage()),
+    );
   }
 }

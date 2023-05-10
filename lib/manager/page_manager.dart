@@ -8,7 +8,6 @@ import '../screens/login/login.dart';
 import '../screens/message/message_page.dart';
 import '../screens/notification/notification_page.dart';
 import '../screens/profile/profile_detail/about_detail/about.dart';
-import '../screens/profile/profile_detail/language_detail/language_settings.dart';
 import '../screens/profile/profile_detail/notification_detail/notification.dart';
 import '../screens/profile/profile_detail/profile_pages/place_an_ad/place_an_ad_body.dart';
 import '../screens/profile/profile_detail/terms_conditions_detail/terms_conditions.dart';
@@ -18,7 +17,7 @@ import 'navigator_manager.dart';
 
 // ignore: must_be_immutable
 class MyPageManager extends StatefulWidget {
-  MyPageManager({super.key});
+  const MyPageManager({super.key});
 
   @override
   State<MyPageManager> createState() => _MyPageManagerState();
@@ -70,11 +69,6 @@ class _MyPageManagerState extends State<MyPageManager> {
         toolbarHeight: 70,
         title: Text(
           getAppName(selectinIndex),
-          // style: const TextStyle(
-          //   fontSize: 24,
-          //   fontWeight: FontWeight.bold,
-          //   color: kCreamColor,
-          // ),
           style: GoogleFonts.cutiveMono(
             color: kCreamColor,
             fontSize: 26,
@@ -143,137 +137,242 @@ class _MyPageManagerState extends State<MyPageManager> {
             ),
           ),
           if (user.isLawyer == 1)
-            ListTile(
-              leading: const Icon(
-                Icons.receipt_long_outlined,
-                color: Colors.black,
-              ),
-              title: const Text("İlan Ayarları"),
-              onTap: () {
-                pagePushManager.navigatToWidget(
-                  context,
-                  const PlaceAnAdBody(),
-                );
-              },
-            ),
-          ListTile(
-            leading: const Icon(
-              Icons.edit_notifications_sharp,
-              color: Colors.black,
-            ),
-            title: const Text("Bildirim Ayarları"),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationPage(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: kNavyBlueColor,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.language,
-              color: Colors.black,
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.receipt_long_outlined,
+                    color: kCreamColor,
+                    size: 26,
+                  ),
+                  title: const Text(
+                    "İlan Ayarları",
+                    style: TextStyle(
+                      color: kCreamColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  onTap: () {
+                    pagePushManager.navigatToWidget(
+                      context,
+                      const PlaceAnAdBody(),
+                    );
+                  },
+                ),
+              ),
             ),
-            title: const Text("Dil Ayarları"),
-            onTap: () {
-              pagePushManager.navigatToWidget(
-                context,
-                const LanguageSettingsPage(),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.account_box_outlined,
-              color: Colors.black,
-            ),
-            title: const Text("Hakkında"),
-            onTap: () {
-              pagePushManager.navigatToWidget(
-                context,
-                const AboutPage(),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.rule_folder,
-              color: Colors.black,
-            ),
-            title: const Text("Şartlar & Koşullar"),
-            onTap: () {
-              pagePushManager.navigatToWidget(
-                context,
-                const TermsConditionsPage(),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-            title: const Text("Settings"),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.exit_to_app,
-              color: Colors.black,
-            ),
-            title: const Text("Exit"),
-            onTap: () async {
-              // showExitPopup(context);
-              await showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: SizedBox(
-                      height: 90,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text("Do you want to exit?"),
-                          const SizedBox(height: 20),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    userViewModel.singOut();
-                                  },
-                                  style: ElevatedButton.styleFrom(),
-                                  child: const Text("Yes"),
-                                ),
-                              ),
-                              const SizedBox(width: 15),
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    print('no selected');
-                                    Navigator.of(context).pop();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      //primary: ColorConstants.instance.flower,
-                                      ),
-                                  child: const Text(
-                                    "No",
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: kNavyBlueColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ListTile(
+                leading: const Icon(
+                  Icons.edit_notifications_sharp,
+                  color: kCreamColor,
+                ),
+                title: const Text(
+                  "Bildirim Ayarları",
+                  style: TextStyle(
+                    color: kCreamColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationPage(),
                     ),
                   );
                 },
-              );
-            },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: kNavyBlueColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ListTile(
+                leading: const Icon(
+                  Icons.people,
+                  color: kCreamColor,
+                ),
+                title: const Text(
+                  "Hakkında",
+                  style: TextStyle(
+                    color: kCreamColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                onTap: () {
+                  pagePushManager.navigatToWidget(
+                    context,
+                    const AboutPage(),
+                  );
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: kNavyBlueColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ListTile(
+                leading: const Icon(
+                  Icons.terminal_sharp,
+                  color: kCreamColor,
+                ),
+                title: const Text(
+                  "Şartlar & Koşullar",
+                  style: TextStyle(
+                    color: kCreamColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                onTap: () {
+                  pagePushManager.navigatToWidget(
+                    context,
+                    const TermsConditionsPage(),
+                  );
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: kNavyBlueColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ListTile(
+                leading: const Icon(
+                  Icons.settings,
+                  color: kCreamColor,
+                ),
+                title: const Text(
+                  "Ayarlar",
+                  style: TextStyle(
+                    color: kCreamColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationPage(),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: kNavyBlueColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ListTile(
+                leading: const Icon(
+                  Icons.exit_to_app,
+                  color: kCreamColor,
+                ),
+                title: const Text(
+                  "Çıkış",
+                  style: TextStyle(
+                    color: kCreamColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                onTap: () async {
+                  await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: SizedBox(
+                          height: 90,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Çıkış Yapmak istiyor musun?",
+                                style: TextStyle(
+                                  color: kNavyBlueColor,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        userViewModel.singOut();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: kNavyBlueColor,
+                                      ),
+                                      child: const Text(
+                                        "Evet",
+                                        style: TextStyle(
+                                          color: kCreamColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 15),
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: kNavyBlueColor,
+                                      ),
+                                      child: const Text(
+                                        "Hayır",
+                                        style: TextStyle(
+                                          color: kCreamColor,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),
@@ -414,61 +513,6 @@ class _MyPageManagerState extends State<MyPageManager> {
           ),
         ),
       ),
-    );
-  }
-
-  Future showExitPopup(context) async {
-    return await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: SizedBox(
-            height: 90,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text("Do you want to exit?"),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          print('yes selected');
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(),
-                        child: const Text("Yes"),
-                      ),
-                    ),
-                    const SizedBox(width: 15),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          print('no selected');
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                            //primary: ColorConstants.instance.flower,
-                            ),
-                        child: const Text(
-                          "No",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }

@@ -35,7 +35,8 @@ class _PlaceAnAdListState extends State<PlaceAnAdList> {
     declareList = await declare.getForIdDeclare(lawyer.user!.userID!);
 
     for (var i = 0; i < declareList.length; i++) {
-      print("$i declare");
+      // ignore: avoid_print
+      print("$i nolu ilan");
     }
   }
 

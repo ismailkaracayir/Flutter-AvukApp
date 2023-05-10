@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:avukapp/viewmodel/declare_view_model.dart';
 import 'package:avukapp/viewmodel/user_view_model.dart';
 import 'package:cool_alert/cool_alert.dart';
@@ -84,7 +86,6 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
                         String? ftrKtgori = await _openSelectCategory(context);
                         if (ftrKtgori != null) {
                           ilanKategoriController.text = ftrKtgori;
-                          print(ilanKategoriController.text);
                         }
                       },
                       child: Container(

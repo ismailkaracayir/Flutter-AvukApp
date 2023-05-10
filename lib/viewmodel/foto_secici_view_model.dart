@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 import 'package:avukapp/service/firestore_db.dart';
 import 'package:firebase_storage/firebase_storage.dart';

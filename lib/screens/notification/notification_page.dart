@@ -12,10 +12,13 @@ class MyNotificationPage extends StatefulWidget {
 class _MyNotificationPageState extends State<MyNotificationPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const PagePadding.allNormal(),
-        child: Column(children: const [Text("Notification")]),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: Padding(
+          padding: const PagePadding.allNormal(),
+          child: Column(children: const [Text("Notification")]),
+        ),
       ),
     );
   }

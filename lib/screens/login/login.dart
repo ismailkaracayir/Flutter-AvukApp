@@ -35,8 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      resizeToAvoidBottomInset:
-          false, //textfielda basıldıgında ekranın tamamının yukarıya doğru sıkışmasını engeller
+      resizeToAvoidBottomInset: false,
+      //textfielda basıldıgında ekranın tamamının yukarıya doğru sıkışmasını engeller
 
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             child: const Center(
                 child: Text(
-              "Giriş Yap",
+              "Login",
               style: TextStyle(fontWeight: FontWeight.bold),
             )),
           ),
@@ -65,16 +65,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: <Widget>[
                     TextFormField(
                       controller: emailController,
-                      decoration: InputDecoration(
-                        labelText: 'E-posta',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: inputDecoration(
+                        labelTextS: "E-posta",
+                        hintTextS: "",
+                        icon: const Icon(
+                          Icons.email,
+                        ),
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Lütfen e-postanızı girin';
+                          return 'E-posta adresinizi giriniz';
                         } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                          return 'Lütfen geçerli bir e-posta girin';
+                          return 'Geçerli bir e-posta giriniz';
                         }
                         return null;
                       },
@@ -84,35 +88,38 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextFormField(
                       controller: passwordController,
-                      decoration: InputDecoration(
-                          labelText: 'Şifre',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          suffixIcon: IconButton(
-                            icon: _passwordVisible
-                                ? const Icon(Icons.visibility)
-                                : const Icon(Icons.visibility_off),
-                            onPressed: () {
-                              setState(() {
-                                _passwordVisible = !_passwordVisible;
-                              });
-                            },
-                          )),
+                      decoration: inputDecoration(
+                        labelTextS: "Şifre",
+                        hintTextS: "",
+                        icon: const Icon(
+                          Icons.password,
+                        ),
+                        suffuxIcon: IconButton(
+                          icon: _passwordVisible
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                        ),
+                      ),
                       obscureText: !_passwordVisible,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Lütfen şifrenizi girin';
+                          return 'Lütfen şifre giriniz';
                         } else if (value.length < 6) {
-                          return 'Şifre en az 6 karakterden oluşmalı';
+                          return 'Şifre 6 karakterden büyük olmalı';
                         }
                         return null;
                       },
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 30,
                     ),
                     PressButtonWidget(
-                      buttonText: 'Giriş',
+                      buttonText: 'Giriş Yap',
                       onPress: () {
                         userLogin();
                         //login();
@@ -124,30 +131,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 10),
                     SocialButtonWidget(
-                      buttonText: "Google ile giriş yap",
+                      buttonText: "Google ile Giriş Yap",
                       buttonIcon: const Icon(
                         MdiIcons.googlePlus,
                         color: kWhiteColor,
                       ),
                       onPress: () {
                         singInWithGoogle();
-                      },
-                      buttonHeight: 40,
-                      buttonWidth: width,
-                    ),
-                    SocialButtonWidget(
-                      buttonText: "Telefon ile giriş yap",
-                      buttonIcon: const Icon(
-                        MdiIcons.phone,
-                        color: kWhiteColor,
-                      ),
-                      onPress: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const LoginWithPhoneScreen(),
-                            ));
                       },
                       buttonHeight: 40,
                       buttonWidth: width,
@@ -167,7 +157,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(
                             "Kayıt Ol",
                             style: TextStyle(
-                              color: kWineRedColor,
+                              color: kNavyBlueColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
@@ -179,9 +171,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             .navigatToWidget(context, const AdminLoginPage());
                       },
                       child: const Text(
-                        "Admin Giriş",
+                        "Yönetici Giriş",
                         style: TextStyle(
                           color: kNavyBlueColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     )
@@ -195,6 +189,59 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  InputDecoration inputDecoration({
+    required String hintTextS,
+    required String labelTextS,
+    required Widget icon,
+    Widget suffuxIcon = const SizedBox(),
+  }) {
+    return InputDecoration(
+      hintText: hintTextS,
+      prefixIcon: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: icon,
+      ),
+      suffixIcon: suffuxIcon,
+      labelText: labelTextS,
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(
+          width: 2,
+          color: kNavyBlueColor,
+        ),
+        gapPadding: 10,
+      ),
+      errorStyle: const TextStyle(
+        color: kWineRedColor,
+        decoration: TextDecoration.underline,
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(
+          color: kNavyBlueColor,
+          width: 1.5,
+        ),
+        gapPadding: 10,
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(
+          color: kNavyBlueColor,
+          width: 1.5,
+        ),
+        gapPadding: 10,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(
+          color: kNavyBlueColor,
+          width: 1.5,
+        ),
+        gapPadding: 20,
+      ),
+    );
+  }
+
   Future<dynamic> showError(String message) {
     return showDialog(
         context: context,
@@ -204,7 +251,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text(
+                    child: const Text(
                       "Kapat",
                     ))
               ],
@@ -224,7 +271,7 @@ class _LoginScreenState extends State<LoginScreen> {
         debugPrint('EMAİL İLE GİRİŞ YAPMA BAŞARILI');
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => LandingPage(),
+            builder: (context) => const LandingPage(),
           ),
         );
       } catch (e) {

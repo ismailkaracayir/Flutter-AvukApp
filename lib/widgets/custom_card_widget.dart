@@ -95,11 +95,20 @@ class CustomCardWidget extends StatelessWidget {
                           const SizedBox(height: 12),
                           SizedBox(
                             width: double.infinity,
-                            child: Text(
-                              moodel.declareDate.toString().split(' ')[0],
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: newTextStyleMethod(textSize: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  moodel.declareDate.toString().split(' ')[0],
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: newTextStyleMethod(textSize: 16),
+                                ),
+                                Text(
+                                  "${moodel.declarePrice} Tl",
+                                  style: newTextStyleMethod(textSize: 16),
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(

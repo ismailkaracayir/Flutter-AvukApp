@@ -91,7 +91,6 @@ class _IlanDuzenleState extends State<IlanDuzenle> {
                         String? ftrKtgori = await _openSelectCategory(context);
                         if (ftrKtgori != null) {
                           ilanKategoriController.text = ftrKtgori;
-                          print(ilanKategoriController.text);
                         }
                         setState(() {});
                       },
