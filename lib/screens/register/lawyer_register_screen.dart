@@ -46,13 +46,13 @@ class LawyerRegisterPage extends StatelessWidget {
                 children: [
                   TextFormField(
                     controller: nameController,
-                    decoration: inputDecoration(lblText: "Adınızı Girin"),
+                    decoration: inputDecoration(lblText: "Adı"),
                     textInputAction: TextInputAction.next,
                   ),
                   TextFormField(
                     controller: surnameController,
                     textInputAction: TextInputAction.next,
-                    decoration: inputDecoration(lblText: "Soyadınızı Girin"),
+                    decoration: inputDecoration(lblText: "Soyadı"),
                   ),
                   TextFormField(
                     controller: baroNumberController,
@@ -62,17 +62,17 @@ class LawyerRegisterPage extends StatelessWidget {
                   TextFormField(
                     controller: emailController,
                     textInputAction: TextInputAction.next,
-                    decoration: inputDecoration(lblText: "E-postanızı girin"),
+                    decoration: inputDecoration(lblText: "E-posta"),
                   ),
                   TextFormField(
                     controller: passwordController,
                     textInputAction: TextInputAction.next,
                     obscureText: true,
-                    decoration: inputDecoration(lblText: "Şifrenizi Girin"),
+                    decoration: inputDecoration(lblText: "Şifre"),
                   ),
                   const SizedBox(height: 16.0),
                   PressButtonWidget(
-                    buttonText: "Register",
+                    buttonText: "Kayıt Ol",
                     buttonColor: kNavyBlueColor,
                     textColor: kWhiteColor,
                     buttonHeight: height / 20,

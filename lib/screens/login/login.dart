@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/user.dart';
