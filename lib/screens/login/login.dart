@@ -1,7 +1,6 @@
 import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/user.dart';
-import 'package:avukapp/screens/login/login_with_phone.dart';
 import 'package:avukapp/screens/register/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -271,7 +270,7 @@ class _LoginScreenState extends State<LoginScreen> {
         debugPrint('EMAİL İLE GİRİŞ YAPMA BAŞARILI');
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const LandingPage(),
+            builder: (context) =>  LandingPage(),
           ),
         );
       } catch (e) {

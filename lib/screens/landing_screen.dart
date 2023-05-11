@@ -7,7 +7,8 @@ import '../viewmodel/user_view_model.dart';
 
 // BU SAYFA YÖNLENDİRME SAYFASI , OTURUM AÇAN YADA KAYIT OLAN KULLANICIYI YÖNLENDİRİR
 class LandingPage extends StatelessWidget {
-  const LandingPage({super.key});
+ 
+  LandingPage({ super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class LandingPage extends StatelessWidget {
 
     if (_usermodel.state == ViewState.Idle) {
       if (_usermodel.user != null) {
-        return const MyPageManager();
+        return MyPageManager();
       } else {
         return const LoginScreen();
       }
