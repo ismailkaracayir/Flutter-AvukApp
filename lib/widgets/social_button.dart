@@ -85,7 +85,7 @@ class PressButtonWidget extends StatelessWidget {
         child: Text(
           buttonText,
           style: TextStyle(
-              color: textColor, fontSize: 14, fontWeight: FontWeight.bold),
+              color: textColor, fontSize: 12, fontWeight: FontWeight.bold),
         ));
   }
 }
@@ -125,7 +125,7 @@ class WhiteSmallPressButton extends StatelessWidget {
           child: Text(
             buttonText,
             style: TextStyle(
-                color: textColor, fontSize: 8, fontWeight: FontWeight.bold),
+                color: textColor, fontSize: 14, fontWeight: FontWeight.bold),
           )),
     );
   }

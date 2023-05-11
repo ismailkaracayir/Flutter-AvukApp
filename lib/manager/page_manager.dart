@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../constant/constant.dart';
 import '../screens/home/home_page.dart';
-import '../screens/login/login.dart';
 import '../screens/message/message_page.dart';
 import '../screens/notification/notification_page.dart';
 import '../screens/profile/profile_detail/about_detail/about.dart';
@@ -95,7 +94,7 @@ class _MyPageManagerState extends State<MyPageManager> {
           MyHomePage(),
           MyMessagePage(),
           MyNotificationPage(),
-          MyUserProfilePage(),
+          ProfilePage(),
         ],
       ),
       bottomNavigationBar: homeBottomBar(myPage),
