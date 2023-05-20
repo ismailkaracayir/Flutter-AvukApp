@@ -34,6 +34,7 @@ dependencies:
   cool_alert: ^2.0.1
   firebase_storage: ^11.1.0
   fluttertoast: ^8.2.1
+  lottie: ^2.3.2
 
 
 dev_dependencies:

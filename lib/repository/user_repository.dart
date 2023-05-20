@@ -13,18 +13,17 @@ class UserRepository implements AuthBase {
   @override
   Future<UserModel> createWithUserEmailAndPass(
       String email, String pass, String userName) async {
-      UserModel user = await fireBaseAuthService.createWithUserEmailAndPass(
-          email, pass, userName);
-      user.userName = userName;
-      await firestoreDbService.saveUser(user); // veritabanı kayıt yapan
-      return await firestoreDbService.readUser(user.userID!);
-    
+    UserModel user = await fireBaseAuthService.createWithUserEmailAndPass(
+        email, pass, userName);
+    user.userName = userName;
+    await firestoreDbService.saveUser(user); // veritabanı kayıt yapan
+    return await firestoreDbService.readUser(user.userID!);
   }
 
   @override
   Future<UserModel> currentUser() async {
     UserModel user = await fireBaseAuthService.currentUser();
-    
+
     return await firestoreDbService.readUser(user.userID!);
   }
 
@@ -59,20 +58,17 @@ class UserRepository implements AuthBase {
   @override
   Future<UserModel> createWithLawyerAndUserEmailAndPass(
       String email, String pass, String userName, String baroNumber) async {
-    
-      UserModel user =
-          await fireBaseAuthService.createWithLawyerAndUserEmailAndPass(
-              email, pass, userName, baroNumber);
-      user.userName = userName;
-      user.isLawyer = 1;
-      await firestoreDbService.saveUser(user);
-      await firestoreDbService.saveLawyer(LawyerModel(
-          lawyerID: user.userID!,
-          email: user.email!,
-          lawyerBaroNumber: baroNumber,
-          userName: user.userName));
-      return await firestoreDbService.readUser(user.userID!);
-    
+    UserModel user = await fireBaseAuthService
+        .createWithLawyerAndUserEmailAndPass(email, pass, userName, baroNumber);
+    user.userName = userName;
+    user.isLawyer = 1;
+    await firestoreDbService.saveUser(user);
+    await firestoreDbService.saveLawyer(LawyerModel(
+        lawyerID: user.userID!,
+        email: user.email!,
+        lawyerBaroNumber: baroNumber,
+        userName: user.userName));
+    return await firestoreDbService.readUser(user.userID!);
   }
 
   Future<List<UserModel>> getAllUser() async {
@@ -94,5 +90,10 @@ class UserRepository implements AuthBase {
   @override
   Future<bool> changeEmailAuthPass(String oldPass, String newPass) async {
     return await fireBaseAuthService.changeEmailAuthPass(oldPass, newPass);
+  }
+
+  @override
+  Future<void> forgotPassword(String forgotEmail) async {
+    await fireBaseAuthService.forgotPassword(forgotEmail);
   }
 }
