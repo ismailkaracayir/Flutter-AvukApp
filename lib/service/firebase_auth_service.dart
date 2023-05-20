@@ -94,6 +94,17 @@ class FireBaseAuthService implements AuthBase {
     });
     return temp;
   }
+
+  @override
+  Future<void> forgotPassword(String forgotEmail) async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: forgotEmail)
+          .then((value) => {debugPrint("Email gönderildi!!")});
+    } on FirebaseAuthException catch (e) {
+      debugPrint("Error $e");
+    }
+  }
 }
 
 UserModel _userModelFromFirebase(User? user) {

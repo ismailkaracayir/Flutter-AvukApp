@@ -72,7 +72,7 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
       _user = await _userRepository.createWithUserEmailAndPass(
           email, pass, userName);
       return _user!;
-    }  finally {
+    } finally {
       state = ViewState.Idle;
     }
   }
@@ -115,7 +115,7 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
       _user = await _userRepository.createWithLawyerAndUserEmailAndPass(
           email, pass, userName, baroNumber);
       return _user!;
-    }  finally {
+    } finally {
       state = ViewState.Idle;
     }
   }
@@ -146,5 +146,18 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
   @override
   Future<bool> changeEmailAuthPass(String oldPass, String newPass) async {
     return await _userRepository.changeEmailAuthPass(oldPass, newPass);
+  }
+
+  @override
+  Future<void> forgotPassword(String forgotEmail) async {
+    try {
+      state = ViewState.Busy;
+      await _userRepository.forgotPassword(forgotEmail);
+      debugPrint("Şifre sıfırlama e-postası gönderildi");
+    } catch (e) {
+      debugPrint("Şifre sıfırlama işleminde hata oluştu: $e");
+    } finally {
+      state = ViewState.Idle;
+    }
   }
 }

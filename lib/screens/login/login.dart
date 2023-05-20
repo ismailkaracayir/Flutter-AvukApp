@@ -2,6 +2,7 @@ import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/user.dart';
 import 'package:avukapp/screens/exception/login-exception.dart';
+import 'package:avukapp/screens/login/forgot_password_page.dart';
 import 'package:avukapp/screens/register/registration.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -168,6 +169,24 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
+                    MaterialButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ForgotPassword(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Şifremi Unuttum ",
+                        style: TextStyle(
+                          color: kNavyBlueColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                     TextButton(
                       onPressed: () {
                         NavigatorManager()
@@ -276,7 +295,6 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final usermodel = Provider.of<UserViewModel>(context, listen: false);
       UserModel user = await usermodel.singInWithGoogle();
- 
     } on FirebaseAuthException catch (e) {
       Fluttertoast.showToast(
           msg: 'Google giriş yaparken bir hata oluştu...',
