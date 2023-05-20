@@ -13,18 +13,12 @@ class UserRepository implements AuthBase {
   @override
   Future<UserModel> createWithUserEmailAndPass(
       String email, String pass, String userName) async {
-    try {
       UserModel user = await fireBaseAuthService.createWithUserEmailAndPass(
           email, pass, userName);
       user.userName = userName;
-
       await firestoreDbService.saveUser(user); // veritabanı kayıt yapan
       return await firestoreDbService.readUser(user.userID!);
-    } catch (e) {
-      debugPrint(
-          'USER_REPOSİTORY EMAİL İLE KAYIT OLMA HATA CIKTI ${e.toString()}');
-      return UserModel(userID: null, email: null, userName: null);
-    }
+    
   }
 
   @override
@@ -65,7 +59,7 @@ class UserRepository implements AuthBase {
   @override
   Future<UserModel> createWithLawyerAndUserEmailAndPass(
       String email, String pass, String userName, String baroNumber) async {
-    try {
+    
       UserModel user =
           await fireBaseAuthService.createWithLawyerAndUserEmailAndPass(
               email, pass, userName, baroNumber);
@@ -78,11 +72,7 @@ class UserRepository implements AuthBase {
           lawyerBaroNumber: baroNumber,
           userName: user.userName));
       return await firestoreDbService.readUser(user.userID!);
-    } catch (e) {
-      debugPrint(
-          'USER REPOSİTORY createWithLawyerAndUserEmailAndPass HATA:${e.toString()} ');
-      return UserModel(userID: null, email: null, userName: null);
-    }
+    
   }
 
   Future<List<UserModel>> getAllUser() async {

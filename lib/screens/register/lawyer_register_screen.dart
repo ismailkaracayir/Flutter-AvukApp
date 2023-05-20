@@ -2,12 +2,15 @@ import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/screens/landing_screen.dart';
 import 'package:avukapp/widgets/social_button.dart';
 import 'package:cool_alert/cool_alert.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/user.dart';
 import '../../viewmodel/user_view_model.dart';
+import '../exception/login-exception.dart';
 
 class LawyerRegisterPage extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
@@ -19,7 +22,18 @@ class LawyerRegisterPage extends StatelessWidget {
   LawyerRegisterPage({super.key});
 
   @override
+  void initState() {}
+
+  @override
   Widget build(BuildContext context) {
+    Fluttertoast.showToast(
+        msg:
+            'Adınız, soyadınız ve baro sicil numaranız, bara sicil kartında yazdığı formatda olmalıdır...',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.green.shade300,
+        textColor: Colors.white,
+        fontSize: 16.0);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -139,8 +153,16 @@ class LawyerRegisterPage extends StatelessWidget {
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => LandingPage(),
       ));
-    } catch (e) {
-      debugPrint('register işleminde hata : ${e.toString()}');
+    } on FirebaseAuthException catch (e) {
+      String temp = LoginException.exception(e.toString());
+      Fluttertoast.showToast(
+          msg: temp,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red.shade300,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
 }
