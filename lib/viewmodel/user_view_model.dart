@@ -72,11 +72,7 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
       _user = await _userRepository.createWithUserEmailAndPass(
           email, pass, userName);
       return _user!;
-    } catch (e) {
-      debugPrint(
-          'EMAİL İLE KAYIT OLMA USERVİEW_MODEL SORUN CIKTI ${e.toString()}');
-      return UserModel(userID: null, email: null, userName: null);
-    } finally {
+    }  finally {
       state = ViewState.Idle;
     }
   }
@@ -119,11 +115,7 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
       _user = await _userRepository.createWithLawyerAndUserEmailAndPass(
           email, pass, userName, baroNumber);
       return _user!;
-    } catch (e) {
-      debugPrint(
-          'USER VİEW MODEL createWithLawyerAndUserEmailAndPass HATA: ${e.toString()}');
-      return UserModel(userID: null, email: null, userName: null);
-    } finally {
+    }  finally {
       state = ViewState.Idle;
     }
   }

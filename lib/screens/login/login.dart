@@ -1,8 +1,12 @@
 import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/user.dart';
+import 'package:avukapp/screens/exception/login-exception.dart';
 import 'package:avukapp/screens/register/registration.dart';
+import 'package:cool_alert/cool_alert.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import '../../admin/admin_login/admin_page.dart';
@@ -119,8 +123,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     PressButtonWidget(
                       buttonText: 'Giriş Yap',
-                      onPress: () {
-                        userLogin();
+                      onPress: () async {
+                        userLogin(context);
                         //login();
                       },
                       buttonColor: kNavyBlueColor,
@@ -241,40 +245,29 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<dynamic> showError(String message) {
-    return showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text(
-                      "Kapat",
-                    ))
-              ],
-              title: const Text("Hata!"),
-              // contentPadding: EdgeInsets.all(10),
-              content: Text(message),
-            ));
-  }
-
-  void userLogin() async {
+  void userLogin(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       try {
         var userModel = Provider.of<UserViewModel>(context, listen: false);
         final UserModel user = await userModel.singInWithEmailAndPass(
             emailController.text, passwordController.text);
-        debugPrint('EMAİL İLE GİRİŞ YAPMA BAŞARILI');
+        // ignore: use_build_context_synchronously
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) =>  LandingPage(),
+            builder: (context) => LandingPage(),
           ),
         );
-      } catch (e) {
-        debugPrint('LOGİN İŞLEMİNDE HATA  : ${e.toString()}');
+      } on FirebaseAuthException catch (e) {
+        String temp = LoginException.exception(e.toString());
+        Fluttertoast.showToast(
+            msg: temp,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red.shade300,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     }
   }
@@ -283,10 +276,16 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final usermodel = Provider.of<UserViewModel>(context, listen: false);
       UserModel user = await usermodel.singInWithGoogle();
-      debugPrint(
-          'GOOGLE GMAİL İLE OTURUM ACAN KULLANICI ${user.userID.toString()}');
-    } catch (e) {
-      debugPrint('GOOGLE GİRİŞ YAPMA SEÇENEGİ HATA CIKTI ${e.toString()}');
+ 
+    } on FirebaseAuthException catch (e) {
+      Fluttertoast.showToast(
+          msg: 'Google giriş yaparken bir hata oluştu...',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red.shade300,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
 }

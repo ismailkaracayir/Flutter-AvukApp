@@ -31,38 +31,31 @@ class FirestoreDbService implements DBBase {
 
   @override
   Future<bool> saveUser(UserModel user) async {
-    try {
-      await firebaseFirestore
-          .collection('users')
-          .doc(user.userID)
-          .set(user.ToMap());
-      DocumentSnapshot readUser =
-          await firebaseFirestore.doc("users/${user.userID}").get();
-      Map readUserDetalys = readUser.data() as Map;
-      UserModel _readUser = UserModel.fromMap(readUserDetalys);
-      debugPrint(_readUser.toString());
-    } catch (e) {
-      debugPrint('CLOUDFİRE HATA ÇIKTI ${e.toString()} ');
-    }
+    await firebaseFirestore
+        .collection('users')
+        .doc(user.userID)
+        .set(user.ToMap());
+    DocumentSnapshot readUser =
+        await firebaseFirestore.doc("users/${user.userID}").get();
+    Map readUserDetalys = readUser.data() as Map;
+    UserModel _readUser = UserModel.fromMap(readUserDetalys);
+    debugPrint(_readUser.toString());
 
     return true;
   }
 
   @override
   Future<bool> saveLawyer(LawyerModel lawyer) async {
-    try {
-      await firebaseFirestore
-          .collection('lawyers')
-          .doc(lawyer.lawyerID)
-          .set(lawyer.toMap());
-      DocumentSnapshot readLawyer =
-          await firebaseFirestore.doc("lawyer/${lawyer.lawyerID}").get();
-      Map readUserDetalys = readLawyer.data() as Map;
-      UserModel _readLawyer = UserModel.fromMap(readUserDetalys);
-      debugPrint(_readLawyer.toString());
-    } catch (e) {
-      debugPrint('CLOUDFİRE HATA ÇIKTI ${e.toString()} ');
-    }
+    await firebaseFirestore
+        .collection('lawyers')
+        .doc(lawyer.lawyerID)
+        .set(lawyer.toMap());
+    DocumentSnapshot readLawyer =
+        await firebaseFirestore.doc("lawyer/${lawyer.lawyerID}").get();
+    Map readUserDetalys = readLawyer.data() as Map;
+    UserModel _readLawyer = UserModel.fromMap(readUserDetalys);
+    debugPrint(_readLawyer.toString());
+
     return true;
   }
 
@@ -222,8 +215,9 @@ class FirestoreDbService implements DBBase {
       return false;
     }
   }
-    Future<bool> updateLawyerUserName(String userID, String newUserName)async{
-          try {
+
+  Future<bool> updateLawyerUserName(String userID, String newUserName) async {
+    try {
       await firebaseFirestore
           .collection('lawyers')
           .doc(userID)
@@ -233,9 +227,10 @@ class FirestoreDbService implements DBBase {
       print('Error updating user profile image URL: $e');
       return false;
     }
-    }
-  Future<bool> updateLawyerEmail(String userID, String newEmail)async{
-              try {
+  }
+
+  Future<bool> updateLawyerEmail(String userID, String newEmail) async {
+    try {
       await firebaseFirestore
           .collection('lawyers')
           .doc(userID)
@@ -246,8 +241,9 @@ class FirestoreDbService implements DBBase {
       return false;
     }
   }
-   Future<bool> updateLawyerField(String userID, String newField)async{
-              try {
+
+  Future<bool> updateLawyerField(String userID, String newField) async {
+    try {
       await firebaseFirestore
           .collection('lawyers')
           .doc(userID)
@@ -257,9 +253,10 @@ class FirestoreDbService implements DBBase {
       print('Error updating user profile image URL: $e');
       return false;
     }
-   }
-  Future<bool> updateExperision(String userID, String newExperision)async{
-                  try {
+  }
+
+  Future<bool> updateExperision(String userID, String newExperision) async {
+    try {
       await firebaseFirestore
           .collection('lawyers')
           .doc(userID)
@@ -270,6 +267,4 @@ class FirestoreDbService implements DBBase {
       return false;
     }
   }
-
-
 }

@@ -9,21 +9,13 @@ class FireBaseAuthService implements AuthBase {
 
   @override
   Future<UserModel> createWithUserEmailAndPass(
-      // NORMAL KULLANICI KAYIT OLMASI İÇİN
-
+      // NORMAL KULLANICI KAYIT OLMASI İÇİNs
       String email,
       String pass,
       String userName) async {
-    final user = UserModel(userID: null, email: null, userName: null);
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: pass);
-      return _userModelFromFirebase(userCredential.user);
-    } catch (e) {
-      debugPrint(
-          'FİREBASE_AUTH_SERVİCES EMAİL İLE KAYIT OLMA HATA ÇIKTI ${e.toString()}');
-      return user;
-    }
+    UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: pass);
+    return _userModelFromFirebase(userCredential.user);
   }
 
   @override
@@ -81,16 +73,9 @@ class FireBaseAuthService implements AuthBase {
   @override
   Future<UserModel> createWithLawyerAndUserEmailAndPass(
       String email, String pass, String userName, String baroNUmber) async {
-    final user = UserModel(userID: null, email: null, userName: null);
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: pass);
-      return _userModelFromFirebase(userCredential.user);
-    } catch (e) {
-      debugPrint(
-          'FİREBASE_AUTH_SERVİCES AVUKAT-USER EMAİL İLE KAYIT OLMA HATA ÇIKTI ${e.toString()}');
-      return user;
-    }
+    UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: pass);
+    return _userModelFromFirebase(userCredential.user);
   }
 
   @override

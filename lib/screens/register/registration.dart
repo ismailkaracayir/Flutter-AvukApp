@@ -2,23 +2,26 @@ import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/screens/login/login.dart';
 import 'package:avukapp/widgets/social_button.dart';
 import 'package:cool_alert/cool_alert.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../../model/user.dart';
 import '../../viewmodel/user_view_model.dart';
+import '../exception/login-exception.dart';
 import 'lawyer_register_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
-
 
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-      final String logoUrl = "assets/images/justice.svg";
+  final String logoUrl = "assets/images/justice.svg";
 
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
@@ -63,8 +66,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             confirmBtnColor: Colors.white);
         // ignore: use_build_context_synchronously
         Navigator.of(context).pop();
-      } catch (e) {
-        debugPrint('register işleminde hata : ${e.toString()}');
+      } on FirebaseAuthException catch (e) {
+        String temp = LoginException.exception(e.toString());
+        Fluttertoast.showToast(
+            msg: temp,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red.shade300,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     }
   }
@@ -74,10 +85,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      //   elevation: 0,
-      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -116,29 +123,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-////////////////////////////////////////////////////////////////////////////////
                     SingleChildScrollView(
                       child: Container(
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                         child: Form(
                           key: _formKey,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // Container(
-                              //   width: width / 2,
-                              //   height: height / 7,
-                              //   child: Center(
-                              //       child: Text(
-                              //     "Sign Up",
-                              //     style: TextStyle(fontWeight: FontWeight.bold),
-                              //   )),
-                              //   decoration: BoxDecoration(
-                              //       shape: BoxShape.circle,
-                              //       color: kCreamColor,
-                              //       border: Border.all(
-                              //           color: kNavyBlueColor, width: 1)),
-                              // ),
                               SizedBox(
                                 height: height / 90,
                               ),
@@ -190,8 +182,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         ),
                                         suffixIcon: IconButton(
                                           icon: _passwordVisible
-                                              ? Icon(Icons.visibility)
-                                              : Icon(Icons.visibility_off),
+                                              ? const Icon(Icons.visibility)
+                                              : const Icon(
+                                                  Icons.visibility_off),
                                           onPressed: () {
                                             setState(() {
                                               _passwordVisible =
@@ -228,7 +221,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                LoginScreen()));
+                                                const LoginScreen()));
                                   },
                                   child: const Text(
                                     'Oturum aç',
@@ -258,24 +251,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       ),
                     ),
-
-///////////////////////////////////////////////////////////////////////////////////
                   ],
                 ),
               ),
-              // SocialButtonWidget(
-              //   buttonText: "Mail ile kayıt ol",
-              //   buttonIcon: Icon(MdiIcons.gmail),
-              //   buttonHeight: height / 15,
-              //   onPress: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) => RegisterWithMailScreen()),
-              //     );
-              //   },
-              //   buttonWidth: width,
-              // ),
             ],
           ),
         ),
