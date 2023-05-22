@@ -26,14 +26,6 @@ class LawyerRegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Fluttertoast.showToast(
-        msg:
-            'Adınız, soyadınız ve baro sicil numaranız, bara sicil kartında yazdığı formatda olmalıdır...',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        backgroundColor: Colors.green.shade300,
-        textColor: Colors.white,
-        fontSize: 16.0);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(

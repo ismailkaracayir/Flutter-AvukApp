@@ -15,10 +15,7 @@ class PlaceAnAdBody extends StatefulWidget {
   const PlaceAnAdBody({super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
+  State<PlaceAnAdBody> createState() => _PlaceAnAdBodyState();
 }
 
 class _PlaceAnAdBodyState extends State<PlaceAnAdBody> {
