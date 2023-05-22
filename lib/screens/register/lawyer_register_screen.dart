@@ -21,8 +21,6 @@ class LawyerRegisterPage extends StatelessWidget {
 
   LawyerRegisterPage({super.key});
 
-  @override
-  void initState() {}
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +59,7 @@ class LawyerRegisterPage extends StatelessWidget {
                     decoration: inputDecoration(lblText: "Soyadı"),
                   ),
                   TextFormField(
+                    
                     controller: baroNumberController,
                     textInputAction: TextInputAction.next,
                     decoration: inputDecoration(lblText: "Baro sicil numarası"),
