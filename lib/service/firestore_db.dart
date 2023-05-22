@@ -52,9 +52,6 @@ class FirestoreDbService implements DBBase {
         .set(lawyer.toMap());
     DocumentSnapshot readLawyer =
         await firebaseFirestore.doc("lawyer/${lawyer.lawyerID}").get();
-    Map readUserDetalys = readLawyer.data() as Map;
-    UserModel _readLawyer = UserModel.fromMap(readUserDetalys);
-    debugPrint(_readLawyer.toString());
 
     return true;
   }
