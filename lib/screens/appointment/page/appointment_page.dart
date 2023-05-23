@@ -1,11 +1,9 @@
 import 'package:avukapp/constant/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constant/app_bar_widget.dart';
-import '../../../manager/navigator_manager.dart';
-import '../../../constant/const_clock.dart';
-import 'pay/payment_page.dart';
 
 class AppointmentPage extends StatefulWidget {
   const AppointmentPage({super.key});
@@ -20,20 +18,19 @@ class _AppointmentPageState extends State<AppointmentPage> {
   final String _clockIcon = "assets/icons/profile_clock.svg";
 
   // randevu tipi seçimi için kullanılıyor bunu daha sonra -1 yapabilirsin.
-  int randevuTipi = 0;
+
   bool? acceptTerms = false;
-  String? selectedClockx;
 
   // randevu tipi değişimi için kullanılıyor.
-  void changeType() {
-    setState(() {
-      if (randevuTipi == 0) {
-        randevuTipi = 1;
-      } else {
-        randevuTipi = 0;
-      }
-    });
-  }
+  // void changeType() {
+  //   setState(() {
+  //     if (randevuTipi == 0) {
+  //       randevuTipi = 1;
+  //     } else {
+  //       randevuTipi = 0;
+  //     }
+  //   });
+  // }
 
   // Tarih Seçimi
   DateTime selectedDate = DateTime.now();
@@ -48,146 +45,381 @@ class _AppointmentPageState extends State<AppointmentPage> {
       appBar: const CustomAppBar(
         appTitle: "Randevu Al",
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const PagePadding.symtcHrztHigh(),
-          child: SizedBox(
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 100,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: SvgPicture.asset(
-                            _appointmentIcon,
-                          ),
-                        ),
-                        const Expanded(
-                          flex: 3,
-                          child: Text(
-                            "Randevu tarihlerini inceleyiniz",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: kNavyBlueColor,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Divider(
-                    thickness: 2.5,
-                    color: kNavyBlueColor.withOpacity(0.5),
-                  ),
-                  const SizedBox(height: 20),
-                  customSubjectTitle(titlee: "Randevu Tipini Seçin"),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: pageWidth,
-                    height: pageHeight * 0.1,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (randevuTipi != 0) {
-                                changeType();
-                              }
-                            },
-                            child: appntmntTypeSelection(
-                              buttonName: "Arama ile Görüşme",
-                              selectedIndex: 0,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (randevuTipi != 1) {
-                                changeType();
-                              }
-                            },
-                            child: appntmntTypeSelection(
-                              buttonName: "Video ile Görüşme",
-                              selectedIndex: 1,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  customSubjectTitle(
-                    titlee: "Randevu Tarihini ve Saatini Seçin",
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+      body: Padding(
+        padding: const PagePadding.symtcHrztHigh(),
+        child: SizedBox(
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 100,
+                  child: Row(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          OutlinedButton.icon(
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all(
-                                const EdgeInsets.symmetric(
-                                  vertical: 10,
-                                  horizontal: 20,
-                                ),
-                              ),
-                            ),
-                            label: Text(
-                              "Tarih Seçin",
-                              style: customTextStyle(textSize: 16),
-                            ),
-                            icon: SvgPicture.asset(
-                              _appointmentIcon,
-                              width: 28,
-                              height: 28,
-                            ),
-                            onPressed: () => _openDatePicker(context),
-                          ),
-                        ],
+                      Expanded(
+                        flex: 1,
+                        child: SvgPicture.asset(
+                          _appointmentIcon,
+                        ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          OutlinedButton.icon(
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all(
-                                const EdgeInsets.symmetric(
-                                  vertical: 10,
-                                  horizontal: 20,
-                                ),
-                              ),
-                            ),
-                            label: Text(
-                              "Saat Seçin",
-                              style: customTextStyle(textSize: 16),
-                            ),
-                            icon: SvgPicture.asset(
-                              _clockIcon,
-                              width: 26,
-                              height: 26,
-                            ),
-                            onPressed: () => _openClock(context),
+                      const Expanded(
+                        flex: 4,
+                        child: Text(
+                          "İnceleyiniz...",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: kNavyBlueColor,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Divider(
+                  thickness: 2.5,
+                  color: kNavyBlueColor.withOpacity(0.5),
+                ),
+                const SizedBox(height: 10),
+                // customSubjectTitle(titlee: "Randevu İşlemleri Sırası"),
+                // customSubjectTitle(titlee: "Randevu İşlemleri Sırası"),
+
+                customSubjectTitle(titlee: "Randevu İşlemleri Sırası"),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "1) Randevu alacağınız avukatı doğru seçtiğinizden emin olun.",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        "2) Randevu şartlarını okuyunuz ve kabul ediniz.",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        "3) Randevu oluşturunuz.",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 40),
-                  GestureDetector(
+                ),
+                const SizedBox(height: 20),
+                const Spacer(),
+                Center(
+                  child: SizedBox(
+                    width: pageWidth * 0.60,
+                    child: const Text(
+                      "Randevu tarihleri avukatlar tarafından belirlenmektedir.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        letterSpacing: 1.5,
+                        wordSpacing: 4,
+                        color: Colors.grey,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: acceptTerms == true
+                      ? () {
+                          print("tıklandı");
+                        }
+                      : null,
+                  child: Container(
+                    height: 50,
+                    margin: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: kNavyBlueColor,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Randevu Oluştur",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.cutiveMono(
+                            color:
+                                acceptTerms == true ? kCreamColor : Colors.grey,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        _openTerms(context);
+                      },
+                      child: const Text(
+                        "Şartları Oku",
+                        style: TextStyle(
+                          color: kNavyBlueColor,
+                          decoration: TextDecoration.underline,
+                          decorationThickness: 2,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    Checkbox(
+                      value: acceptTerms,
+                      activeColor: kNavyBlueColor,
+                      checkColor: kCreamColor,
+                      onChanged: (value) {
+                        setState(() {
+                          acceptTerms = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  _openTerms(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: const Text("Buradaki şartlar kabul ediliyor."),
+          actions: [
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                  kNavyBlueColor,
+                ),
+              ),
+              child: const Text("Kapat"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // todo: Aynı olan konu başlıkları.
+  Row customSubjectTitle({required String titlee}) {
+    return Row(
+      children: [
+        SvgPicture.asset(
+          _editIcon,
+          width: 25,
+          height: 25,
+        ),
+        const SizedBox(width: 15),
+        Text(
+          titlee,
+          style: customTextStyle(textSize: 16),
+        ),
+      ],
+    );
+  }
+
+  // todo: Randevu tarihinin seçilmesi
+  // _openDatePicker(BuildContext context) async {
+  //   final DateTime? date = await showDatePicker(
+  //     context: context,
+  //     initialDate: selectedDate,
+  //     firstDate: firstDate,
+  //     lastDate: lastDate,
+  //   );
+
+  //   if (date != null) {
+  //     setState(() {
+  //       selectedDate = date;
+  //     });
+  //   }
+  // }
+
+  // _openClock(BuildContext context) async {
+  //   String? mySaat = await showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       int selectedClock = -1;
+
+  //       return AlertDialog(
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(8.0),
+  //         ),
+  //         icon: Text(
+  //           "Saat Seçiniz",
+  //           style: customTextStyle(textSize: 20),
+  //         ),
+  //         content: StatefulBuilder(
+  //           builder: (context, setState) {
+  //             return Padding(
+  //               padding: const EdgeInsets.symmetric(horizontal: 8.0),
+  //               child: SizedBox(
+  //                 width: 400,
+  //                 height: 200,
+  //                 child: GridView.builder(
+  //                   itemCount: clockItems.length,
+  //                   gridDelegate:
+  //                       const SliverGridDelegateWithFixedCrossAxisCount(
+  //                     crossAxisCount: 2,
+  //                     childAspectRatio: 3,
+  //                     crossAxisSpacing: 10,
+  //                     mainAxisSpacing: 6,
+  //                   ),
+  //                   itemBuilder: (context, index) {
+  //                     return GestureDetector(
+  //                       onTap: () {
+  //                         setState(() {
+  //                           selectedClock = index;
+  //                         });
+  //                       },
+  //                       child: Container(
+  //                         decoration: BoxDecoration(
+  //                           color: kCreamColor,
+  //                           borderRadius: BorderRadius.circular(4),
+  //                           border: Border.all(
+  //                             color: selectedClock == index
+  //                                 ? kWineRedColor
+  //                                 : Colors.grey.shade500,
+  //                             width: 2,
+  //                           ),
+  //                         ),
+  //                         child: Center(
+  //                             child: Text(
+  //                           clockItems[index],
+  //                         )),
+  //                       ),
+  //                     );
+  //                   },
+  //                 ),
+  //               ),
+  //             );
+  //           },
+  //         ),
+  //         actions: [
+  //           Row(
+  //             children: [
+  //               const SizedBox(width: 20),
+  //               Expanded(
+  //                 child: ElevatedButton(
+  //                   onPressed: () {
+  //                     Navigator.pop(context);
+  //                   },
+  //                   style: ButtonStyle(
+  //                     backgroundColor: MaterialStateProperty.all(
+  //                       kNavyBlueColor,
+  //                     ),
+  //                   ),
+  //                   child: const Text("Çıkış"),
+  //                 ),
+  //               ),
+  //               const SizedBox(width: 20),
+  //               Expanded(
+  //                 child: ElevatedButton(
+  //                   style: ButtonStyle(
+  //                     backgroundColor: MaterialStateProperty.all(
+  //                       kNavyBlueColor,
+  //                     ),
+  //                   ),
+  //                   child: const Text("Onayla"),
+  //                   onPressed: () {
+  //                     if (selectedClock != -1) {
+  //                       Navigator.pop(
+  //                         context,
+  //                         clockItems[selectedClock],
+  //                       );
+  //                     }
+  //                   },
+  //                 ),
+  //               ),
+  //               const SizedBox(width: 20),
+  //             ],
+  //           )
+  //         ],
+  //         actionsAlignment: MainAxisAlignment.center,
+  //       );
+  //     },
+  //   );
+  //   if (mySaat != null) {
+  //     // print(mySaat);
+
+  //     setState(() {
+  //       selectedClockx = mySaat;
+  //     });
+  //   } else {
+  //     mySaat == "Boş";
+  //     // print(mySaat);
+  //   }
+  // }
+
+  // Container appntmntTypeSelection({
+  //   required String buttonName,
+  //   required int selectedIndex,
+  // }) {
+  //   return Container(
+  //     padding: const EdgeInsets.symmetric(vertical: 20),
+  //     decoration: BoxDecoration(
+  //       color: kCreamColor,
+  //       borderRadius: BorderRadius.circular(4),
+  //       border: Border.all(
+  //         width: 2.2,
+  //         color: randevuTipi == selectedIndex
+  //             ? Colors.green
+  //             : kNavyBlueColor.withOpacity(0.6),
+  //       ),
+  //     ),
+  //     child: Text(
+  //       buttonName,
+  //       textAlign: TextAlign.center,
+  //       style: TextStyle(
+  //         fontSize: 15,
+  //         color: randevuTipi == selectedIndex
+  //             ? Colors.green
+  //             : kNavyBlueColor.withOpacity(0.6),
+  //         fontWeight: FontWeight.w400,
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  TextStyle customTextStyle({required double textSize}) {
+    return TextStyle(
+      color: kNavyBlueColor,
+      fontSize: textSize,
+      fontWeight: FontWeight.w500,
+    );
+  }
+
+  /*
+  GestureDetector(
                     onTap: acceptTerms == true
                         ? () {
                             NavigatorManager().navigatToWidget(
@@ -261,261 +493,102 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          _openTerms(context);
-                        },
-                        child: const Text(
-                          "Şartları Oku",
-                          style: TextStyle(
-                            color: kNavyBlueColor,
-                            decoration: TextDecoration.underline,
-                            decorationThickness: 2,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                      Checkbox(
-                        value: acceptTerms,
-                        activeColor: kNavyBlueColor,
-                        checkColor: kCreamColor,
-                        onChanged: (value) {
-                          setState(() {
-                            acceptTerms = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  _openTerms(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: const Text("Buradaki şartlar kabul ediliyor."),
-          actions: [
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                  kNavyBlueColor,
-                ),
-              ),
-              child: const Text("Kapat"),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // todo: Aynı olan konu başlıkları.
-  Row customSubjectTitle({required String titlee}) {
-    return Row(
-      children: [
-        SvgPicture.asset(
-          _editIcon,
-          width: 25,
-          height: 25,
-        ),
-        const SizedBox(width: 15),
-        Text(
-          titlee,
-          style: customTextStyle(textSize: 16),
-        ),
-      ],
-    );
-  }
-
-  // todo: Randevu tarihinin seçilmesi
-  _openDatePicker(BuildContext context) async {
-    final DateTime? date = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: firstDate,
-      lastDate: lastDate,
-    );
-
-    if (date != null) {
-      setState(() {
-        selectedDate = date;
-      });
-    }
-  }
-
-  // todo: Randevu Saatinin seçilmesi
-  _openClock(BuildContext context) async {
-    String? mySaat = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        int selectedClock = -1;
-
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          icon: Text(
-            "Saat Seçiniz",
-            style: customTextStyle(textSize: 20),
-          ),
-          content: StatefulBuilder(
-            builder: (context, setState) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: SizedBox(
-                  width: 400,
-                  height: 200,
-                  child: GridView.builder(
-                    itemCount: clockItems.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 3,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 6,
-                    ),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedClock = index;
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: kCreamColor,
-                            borderRadius: BorderRadius.circular(4),
-                            border: Border.all(
-                              color: selectedClock == index
-                                  ? kWineRedColor
-                                  : Colors.grey.shade500,
-                              width: 2,
-                            ),
-                          ),
-                          child: Center(
-                              child: Text(
-                            clockItems[index],
-                          )),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              );
-            },
-          ),
-          actions: [
-            Row(
-              children: [
-                const SizedBox(width: 20),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        kNavyBlueColor,
-                      ),
-                    ),
-                    child: const Text("Çıkış"),
-                  ),
-                ),
-                const SizedBox(width: 20),
-                Expanded(
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        kNavyBlueColor,
-                      ),
-                    ),
-                    child: const Text("Onayla"),
-                    onPressed: () {
-                      if (selectedClock != -1) {
-                        Navigator.pop(
-                          context,
-                          clockItems[selectedClock],
-                        );
-                      }
-                    },
-                  ),
-                ),
-                const SizedBox(width: 20),
-              ],
-            )
-          ],
-          actionsAlignment: MainAxisAlignment.center,
-        );
-      },
-    );
-    if (mySaat != null) {
-      // print(mySaat);
-
-      setState(() {
-        selectedClockx = mySaat;
-      });
-    } else {
-      mySaat == "Boş";
-      // print(mySaat);
-    }
-  }
-
-  // todo: Randevu tipinin seçilmesi
-  Container appntmntTypeSelection({
-    required String buttonName,
-    required int selectedIndex,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      decoration: BoxDecoration(
-        color: kCreamColor,
-        borderRadius: BorderRadius.circular(4),
-        border: Border.all(
-          width: 2.2,
-          color: randevuTipi == selectedIndex
-              ? Colors.green
-              : kNavyBlueColor.withOpacity(0.6),
-        ),
-      ),
-      child: Text(
-        buttonName,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 15,
-          color: randevuTipi == selectedIndex
-              ? Colors.green
-              : kNavyBlueColor.withOpacity(0.6),
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-    );
-  }
-
-  TextStyle customTextStyle({required double textSize}) {
-    return TextStyle(
-      color: kNavyBlueColor,
-      fontSize: textSize,
-      fontWeight: FontWeight.w500,
-    );
-  }
+   */
 }
-/*
+ // SizedBox(
+                  //   width: pageWidth,
+                  //   height: pageHeight * 0.1,
+                  //   child: Row(
+                  //     children: [
+                  //       Expanded(
+                  //         flex: 1,
+                  //         child: GestureDetector(
+                  //           onTap: () {
+                  //             if (randevuTipi != 0) {
+                  //               changeType();
+                  //             }
+                  //           },
+                  //           child: appntmntTypeSelection(
+                  //             buttonName: "Arama ile Görüşme",
+                  //             selectedIndex: 0,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       const SizedBox(width: 10),
+                  //       Expanded(
+                  //         flex: 1,
+                  //         child: GestureDetector(
+                  //           onTap: () {
+                  //             if (randevuTipi != 1) {
+                  //               changeType();
+                  //             }
+                  //           },
+                  //           child: appntmntTypeSelection(
+                  //             buttonName: "Video ile Görüşme",
+                  //             selectedIndex: 1,
+                  //           ),
+                  //         ),
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 40),
+                  // customSubjectTitle(
+                  //   titlee: "Randevu Tarihini ve Saatini Seçin",
+                  // ),
 
-
-
- */
+// Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //   children: [
+                  //     Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         OutlinedButton.icon(
+                  //           style: ButtonStyle(
+                  //             padding: MaterialStateProperty.all(
+                  //               const EdgeInsets.symmetric(
+                  //                 vertical: 10,
+                  //                 horizontal: 20,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           label: Text(
+                  //             "Tarih Seçin",
+                  //             style: customTextStyle(textSize: 16),
+                  //           ),
+                  //           icon: SvgPicture.asset(
+                  //             _appointmentIcon,
+                  //             width: 28,
+                  //             height: 28,
+                  //           ),
+                  //           onPressed: () => _openDatePicker(context),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         OutlinedButton.icon(
+                  //           style: ButtonStyle(
+                  //             padding: MaterialStateProperty.all(
+                  //               const EdgeInsets.symmetric(
+                  //                 vertical: 10,
+                  //                 horizontal: 20,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           label: Text(
+                  //             "Saat Seçin",
+                  //             style: customTextStyle(textSize: 16),
+                  //           ),
+                  //           icon: SvgPicture.asset(
+                  //             _clockIcon,
+                  //             width: 26,
+                  //             height: 26,
+                  //           ),
+                  //           onPressed: () => _openClock(context),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
