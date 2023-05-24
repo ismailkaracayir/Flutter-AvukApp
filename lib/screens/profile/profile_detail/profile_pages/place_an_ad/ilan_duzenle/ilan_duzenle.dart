@@ -400,7 +400,7 @@ class _IlanDuzenleState extends State<IlanDuzenle> {
                 confirmBtnText: ' ',
                 confirmBtnColor: Colors.white);
             // ignore: use_build_context_synchronously
-            Navigator.pop(context);
+            Navigator.pop(context,temp);
           } else {
             // ignore: use_build_context_synchronously
             await CoolAlert.show(
