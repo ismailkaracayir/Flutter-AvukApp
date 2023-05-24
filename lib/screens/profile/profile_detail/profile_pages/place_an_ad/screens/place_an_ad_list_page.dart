@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../constant/app_bar_widget.dart';
 import '../../../../../../constant/constant.dart';
-import '../../../../../../manager/navigator_manager.dart';
 import '../../../../../../model/declare.dart';
 import '../../../../../../widgets/custom_card_widget.dart';
 import '../../../../../../widgets/custom_card_widget_button.dart';
@@ -35,7 +34,7 @@ class _PlaceAnAdListState extends State<PlaceAnAdList> {
     declareList = await declare.getForIdDeclare(lawyer.user!.userID!);
 
     for (var i = 0; i < declareList.length; i++) {
-         // ignore: avoid_print
+      // ignore: avoid_print
       print("$i nolu ilan");
     }
   }
@@ -46,6 +45,7 @@ class _PlaceAnAdListState extends State<PlaceAnAdList> {
     change();
     declareList = [];
     getDeclareForLawyer();
+    debugPrint(' initt ÇALIŞTIIIIIIII');
   }
 
   @override
@@ -85,13 +85,17 @@ class _PlaceAnAdListState extends State<PlaceAnAdList> {
                                     ),
                                   ),
                                   sagButton: GestureDetector(
-                                    onTap: () {
-                                      NavigatorManager().navigatToWidget(
-                                        context,
-                                        IlanDuzenle(
-                                          model: declareModel,
-                                        ),
-                                      );
+                                    onTap: () async {
+                                      bool temp = await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => IlanDuzenle(
+                                                model: declareModel),
+                                          ));
+                                      if (temp) {
+                                        await getDeclareForLawyer();
+                                        setState(() {});
+                                      }
                                     },
                                     child: const CustomCardWidgetButton(
                                       buttonTitle: "Düzenle",
