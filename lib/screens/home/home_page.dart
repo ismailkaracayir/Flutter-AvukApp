@@ -26,7 +26,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final double removeHeight = 240;
   bool loading = false;
   bool showFloatButton = false;
-  late List<LawyerModel> allLawyer = [];
   late List<DeclareModel> allDeclare = [];
   late List<DeclareModel> resoultSerchDeclare = [];
   late List<String> butunHukukKategorileri;
@@ -47,8 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
     change();
     butunHukukKategorileri = hukukAlanlari;
     controlIsLayerAndOk();
-    getAllLawyer();
     getAllDeclare();
+    debugPrint('HOMEPAGE İNİT STATE ÇALIŞTI');
   }
 
   void kategoriArama(String value) {
@@ -82,6 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var currentuser = Provider.of<UserViewModel>(context, listen: false);
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -136,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 },
                                 child: CustomCardWidget(
                                   moodel: declareModel,
+                                  url: currentuser.user!.profilImgURL,
                                   sagButton: GestureDetector(
                                     onTap: () {},
                                     child: const CustomCardWidgetButton(
@@ -205,13 +207,6 @@ class _MyHomePageState extends State<MyHomePage> {
         gapPadding: 10,
       ),
     );
-  }
-
-  Future<void> getAllLawyer() async {
-    var lawyer = Provider.of<LawyerViewModel>(context, listen: false);
-    var lw = await lawyer.getAllLawyer();
-    allLawyer = lw;
-    print(lw);
   }
 
   Future<void> getAllDeclare() async {
