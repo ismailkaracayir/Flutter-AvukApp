@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../constant/constant.dart';
 import '../screens/home/home_page.dart';
+import '../screens/meeting/meeting_screen.dart';
 import '../screens/message/message_page.dart';
 import '../screens/notification/notification_page.dart';
 import '../screens/profile/profile_detail/about_detail/about.dart';
@@ -137,7 +138,7 @@ class _MyPageManagerState extends State<MyPageManager> {
           ),
           if (user.isLawyer == 1)
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Container(
                 decoration: BoxDecoration(
                   color: kNavyBlueColor,
@@ -167,7 +168,7 @@ class _MyPageManagerState extends State<MyPageManager> {
               ),
             ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Container(
               decoration: BoxDecoration(
                 color: kNavyBlueColor,
@@ -198,7 +199,36 @@ class _MyPageManagerState extends State<MyPageManager> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Container(
+              decoration: BoxDecoration(
+                color: kNavyBlueColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ListTile(
+                leading: const Icon(
+                  Icons.people,
+                  color: kCreamColor,
+                ),
+                title: const Text(
+                  "Randevularım",
+                  style: TextStyle(
+                    color: kCreamColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                onTap: () {
+                  pagePushManager.navigatToWidget(
+                    context,
+                    const MeetingScreen(),
+                  );
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Container(
               decoration: BoxDecoration(
                 color: kNavyBlueColor,
@@ -227,7 +257,7 @@ class _MyPageManagerState extends State<MyPageManager> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Container(
               decoration: BoxDecoration(
                 color: kNavyBlueColor,
@@ -256,7 +286,7 @@ class _MyPageManagerState extends State<MyPageManager> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Container(
               decoration: BoxDecoration(
                 color: kNavyBlueColor,
@@ -287,7 +317,7 @@ class _MyPageManagerState extends State<MyPageManager> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Container(
               decoration: BoxDecoration(
                 color: kNavyBlueColor,
