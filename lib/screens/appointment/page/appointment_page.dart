@@ -139,11 +139,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(
-                  onTap: acceptTerms == true
-                      ? () {
-                          print("tıklandı");
-                        }
-                      : null,
+                  onTap: acceptTerms == true ? () {} : null,
                   child: Container(
                     height: 50,
                     margin: const EdgeInsets.all(8),

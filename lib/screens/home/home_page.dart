@@ -52,12 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void kategoriArama(String value) {
     resoultSerchDeclare = [];
-    allDeclare.forEach((ilan) {
+    for (var ilan in allDeclare) {
       if (ilan.declareCategory!.toUpperCase().contains(value.toUpperCase())) {
         resoultSerchDeclare.add(ilan);
         setState(() {});
       }
-    });
+    }
   }
 
   Future<void> controlIsLayerAndOk() async {
@@ -141,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   sagButton: GestureDetector(
                                     onTap: () {},
                                     child: const CustomCardWidgetButton(
-                                      buttonTitle: "Soru Sor",
+                                      buttonTitle: "Kaydet",
                                     ),
                                   ),
                                   solButton: GestureDetector(
