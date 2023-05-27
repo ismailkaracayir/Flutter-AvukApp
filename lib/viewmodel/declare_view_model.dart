@@ -1,3 +1,4 @@
+import 'package:avukapp/model/appointment.dart';
 import 'package:avukapp/model/declare.dart';
 import 'package:avukapp/model/lawyer.dart';
 import 'package:avukapp/repository/declare_repository.dart';
@@ -40,5 +41,15 @@ class DeclareViewModel extends ChangeNotifier implements DBBaseDeclare {
   @override
   Future<List<DeclareModel>> getForIdDeclare(String lawyerId) async {
     return await declareRepository.getForIdDeclare(lawyerId);
+  }
+
+  @override
+  Future<bool> saveAppointment(AppointmentModel appointment) async {
+    return await declareRepository.saveAppointment(appointment);
+  }
+
+  @override
+  Future<List<AppointmentModel>> getForIdAppointment(String userId) async {
+    return await declareRepository.getForIdAppointment(userId);
   }
 }

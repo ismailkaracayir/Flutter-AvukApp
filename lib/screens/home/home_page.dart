@@ -137,7 +137,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 },
                                 child: CustomCardWidget(
                                   moodel: declareModel,
-                                  url: currentuser.user!.profilImgURL,
                                   sagButton: GestureDetector(
                                     onTap: () {},
                                     child: const CustomCardWidgetButton(
@@ -146,10 +145,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                   solButton: GestureDetector(
                                     onTap: () {
-                                      NavigatorManager().navigatToWidget(
-                                        context,
-                                        const AppointmentPage(),
-                                      );
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                AppointmentPage(
+                                                    declare: allDeclare[index]),
+                                          ));
                                     },
                                     child: const CustomCardWidgetButton(
                                       buttonTitle: "Randevu Al",

@@ -1,13 +1,23 @@
 import 'package:avukapp/constant/constant.dart';
+import 'package:avukapp/model/appointment.dart';
+import 'package:avukapp/model/declare.dart';
+import 'package:avukapp/model/lawyer.dart';
+import 'package:avukapp/viewmodel/declare_view_model.dart';
+import 'package:avukapp/viewmodel/lawyer_view_model.dart';
+import 'package:avukapp/viewmodel/user_view_model.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constant/app_bar_widget.dart';
 
 class AppointmentPage extends StatefulWidget {
-  const AppointmentPage({super.key});
+  final DeclareModel declare;
 
+  AppointmentPage({required this.declare, super.key});
   @override
   State<AppointmentPage> createState() => _AppointmentPageState();
 }
@@ -16,8 +26,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
   final String _appointmentIcon = "assets/icons/profile_date.svg";
   final String _editIcon = "assets/icons/profile_design.svg";
   final String _clockIcon = "assets/icons/profile_clock.svg";
+  final TextEditingController descriptionController = TextEditingController();
 
   // randevu tipi seçimi için kullanılıyor bunu daha sonra -1 yapabilirsin.
+  @override
+  void initState() {
+    super.initState();
+    descriptionController.text = 'deneme Açıklaması';
+  }
 
   bool? acceptTerms = false;
 
@@ -139,7 +155,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(
-                  onTap: acceptTerms == true ? () {} : null,
+                  onTap: () async {
+                    debugPrint('randevu oluşturmaya tıklandı');
+                    saveAppointment();
+                  },
                   child: Container(
                     height: 50,
                     margin: const EdgeInsets.all(8),
@@ -414,6 +433,82 @@ class _AppointmentPageState extends State<AppointmentPage> {
     );
   }
 
+  void saveAppointment() async {
+    final user = Provider.of<UserViewModel>(context, listen: false);
+    final declare = Provider.of<DeclareViewModel>(context, listen: false);
+
+    if (user.user!.userID == widget.declare.lawyerId) {
+      Fluttertoast.showToast(
+          msg: 'İlan sahibi , kendi için randevu talep edemez',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      return;
+    }
+    List<AppointmentModel> getList =
+        await declare.getForIdAppointment(user.user!.userID!);
+    if (getList.isEmpty) {
+      AppointmentModel appo = AppointmentModel(
+          userID: user.user!.userID,
+          lawyerID: widget.declare.lawyerId,
+          description: descriptionController.text);
+      bool temp = await declare.saveAppointment(appo);
+      if (temp) {
+        // ignore: use_build_context_synchronously
+        await CoolAlert.show(
+            backgroundColor: kNavyBlueColor,
+            barrierDismissible: false,
+            title: 'Başarılı',
+            context: context,
+            type: CoolAlertType.success,
+            text: 'Talebiniz Avukata İletilmiştir',
+            autoCloseDuration: const Duration(seconds: 2),
+            confirmBtnText: ' ',
+            confirmBtnColor: Colors.white);
+        //  RANDEVULARIM SAYFASI OLUŞTURULDUKTAN SONRA ORAYA YÖNLENDİRİLİCEK
+      }
+    } else {
+        for (var element in getList) {
+           
+        }
+    }
+
+    //  else {
+    //   AppointmentModel appo = AppointmentModel(
+    //       userID: user.user!.userID,
+    //       lawyerID: widget.declare.lawyerId,
+    //       description: descriptionController.text);
+    //   bool temp = await declare.saveAppointment(appo);
+    //   if (temp) {
+    //     // ignore: use_build_context_synchronously
+    //     await CoolAlert.show(
+    //         backgroundColor: kNavyBlueColor,
+    //         barrierDismissible: false,
+    //         title: 'Başarılı',
+    //         context: context,
+    //         type: CoolAlertType.success,
+    //         text: 'Talebiniz Avukata İletilmiştir',
+    //         autoCloseDuration: const Duration(seconds: 2),
+    //         confirmBtnText: ' ',
+    //         confirmBtnColor: Colors.white);
+    //  RANDEVULARIM SAYFASI OLUŞTURULDUKTAN SONRA ORAYA YÖNLENDİRİLİCEK
+    //   }
+    // }
+  }
+
+  /*
+ CoolAlert.show(
+            backgroundColor: kNavyBlueColor,
+            barrierDismissible: false,
+            title: 'Düzenleme',
+            context: context,
+            type: CoolAlertType.warning,
+            text: 'Herhangi bir değişiklik yapılmadı!!',
+            autoCloseDuration: const Duration(seconds: 2),
+            confirmBtnText: ' ',
+            confirmBtnColor: Colors.white); */
   /*
   GestureDetector(
                     onTap: acceptTerms == true

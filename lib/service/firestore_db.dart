@@ -1,3 +1,4 @@
+import 'package:avukapp/model/appointment.dart';
 import 'package:avukapp/model/declare.dart';
 import 'package:avukapp/model/lawyer.dart';
 import 'package:avukapp/model/user.dart';
@@ -124,6 +125,35 @@ class FirestoreDbService implements DBBase {
     }
     return true;
   }
+
+  Future<bool> saveAppointment(AppointmentModel appointment) async {
+    try {
+      var appID = firebaseFirestore.collection('appointment').doc().id;
+      appointment.appointmentID = appID;
+      await firebaseFirestore
+          .collection('appointment')
+          .doc(appointment.appointmentID)
+          .set(appointment.toMap());
+    } catch (e) {
+      debugPrint('CLOUDFİRE APPOLİMENTSAVE   HATA ÇIKTI ${e.toString()} ');
+    }
+    return true;
+  }
+
+
+    Future<List<AppointmentModel>> getForIdAppointment(String userId) async {
+    QuerySnapshot querySnapshot =
+        await firebaseFirestore.collection('appointment').get();
+    List<AppointmentModel> allApo = [];
+    for (DocumentSnapshot apo in querySnapshot.docs) {
+      AppointmentModel oneApo = AppointmentModel.fromMap(apo.data() as Map);
+      if (oneApo.userID == userId) {
+        allApo.add(oneApo);
+      }
+    }
+    return allApo;
+  }
+  
 
   Future<bool> updateDeclare(
       String declareId,

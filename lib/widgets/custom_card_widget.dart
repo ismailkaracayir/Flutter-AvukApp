@@ -3,17 +3,16 @@ import '../constant/constant.dart';
 import '../model/declare.dart';
 
 class CustomCardWidget extends StatelessWidget {
-  const CustomCardWidget(
-      {super.key,
-      required this.moodel,
-      required this.solButton,
-      required this.sagButton,
-      this.url});
+  const CustomCardWidget({
+    super.key,
+    required this.moodel,
+    required this.solButton,
+    required this.sagButton,
+  });
 
   final DeclareModel moodel;
   final Widget solButton;
   final Widget sagButton;
-  final String? url;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class CustomCardWidget extends StatelessWidget {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            url ??
+                            moodel.lawyerProfilUrl ??
                                 "https://imgs.search.brave.com/RU0yRHJk_pU92g_cE88XYWs-HrLaxwScJqMBD1t_Sz8/rs:fit:844:225:1/g:ce/aHR0cHM6Ly90c2Uy/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC55/b0haN09DTWZyWkc5/WGVWak42Q1dRSGFF/SyZwaWQ9QXBp",
                           ),
                         ),
@@ -98,7 +97,7 @@ class CustomCardWidget extends StatelessWidget {
                           const SizedBox(height: 12),
                           SizedBox(
                             width: double.infinity,
-                            child:  Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(

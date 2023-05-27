@@ -359,6 +359,7 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
   }
 
   Future<void> _declareSubmit(String? userID, BuildContext context) async {
+    final user = Provider.of<UserViewModel>(context, listen: false);
     if (ilanBasligiController.text.isNotEmpty &&
         ilanIcerigiController.text.isNotEmpty &&
         ilanKategoriController.text.isNotEmpty) {
@@ -369,7 +370,8 @@ class _PlaceAnAdPageState extends State<PlaceAnAdPage> {
           lawyerId: userID,
           declareCategory: ilanKategoriController.text,
           declareContent: ilanIcerigiController.text,
-          declarePrice: ilanUcretController.text);
+          declarePrice: ilanUcretController.text,
+          lawyerProfilUrl: user.user!.profilImgURL);
       bool temp = await declare.saveDeclare(_declare);
       if (temp) {
         ilanBasligiController.text = '';
