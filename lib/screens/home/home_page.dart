@@ -10,7 +10,7 @@ import '../../constant/constant.dart';
 import '../../constant/hukuk_category.dart';
 import '../../model/lawyer.dart';
 import '../../viewmodel/user_view_model.dart';
-import '../appointment/appointment_page.dart';
+import '../appointment/page/appointment_page.dart';
 import '../../widgets/custom_card_widget.dart';
 import '../../widgets/custom_card_widget_button.dart';
 import '../profile/profile_detail/profile_pages/place_an_ad/screens/place_an_ad_page.dart';
