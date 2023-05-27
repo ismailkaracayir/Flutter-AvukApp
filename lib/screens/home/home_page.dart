@@ -10,7 +10,7 @@ import '../../constant/constant.dart';
 import '../../constant/hukuk_category.dart';
 import '../../model/lawyer.dart';
 import '../../viewmodel/user_view_model.dart';
-import '../appointment/page/appointment_page.dart';
+import '../appointment/appointment_page.dart';
 import '../../widgets/custom_card_widget.dart';
 import '../../widgets/custom_card_widget_button.dart';
 import '../profile/profile_detail/profile_pages/place_an_ad/screens/place_an_ad_page.dart';
@@ -137,7 +137,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 },
                                 child: CustomCardWidget(
                                   moodel: declareModel,
-                                  url: currentuser.user!.profilImgURL,
                                   sagButton: GestureDetector(
                                     onTap: () {},
                                     child: const CustomCardWidgetButton(
@@ -146,10 +145,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                   solButton: GestureDetector(
                                     onTap: () {
-                                      NavigatorManager().navigatToWidget(
-                                        context,
-                                        const AppointmentPage(),
-                                      );
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                AppointmentPage(
+                                                    declare: allDeclare[index]),
+                                          ));
                                     },
                                     child: const CustomCardWidgetButton(
                                       buttonTitle: "Randevu Al",

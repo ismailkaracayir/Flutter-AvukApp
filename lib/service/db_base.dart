@@ -1,3 +1,4 @@
+import 'package:avukapp/model/appointment.dart';
 import 'package:avukapp/model/declare.dart';
 
 import '../model/lawyer.dart';
@@ -18,17 +19,21 @@ abstract class DBBaselawyer {
   Future<List<LawyerModel>> getAllLawyer();
   Future<bool> lawyerActiveControlAdmin(String lawyerID, bool isActive);
   Future<bool> updateLawyerProfileImageUrl(String lawyerID, String imageUrl);
-   Future<bool> updateLawyerUserName(String userID, String newUserName);
+  Future<bool> updateLawyerUserName(String userID, String newUserName);
   Future<bool> updateLawyerEmail(String userID, String newEmail);
-   Future<bool> updateLawyerField(String userID, String newField);
+  Future<bool> updateLawyerField(String userID, String newField);
   Future<bool> updateExperision(String userID, String newExperision);
 }
 
 abstract class DBBaseDeclare {
+  // ilan verme ve randevu alma gövdeleri  burda
   Future<bool> saveDeclare(DeclareModel declare);
   Future<List<DeclareModel>> getAllDeclare();
   Future<bool> deleteDeclare(String declareId);
   Future<List<DeclareModel>> getForIdDeclare(String lawyerId);
   Future<bool> updateDeclare(String declareId, String declareTitle,
       String declareContent, String declareCategory, String declarePrice);
+  Future<bool> saveAppointment(AppointmentModel appointment);
+    Future<List<AppointmentModel>> getForIdAppointment(String userId);
+
 }

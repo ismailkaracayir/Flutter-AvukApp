@@ -1,3 +1,4 @@
+import 'package:avukapp/model/appointment.dart';
 import 'package:avukapp/model/declare.dart';
 import 'package:avukapp/service/db_base.dart';
 import '../lacator.dart';
@@ -35,5 +36,15 @@ class DeclareRepository implements DBBaseDeclare {
   @override
   Future<List<DeclareModel>> getForIdDeclare(String lawyerId) async {
     return await firestoreDbService.getForIdDeclare(lawyerId);
+  }
+
+  @override
+  Future<bool> saveAppointment(AppointmentModel appointment) async {
+    return await firestoreDbService.saveAppointment(appointment);
+  }
+
+  @override
+  Future<List<AppointmentModel>> getForIdAppointment(String userId) async {
+    return await firestoreDbService.getForIdAppointment(userId);
   }
 }
