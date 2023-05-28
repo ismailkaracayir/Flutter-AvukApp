@@ -4,7 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../constant/constant.dart';
 import '../screens/home/home_page.dart';
-import '../screens/meeting/meeting_screen.dart';
+import '../screens/meeting/lawyer/lawyer_meet_request_screen.dart';
+import '../screens/meeting/member/member_meeting_screen.dart';
 import '../screens/message/message_page.dart';
 import '../screens/notification/notification_page.dart';
 import '../screens/profile/profile_detail/about_detail/about.dart';
@@ -219,10 +220,20 @@ class _MyPageManagerState extends State<MyPageManager> {
                   ),
                 ),
                 onTap: () {
-                  pagePushManager.navigatToWidget(
-                    context,
-                    const MeetingScreen(),
-                  );
+                  // Randevular butonuna tıklandığında
+                  // üye ise 0
+                  // avukat ise 1 durumu oluyor.
+                  if (user.isLawyer == 0) {
+                    pagePushManager.navigatToWidget(
+                      context,
+                      const MemberMeetingScreen(),
+                    );
+                  } else {
+                    pagePushManager.navigatToWidget(
+                      context,
+                      const LawyerMeetRewuestScreen(),
+                    );
+                  }
                 },
               ),
             ),
