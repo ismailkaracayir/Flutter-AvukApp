@@ -1,9 +1,7 @@
 import 'package:avukapp/constant/constant.dart';
 import 'package:avukapp/model/appointment.dart';
 import 'package:avukapp/model/declare.dart';
-import 'package:avukapp/model/lawyer.dart';
 import 'package:avukapp/viewmodel/declare_view_model.dart';
-import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:avukapp/viewmodel/user_view_model.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
@@ -17,15 +15,15 @@ import '../../../constant/app_bar_widget.dart';
 class AppointmentPage extends StatefulWidget {
   final DeclareModel declare;
 
-  AppointmentPage({required this.declare, super.key});
+  const AppointmentPage({required this.declare, super.key});
   @override
   State<AppointmentPage> createState() => _AppointmentPageState();
 }
 
 class _AppointmentPageState extends State<AppointmentPage> {
-  final String _appointmentIcon = "assets/icons/profile_date.svg";
+  // final String _appointmentIcon = "assets/icons/profile_date.svg";
+  //final String _clockIcon = "assets/icons/profile_clock.svg";
   final String _editIcon = "assets/icons/profile_design.svg";
-  final String _clockIcon = "assets/icons/profile_clock.svg";
   final TextEditingController descriptionController = TextEditingController();
 
   // randevu tipi seçimi için kullanılıyor bunu daha sonra -1 yapabilirsin.
@@ -68,40 +66,110 @@ class _AppointmentPageState extends State<AppointmentPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 100,
-                  child: Row(
+                // SizedBox(
+                //   height: 100,
+                //   child: Row(
+                //     children: [
+                //       Expanded(
+                //         flex: 1,
+                //         child: SvgPicture.asset(
+                //           _appointmentIcon,
+                //         ),
+                //       ),
+                //       Expanded(
+                //         flex: 4,
+                //         child: Text(
+                //           widget.declare.declareTitle.toString(),
+                //           textAlign: TextAlign.center,
+                //           style: const TextStyle(
+                //             color: kNavyBlueColor,
+                //             fontSize: 22,
+                //             fontWeight: FontWeight.bold,
+                //           ),
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
+                const SizedBox(height: 15),
+                customSubjectTitle(titlee: "Randevu Bilgileri"),
+                const SizedBox(height: 10),
+
+                Container(
+                  width: pageWidth,
+                  color: kCreamColor,
+                  child: Column(
                     children: [
-                      Expanded(
-                        flex: 1,
-                        child: SvgPicture.asset(
-                          _appointmentIcon,
+                      const SizedBox(height: 6),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    "İlan Başlığı",
+                                    style: textStyleLeft(),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    widget.declare.declareTitle.toString(),
+                                    style: textStyleRight(),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    "İlan İçeriği",
+                                    style: textStyleLeft(),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    widget.declare.declareContent.toString(),
+                                    style: textStyleRight(),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    "İlan Ücreti",
+                                    style: textStyleLeft(),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    "${widget.declare.declarePrice.toString()} Tl",
+                                    style: textStyleRight(),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      const Expanded(
-                        flex: 4,
-                        child: Text(
-                          "İnceleyiniz...",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: kNavyBlueColor,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )
+                      const SizedBox(height: 6),
                     ],
                   ),
                 ),
-                const SizedBox(height: 6),
-                Divider(
-                  thickness: 2.5,
-                  color: kNavyBlueColor.withOpacity(0.5),
-                ),
+                // Divider(
+                //   thickness: 2.5,
+                //   color: kNavyBlueColor.withOpacity(0.5),
+                // ),
                 const SizedBox(height: 10),
-                // customSubjectTitle(titlee: "Randevu İşlemleri Sırası"),
-                // customSubjectTitle(titlee: "Randevu İşlemleri Sırası"),
-
                 customSubjectTitle(titlee: "Randevu İşlemleri Sırası"),
                 const SizedBox(height: 20),
                 Padding(
@@ -218,6 +286,22 @@ class _AppointmentPageState extends State<AppointmentPage> {
           ),
         ),
       ),
+    );
+  }
+
+  TextStyle textStyleRight() {
+    return const TextStyle(
+      color: kBlackColor,
+      fontSize: 15,
+      fontWeight: FontWeight.w700,
+    );
+  }
+
+  TextStyle textStyleLeft() {
+    return const TextStyle(
+      color: kNavyBlueColor,
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
     );
   }
 
@@ -470,9 +554,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
         //  RANDEVULARIM SAYFASI OLUŞTURULDUKTAN SONRA ORAYA YÖNLENDİRİLİCEK
       }
     } else {
-        for (var element in getList) {
-           
-        }
+      for (var element in getList) {}
     }
 
     //  else {

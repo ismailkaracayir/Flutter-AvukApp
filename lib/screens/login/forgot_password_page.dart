@@ -27,14 +27,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         child: Container(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
-              Text(
+              const Text(
                 "Şifremi Unuttum",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Container(
@@ -42,27 +42,27 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 height: 250,
                 child: Lottie.asset("assets/forgot.json"),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 30.0),
+                margin: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: TextFormField(
                   controller: forgetPasswordController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.email),
                       hintText: "E-Posta",
                       enabledBorder: OutlineInputBorder()),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
                     backgroundColor: kNavyBlueColor,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                         vertical: 16.0,
                         horizontal: 40.0), // Düğme içi boşluk ayarları
                     shape: RoundedRectangleBorder(
@@ -76,7 +76,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         Provider.of<UserViewModel>(context, listen: false);
                     userModel.forgotPassword(forgotpassword);
                   },
-                  child: Text("Gönder"))
+                  child: const Text("Gönder"))
             ],
           ),
         ),
