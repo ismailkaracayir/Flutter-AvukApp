@@ -140,8 +140,7 @@ class FirestoreDbService implements DBBase {
     return true;
   }
 
-
-    Future<List<AppointmentModel>> getForIdAppointment(String userId) async {
+  Future<List<AppointmentModel>> getForIdAppointment(String userId) async {
     QuerySnapshot querySnapshot =
         await firebaseFirestore.collection('appointment').get();
     List<AppointmentModel> allApo = [];
@@ -153,7 +152,20 @@ class FirestoreDbService implements DBBase {
     }
     return allApo;
   }
-  
+
+  Future<List<AppointmentModel>> getForIdLawyerAppointment(
+      String lawyerId) async {
+    QuerySnapshot querySnapshot =
+        await firebaseFirestore.collection('appointment').get();
+    List<AppointmentModel> allApo = [];
+    for (DocumentSnapshot apo in querySnapshot.docs) {
+      AppointmentModel oneApo = AppointmentModel.fromMap(apo.data() as Map);
+      if (oneApo.lawyerID == lawyerId) {
+        allApo.add(oneApo);
+      }
+    }
+    return allApo;
+  }
 
   Future<bool> updateDeclare(
       String declareId,

@@ -35,5 +35,7 @@ abstract class DBBaseDeclare {
       String declareContent, String declareCategory, String declarePrice);
   Future<bool> saveAppointment(AppointmentModel appointment);
     Future<List<AppointmentModel>> getForIdAppointment(String userId);
+        Future<List<AppointmentModel>> getForIdLwyerAppointment(String lawyerId);
+
 
 }
