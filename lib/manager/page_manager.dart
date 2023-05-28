@@ -231,7 +231,9 @@ class _MyPageManagerState extends State<MyPageManager> {
                   } else {
                     pagePushManager.navigatToWidget(
                       context,
-                      const LawyerMeetRewuestScreen(),
+                      LawyerMeetRewuestScreen(
+                        avukatName: user.userName!,
+                      ),
                     );
                   }
                 },
