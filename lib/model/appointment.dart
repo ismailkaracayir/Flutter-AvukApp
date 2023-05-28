@@ -30,6 +30,6 @@ class AppointmentModel {
         lawyerID = map['lawyerID'],
         description = map['description'],
         createDate = (map['createDate'] as Timestamp).toDate(),
-        appointmentDate = (map['appointmentDate'] as Timestamp).toDate(),
+        appointmentDate = map['appointmentDate'],
         isActive = map['isActive'];
 }

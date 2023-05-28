@@ -6,6 +6,7 @@ import 'package:avukapp/viewmodel/declare_view_model.dart';
 import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:avukapp/viewmodel/user_view_model.dart';
 import 'package:cool_alert/cool_alert.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -13,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constant/app_bar_widget.dart';
+import '../../exception/login-exception.dart';
 
 class AppointmentPage extends StatefulWidget {
   final DeclareModel declare;
@@ -434,81 +436,92 @@ class _AppointmentPageState extends State<AppointmentPage> {
   }
 
   void saveAppointment() async {
-    final user = Provider.of<UserViewModel>(context, listen: false);
-    final declare = Provider.of<DeclareViewModel>(context, listen: false);
+    try {
+      final user = Provider.of<UserViewModel>(context, listen: false);
+      final declare = Provider.of<DeclareViewModel>(context, listen: false);
 
-    if (user.user!.userID == widget.declare.lawyerId) {
-      Fluttertoast.showToast(
-          msg: 'İlan sahibi , kendi için randevu talep edemez',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-      return;
-    }
-    List<AppointmentModel> getList =
-        await declare.getForIdAppointment(user.user!.userID!);
-    if (getList.isEmpty) {
-      AppointmentModel appo = AppointmentModel(
-          userID: user.user!.userID,
-          lawyerID: widget.declare.lawyerId,
-          description: descriptionController.text);
-      bool temp = await declare.saveAppointment(appo);
+      if (user.user!.userID == widget.declare.lawyerId) {
+        Fluttertoast.showToast(
+            msg: 'İlan sahibi , kendi için randevu talep edemez',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        return;
+      }
+      List<AppointmentModel> getList =
+          await declare.getForIdAppointment(user.user!.userID!);
+      bool temp = true;
+      bool temp2 = true;
+      for (var element in getList) {
+        temp = element.isActive ?? false;
+        if (user.user!.userID == element.userID &&
+            widget.declare.lawyerId == element.lawyerID) {
+          temp2 = false;
+        }
+      }
       if (temp) {
+        if (temp2) {
+          AppointmentModel appo = AppointmentModel(
+              userID: user.user!.userID,
+              lawyerID: widget.declare.lawyerId,
+              description: descriptionController.text);
+          bool temp = await declare.saveAppointment(appo);
+          if (temp) {
+            // ignore: use_build_context_synchronously
+            await CoolAlert.show(
+                backgroundColor: kNavyBlueColor,
+                barrierDismissible: false,
+                title: 'Başarılı',
+                context: context,
+                type: CoolAlertType.success,
+                text: 'Talebiniz Avukata İletilmiştir',
+                autoCloseDuration: const Duration(seconds: 2),
+                confirmBtnText: ' ',
+                confirmBtnColor: Colors.white);
+            //  RANDEVULARIM SAYFASI OLUŞTURULDUKTAN SONRA ORAYA YÖNLENDİRİLİCEK
+          }
+        } else {
+          // ignore: use_build_context_synchronously
+          await CoolAlert.show(
+              backgroundColor: kNavyBlueColor,
+              barrierDismissible: false,
+              title: 'Uyarı',
+              context: context,
+              type: CoolAlertType.info,
+              text: 'Bu avukat dan gerçekleşmemiş randevunuz vardır...',
+              autoCloseDuration: const Duration(seconds: 2),
+              confirmBtnText: ' ',
+              confirmBtnColor: Colors.white);
+        }
+      } else {
         // ignore: use_build_context_synchronously
         await CoolAlert.show(
             backgroundColor: kNavyBlueColor,
             barrierDismissible: false,
-            title: 'Başarılı',
+            title: 'Uyarı',
             context: context,
-            type: CoolAlertType.success,
-            text: 'Talebiniz Avukata İletilmiştir',
+            type: CoolAlertType.info,
+            text:
+                'Onaylanmayı bekleyen Randevunuz olduğu için Şuan randevu oluşturamazsınız...',
             autoCloseDuration: const Duration(seconds: 2),
             confirmBtnText: ' ',
             confirmBtnColor: Colors.white);
-        //  RANDEVULARIM SAYFASI OLUŞTURULDUKTAN SONRA ORAYA YÖNLENDİRİLİCEK
       }
-    } else {
-        for (var element in getList) {
-           
-        }
+    } on FirebaseAuthException catch (e) {
+      String temp = LoginException.exception(e.toString());
+      Fluttertoast.showToast(
+          msg: temp,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red.shade300,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
-
-    //  else {
-    //   AppointmentModel appo = AppointmentModel(
-    //       userID: user.user!.userID,
-    //       lawyerID: widget.declare.lawyerId,
-    //       description: descriptionController.text);
-    //   bool temp = await declare.saveAppointment(appo);
-    //   if (temp) {
-    //     // ignore: use_build_context_synchronously
-    //     await CoolAlert.show(
-    //         backgroundColor: kNavyBlueColor,
-    //         barrierDismissible: false,
-    //         title: 'Başarılı',
-    //         context: context,
-    //         type: CoolAlertType.success,
-    //         text: 'Talebiniz Avukata İletilmiştir',
-    //         autoCloseDuration: const Duration(seconds: 2),
-    //         confirmBtnText: ' ',
-    //         confirmBtnColor: Colors.white);
-    //  RANDEVULARIM SAYFASI OLUŞTURULDUKTAN SONRA ORAYA YÖNLENDİRİLİCEK
-    //   }
-    // }
   }
 
-  /*
- CoolAlert.show(
-            backgroundColor: kNavyBlueColor,
-            barrierDismissible: false,
-            title: 'Düzenleme',
-            context: context,
-            type: CoolAlertType.warning,
-            text: 'Herhangi bir değişiklik yapılmadı!!',
-            autoCloseDuration: const Duration(seconds: 2),
-            confirmBtnText: ' ',
-            confirmBtnColor: Colors.white); */
   /*
   GestureDetector(
                     onTap: acceptTerms == true
