@@ -58,4 +58,16 @@ class DeclareViewModel extends ChangeNotifier implements DBBaseDeclare {
       String lawyerId) async {
     return await declareRepository.getForIdLwyerAppointment(lawyerId);
   }
+
+  @override
+  Future<bool> confirmAppointmentLawyer(
+      String appointmentID, DateTime appointmentDate) async {
+    return await declareRepository.confirmAppointmentLawyer(
+        appointmentID, appointmentDate);
+  }
+
+  @override
+  Future<bool> deleteAppointment(String appointmentID) async {
+    return await declareRepository.deleteAppointment(appointmentID);
+  }
 }

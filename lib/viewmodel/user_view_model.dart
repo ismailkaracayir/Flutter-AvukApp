@@ -46,9 +46,8 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
     return user!;
   }
 
-  @override
   Future<UserModel> readUser(String userID) async {
-    return _userRepository.readUser(userID);
+    return await _userRepository.readUser(userID);
   }
 
   @override
