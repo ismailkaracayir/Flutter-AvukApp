@@ -4,7 +4,6 @@ import 'package:avukapp/model/user.dart';
 import 'package:avukapp/service/auth_base.dart';
 import 'package:avukapp/service/firebase_auth_service.dart';
 import 'package:avukapp/service/firestore_db.dart';
-import 'package:flutter/material.dart';
 
 class UserRepository implements AuthBase {
   final FireBaseAuthService fireBaseAuthService = getIt<FireBaseAuthService>();
@@ -27,9 +26,8 @@ class UserRepository implements AuthBase {
     return await firestoreDbService.readUser(user.userID!);
   }
 
-  @override
   Future<UserModel> readUser(String userID) async {
-    return firestoreDbService.readUser(userID);
+    return await  firestoreDbService.readUser(userID);
   }
 
   @override
@@ -49,6 +47,7 @@ class UserRepository implements AuthBase {
       return UserModel(userID: null, email: null, userName: null);
     }
   }
+
 
   @override
   Future<bool> singOut() {

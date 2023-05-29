@@ -53,4 +53,16 @@ class DeclareRepository implements DBBaseDeclare {
       String lawyerId) async {
     return await firestoreDbService.getForIdLawyerAppointment(lawyerId);
   }
+
+  @override
+  Future<bool> confirmAppointmentLawyer(
+      String appointmentID, DateTime appointmentDate) async {
+    return await firestoreDbService.confirmAppointmentLawyer(
+        appointmentID, appointmentDate);
+  }
+
+  @override
+  Future<bool> deleteAppointment(String appointmentID) async {
+    return await firestoreDbService.deleteAppointment(appointmentID);
+  }
 }

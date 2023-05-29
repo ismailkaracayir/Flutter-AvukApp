@@ -26,7 +26,6 @@ class FirestoreDbService implements DBBase {
     DocumentSnapshot okunanUser =
         await firebaseFirestore.collection('users').doc(userID).get();
     UserModel user = UserModel.fromMap(okunanUser.data() as Map);
-    debugPrint('**********okunan user bilgileri ${user.toString()}***********');
     return user;
   }
 
@@ -165,6 +164,22 @@ class FirestoreDbService implements DBBase {
       }
     }
     return allApo;
+  }
+
+  Future<bool> deleteAppointment(String appointmentID) async {
+    DocumentReference temp =
+        firebaseFirestore.collection('appointment').doc(appointmentID);
+    temp.delete();
+    return true;
+  }
+
+  Future<bool> confirmAppointmentLawyer(
+      String appointmentID, DateTime appointmentDate) async {
+    await firebaseFirestore
+        .collection('appointment')
+        .doc(appointmentID)
+        .update({'appointmentDate': appointmentDate});
+    return true;
   }
 
   Future<bool> updateDeclare(
