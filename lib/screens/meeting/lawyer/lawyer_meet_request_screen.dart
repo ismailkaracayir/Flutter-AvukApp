@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../../model/appointment.dart';
 import '../../../viewmodel/declare_view_model.dart';
 import '../../../viewmodel/user_view_model.dart';
+import 'lawyer_meet_request_detail_screen.dart';
 
 class LawyerMeetRewuestScreen extends StatefulWidget {
   const LawyerMeetRewuestScreen({super.key, required this.avukatName});
@@ -125,7 +126,7 @@ class _LawyerMeetRewuestScreenState extends State<LawyerMeetRewuestScreen> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "Randevu İsteği Oluşturuldu",
+                                          "Randevu isteğiniz var",
                                           style: TextStyle(
                                             color: Colors.white.withOpacity(.6),
                                             fontSize: 16,
@@ -201,7 +202,17 @@ class _LawyerMeetRewuestScreenState extends State<LawyerMeetRewuestScreen> {
                                     ),
                                     const Spacer(),
                                     GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                LawyerMeetRequestDetailScreen(
+                                              model: randevuIndex,
+                                            ),
+                                          ),
+                                        );
+                                      },
                                       child: Container(
                                         height: 40,
                                         width: double.infinity,
