@@ -175,11 +175,15 @@ class FirestoreDbService implements DBBase {
 
   Future<bool> confirmAppointmentLawyer(
       String appointmentID, DateTime appointmentDate) async {
-    await firebaseFirestore
-        .collection('appointment')
-        .doc(appointmentID)
-        .update({'appointmentDate': appointmentDate});
-    return true;
+    if (appointmentID.isNotEmpty && appointmentDate.toString().isNotEmpty) {
+      await firebaseFirestore
+          .collection('appointment')
+          .doc(appointmentID)
+          .update({'appointmentDate': appointmentDate, 'isActive': true});
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future<bool> updateDeclare(

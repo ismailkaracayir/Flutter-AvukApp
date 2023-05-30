@@ -1,16 +1,25 @@
 import 'package:avukapp/constant/app_bar_widget.dart';
 import 'package:avukapp/model/user.dart';
+import 'package:avukapp/viewmodel/declare_view_model.dart';
+import 'package:cool_alert/cool_alert.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constant/const_clock.dart';
 import '../../../constant/constant.dart';
 import '../../../model/appointment.dart';
+import '../../exception/login-exception.dart';
+
+// UTKU BEN BURDA selectedDate DEĞİŞKENİNİN KULLANDIM , SENDEN BEKLEDİGİM SECTİRDİGİN TARİH VE SAATİ ONUN İÇİNE KATMAN
 
 class LawyerMeetRequestDetailScreen extends StatefulWidget {
-  const LawyerMeetRequestDetailScreen({super.key, required this.model});
+  const LawyerMeetRequestDetailScreen(
+      {super.key, required this.model, required this.userModel});
   final AppointmentModel model;
-
+  final UserModel userModel;
   @override
   State<LawyerMeetRequestDetailScreen> createState() =>
       _LawyerMeetRequestDetailScreenState();
@@ -18,11 +27,6 @@ class LawyerMeetRequestDetailScreen extends StatefulWidget {
 
 class _LawyerMeetRequestDetailScreenState
     extends State<LawyerMeetRequestDetailScreen> {
-  final UserModel _model = UserModel(
-    userID: "userID",
-    email: "utkubilgin75_fseefsf@gmailcom",
-    userName: "sjfns skejfn eslknff osıefj osıej",
-  );
   late String selectedClockx;
   DateTime selectedDate = DateTime.now();
   final firstDate = DateTime(2010, 1);
@@ -32,8 +36,7 @@ class _LawyerMeetRequestDetailScreenState
   Widget build(BuildContext context) {
     double pageWidth = MediaQuery.of(context).size.width;
     double pageHeight = MediaQuery.of(context).size.height;
-    _model.profilImgURL =
-        "https://st.depositphotos.com/1779253/5140/v/950/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg";
+
     return Scaffold(
       appBar: const CustomAppBar(appTitle: "Randevu Detayları"),
       body: Padding(
@@ -182,7 +185,7 @@ class _LawyerMeetRequestDetailScreenState
                                       width: double.infinity,
                                       height: 100,
                                       child: Image.network(
-                                        _model.profilImgURL.toString(),
+                                        widget.userModel.profilImgURL!,
                                         fit: BoxFit.cover,
                                         loadingBuilder:
                                             (context, child, loadingProgress) {
@@ -204,7 +207,7 @@ class _LawyerMeetRequestDetailScreenState
                                       child: Column(
                                         children: [
                                           Text(
-                                            _model.userName.toString(),
+                                            widget.userModel.userName!,
                                             style: greyTextStyle(
                                               fntSize: 14,
                                               colorCustm: Colors.black,
@@ -212,7 +215,7 @@ class _LawyerMeetRequestDetailScreenState
                                           ),
                                           const SizedBox(height: 10),
                                           Text(
-                                            _model.email.toString(),
+                                            widget.userModel.email!,
                                             style: greyTextStyle(
                                               fntSize: 14,
                                               colorCustm: Colors.black,
@@ -264,24 +267,30 @@ class _LawyerMeetRequestDetailScreenState
                           children: [
                             if (widget.model.isActive == false)
                               Expanded(
-                                child: Container(
-                                  height: 40,
-                                  width: double.infinity,
-                                  margin: const EdgeInsets.all(4),
-                                  decoration: BoxDecoration(
-                                    color: kNavyBlueColor,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "Onayla",
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.cutiveMono(
-                                          color: kCreamColor,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    debugPrint('onaylaaaaa');
+                                    submitAppointment(context);
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: double.infinity,
+                                    margin: const EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                      color: kNavyBlueColor,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "Onayla",
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.cutiveMono(
+                                            color: kCreamColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -290,7 +299,10 @@ class _LawyerMeetRequestDetailScreenState
                               ),
                             Expanded(
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  debugPrint('iptal tıklandı');
+                                  deleteAppointment(context);
+                                },
                                 child: Container(
                                   height: 40,
                                   width: double.infinity,
@@ -506,5 +518,77 @@ class _LawyerMeetRequestDetailScreenState
       fontSize: textSize,
       fontWeight: FontWeight.w500,
     );
+  }
+
+  void deleteAppointment(BuildContext context) async {
+    try {
+      await CoolAlert.show(
+          backgroundColor: kNavyBlueColor,
+          barrierDismissible: false,
+          title: 'Randevı İsteği Siliniyor',
+          context: context,
+          type: CoolAlertType.info,
+          text: 'Randevu isteğini silemk istediğinizden emin misiniz?',
+          confirmBtnText: 'Onayla',
+          showCancelBtn: true,
+          cancelBtnText: 'Vazgeç',
+          onConfirmBtnTap: () async {
+            final appointment =
+                Provider.of<DeclareViewModel>(context, listen: false);
+            bool temp = await appointment
+                .deleteAppointment(widget.model.appointmentID!);
+            if (temp) {
+              // ignore: use_build_context_synchronously
+              Navigator.pop(context, temp);
+            }
+          },
+          confirmBtnColor: kNavyBlueColor);
+    } on FirebaseAuthException catch (e) {
+      String temp = LoginException.exception(e.toString());
+      Fluttertoast.showToast(
+          msg: temp,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red.shade300,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
+
+  void submitAppointment(BuildContext context) async {
+    try {
+      await CoolAlert.show(
+          backgroundColor: kNavyBlueColor,
+          barrierDismissible: false,
+          title: 'Randevı İsteği Onaylanıyor...',
+          context: context,
+          type: CoolAlertType.info,
+          text: 'Randevu isteğini onaylamak istediğinizden emin misiniz?',
+          confirmBtnText: 'Onayla',
+          showCancelBtn: true,
+          cancelBtnText: 'Vazgeç',
+          onConfirmBtnTap: () async {
+            final appointment =
+                Provider.of<DeclareViewModel>(context, listen: false);
+            bool temp = await appointment.confirmAppointmentLawyer(
+                widget.model.appointmentID!, selectedDate);
+            if (temp) {
+              // ignore: use_build_context_synchronously
+              Navigator.pop(context, temp);
+            }
+          },
+          confirmBtnColor: kNavyBlueColor);
+    } on FirebaseAuthException catch (e) {
+      String temp = LoginException.exception(e.toString());
+      Fluttertoast.showToast(
+          msg: temp,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red.shade300,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
   }
 }

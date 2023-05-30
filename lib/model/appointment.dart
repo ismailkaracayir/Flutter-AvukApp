@@ -19,7 +19,7 @@ class AppointmentModel {
       'lawyerID': lawyerID,
       'description': description,
       'createDate': createDate ?? FieldValue.serverTimestamp(),
-      'appointmentDate': appointmentDate,
+      'appointmentDate': appointmentDate ?? FieldValue.serverTimestamp(),
       'isActive': isActive ?? false
     };
   }
@@ -30,6 +30,6 @@ class AppointmentModel {
         lawyerID = map['lawyerID'],
         description = map['description'],
         createDate = (map['createDate'] as Timestamp).toDate(),
-        appointmentDate = map['appointmentDate'],
+        appointmentDate = (map['appointmentDate'] as Timestamp).toDate(),
         isActive = map['isActive'];
 }
