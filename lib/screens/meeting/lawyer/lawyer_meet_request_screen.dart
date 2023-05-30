@@ -202,16 +202,30 @@ class _LawyerMeetRewuestScreenState extends State<LawyerMeetRewuestScreen> {
                                     ),
                                     const Spacer(),
                                     GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
+                                      onTap: () async {
+                                        final user = Provider.of<UserViewModel>(
+                                            context,
+                                            listen: false);
+                                        var userModel = await user
+                                            .readUser(randevuIndex.userID!);
+                                        // ignore: use_build_context_synchronously
+                                        bool temp = await Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 LawyerMeetRequestDetailScreen(
                                               model: randevuIndex,
+                                              userModel: userModel,
                                             ),
                                           ),
                                         );
+                                        if (temp) {
+                                          debugPrint(
+                                              'configirim tıklandı geri gidiliyor');
+                                          allAppointment = [];
+                                          await getAllMeeting();
+                                          setState(() {});
+                                        }
                                       },
                                       child: Container(
                                         height: 40,
