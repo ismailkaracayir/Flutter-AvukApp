@@ -348,9 +348,10 @@ class FirestoreDbService implements DBBase {
   }
 
   Future<String> readToken(String id) async {
+    debugPrint('OKUNAN id: $id');
     DocumentSnapshot readToken =
         await firebaseFirestore.collection('userToken').doc(id).get();
-    String token = readToken.data().toString(); 
+    String token = readToken.get('token');
     debugPrint('OKUNAN TOKEN: $token');
     return token;
   }

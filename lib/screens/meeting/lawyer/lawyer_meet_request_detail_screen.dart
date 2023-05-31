@@ -572,7 +572,7 @@ class _LawyerMeetRequestDetailScreenState
             final appointment =
                 Provider.of<DeclareViewModel>(context, listen: false);
             bool temp = await appointment.confirmAppointmentLawyer(
-                widget.model.appointmentID!, selectedDate);
+                widget.model.appointmentID!, selectedDate,widget.model);
             if (temp) {
               // ignore: use_build_context_synchronously
               Navigator.pop(context, temp);
