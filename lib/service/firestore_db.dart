@@ -4,10 +4,12 @@ import 'package:avukapp/model/lawyer.dart';
 import 'package:avukapp/model/user.dart';
 import 'package:avukapp/service/db_base.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 
 class FirestoreDbService implements DBBase {
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
   @override
   Future<List<UserModel>> getAllUser() async {
@@ -39,6 +41,7 @@ class FirestoreDbService implements DBBase {
         await firebaseFirestore.doc("users/${user.userID}").get();
     Map readUserDetalys = readUser.data() as Map;
     UserModel _readUser = UserModel.fromMap(readUserDetalys);
+    await notificationToken(user.userID!);
     debugPrint(_readUser.toString());
 
     return true;
@@ -324,5 +327,31 @@ class FirestoreDbService implements DBBase {
       print('Error updating user profile image URL: $e');
       return false;
     }
+  }
+
+  Future<void> notificationToken(String id) async {
+    String? token;
+    await firebaseMessaging
+        .getToken(
+            vapidKey:
+                'AAAADt3D2S8:APA91bF5OyNQZGbveJ6nMF-NKNEAyafk1CxHtCMYN81W7vRPC8OTaAdesdvbx9T4iyGNutNgW5WoE61poEhcUG4k-De6AkNzBt_CYrl26IuAQtD_nRWCqRGFim8KBXrjippZzMRiSIXD')
+        .then((value) {
+      token = value;
+      debugPrint(token);
+    });
+    if (token!.isNotEmpty) {
+      await firebaseFirestore
+          .collection('userToken')
+          .doc(id)
+          .set({'token': token});
+    }
+  }
+
+  Future<String> readToken(String id) async {
+    DocumentSnapshot readToken =
+        await firebaseFirestore.collection('userToken').doc(id).get();
+    String token = readToken.data().toString(); 
+    debugPrint('OKUNAN TOKEN: $token');
+    return token;
   }
 }

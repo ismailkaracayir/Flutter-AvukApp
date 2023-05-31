@@ -4,6 +4,7 @@ import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/declare.dart';
 import 'package:avukapp/viewmodel/declare_view_model.dart';
 import 'package:avukapp/viewmodel/lawyer_view_model.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constant/constant.dart';
@@ -29,7 +30,6 @@ class _MyHomePageState extends State<MyHomePage> {
   late List<DeclareModel> allDeclare = [];
   late List<DeclareModel> resoultSerchDeclare = [];
   late List<String> butunHukukKategorileri;
-
   TextEditingController kotegoriController = TextEditingController();
 
   Future<void> change() async {
@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     });
   }
-
+ 
   @override
   void initState() {
     super.initState();
@@ -229,4 +229,6 @@ class _MyHomePageState extends State<MyHomePage> {
       fontWeight: FontWeight.w500,
     );
   }
+  
+
 }
