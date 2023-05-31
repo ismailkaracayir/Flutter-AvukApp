@@ -6,6 +6,7 @@ import 'package:avukapp/viewmodel/declare_view_model.dart';
 import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import '../../constant/constant.dart';
 import '../../constant/hukuk_category.dart';
@@ -39,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     });
   }
- 
+
   @override
   void initState() {
     super.initState();
@@ -47,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     butunHukukKategorileri = hukukAlanlari;
     controlIsLayerAndOk();
     getAllDeclare();
-    debugPrint('HOMEPAGE İNİT STATE ÇALIŞTI');
+    initialize();
   }
 
   void kategoriArama(String value) {
@@ -229,6 +230,54 @@ class _MyHomePageState extends State<MyHomePage> {
       fontWeight: FontWeight.w500,
     );
   }
-  
 
+  Future<void> initialize() async {
+    FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await firebaseMessaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('*********************İzin verildi');
+    } else {
+      print('******************İzin verilmedi');
+    }
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      print('Bildirim alındı: ${message.notification!.title}');
+      // Bildirimi işleme kodu...
+      await showNotification(message);
+    });
+  }
+
+  Future<void> showNotification(RemoteMessage message) async {
+    AndroidNotificationChannel channel = AndroidNotificationChannel(
+        message.notification!.android!.channelId.toString(),
+        message.notification!.android!.channelId.toString(),
+        importance: Importance.max,
+        showBadge: true,
+        playSound: true,
+        sound: const RawResourceAndroidNotificationSound('slow_spring_board'));
+
+    AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails(
+      channel.id.toString(),
+      channel.name.toString(),
+      channelDescription: 'your channel description',
+      importance: Importance.high,
+      priority: Priority.high,
+      playSound: true,
+      ticker: 'ticker',
+      sound: const RawResourceAndroidNotificationSound('jetsons_doorbell'),
+      icon: 'mipmap/ic_launcher.png',
+    );
+
+    const DarwinNotificationDetails darwinNotificationDetails =
+        DarwinNotificationDetails(
+            presentAlert: true, presentBadge: true, presentSound: true);
+
+    NotificationDetails notificationDetails = NotificationDetails(
+        android: androidNotificationDetails, iOS: darwinNotificationDetails);
+  }
 }

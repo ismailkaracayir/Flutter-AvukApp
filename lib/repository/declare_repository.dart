@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:avukapp/model/appointment.dart';
 import 'package:avukapp/model/declare.dart';
 import 'package:avukapp/service/db_base.dart';
+import 'package:flutter/foundation.dart';
 import '../lacator.dart';
 import '../service/firestore_db.dart';
+import 'package:http/http.dart' as http;
 
 class DeclareRepository implements DBBaseDeclare {
   final FirestoreDbService firestoreDbService = getIt<FirestoreDbService>();
@@ -40,7 +44,40 @@ class DeclareRepository implements DBBaseDeclare {
 
   @override
   Future<bool> saveAppointment(AppointmentModel appointment) async {
-    return await firestoreDbService.saveAppointment(appointment);
+    bool temp = await firestoreDbService.saveAppointment(appointment);
+    if (temp) {
+      final user = await firestoreDbService.readUser(appointment.userID!);
+      String token = await firestoreDbService.readToken(appointment.lawyerID!);
+      String endURL = "https://fcm.googleapis.com/fcm/send";
+      String firebaseKey =
+          "AAAADt3D2S8:APA91bF5OyNQZGbveJ6nMF-NKNEAyafk1CxHtCMYN81W7vRPC8OTaAdesdvbx9T4iyGNutNgW5WoE61poEhcUG4k-De6AkNzBt_CYrl26IuAQtD_nRWCqRGFim8KBXrjippZzMRiSIXD";
+
+      var data = {
+        'to': token,
+        'notification': {
+          'title': 'Yeni Bir Randevu İstegi',
+          'body': '${user.userName} Kullanıcısından',
+          "sound": "jetsons_doorbell.mp3"
+        },
+        'android': {
+          'notification': {
+            'notification_count': 23,
+          },
+        },
+        'data': {'type': 'msj', 'id': 'Asif Taj'}
+      };
+      http.Response response =
+          await http.post(Uri.parse(endURL), body: jsonEncode(data), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'key=$firebaseKey'
+      });
+      if (response.statusCode == 200) {
+        debugPrint("AAAAAAAAAAAAAAAAAişlem basarılı");
+      } else {
+        debugPrint("işlem basarısız:" + response.statusCode.toString());
+      }
+    }
+    return temp;
   }
 
   @override
@@ -55,10 +92,44 @@ class DeclareRepository implements DBBaseDeclare {
   }
 
   @override
-  Future<bool> confirmAppointmentLawyer(
-      String appointmentID, DateTime appointmentDate) async {
-    return await firestoreDbService.confirmAppointmentLawyer(
+  Future<bool> confirmAppointmentLawyer(String appointmentID,
+      DateTime appointmentDate, AppointmentModel appointment) async {
+    bool temp = await firestoreDbService.confirmAppointmentLawyer(
         appointmentID, appointmentDate);
+    if (temp) {
+      final user = await firestoreDbService.readUser(appointment.lawyerID!);
+      String token = await firestoreDbService.readToken(appointment.userID!);
+      String endURL = "https://fcm.googleapis.com/fcm/send";
+      String firebaseKey =
+          "AAAADt3D2S8:APA91bF5OyNQZGbveJ6nMF-NKNEAyafk1CxHtCMYN81W7vRPC8OTaAdesdvbx9T4iyGNutNgW5WoE61poEhcUG4k-De6AkNzBt_CYrl26IuAQtD_nRWCqRGFim8KBXrjippZzMRiSIXD";
+
+      var data = {
+        'to': token,
+        'notification': {
+          'title': 'Randevunuz onaylandı',
+          'body': '${user.userName} Tarafından',
+          "sound": "jetsons_doorbell.mp3"
+        },
+        'android': {
+          'notification': {
+            'notification_count': 23,
+          },
+        },
+        'data': {'type': 'msj', 'id': 'Asif Taj'}
+      };
+      http.Response response =
+          await http.post(Uri.parse(endURL), body: jsonEncode(data), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'key=$firebaseKey'
+      });
+      if (response.statusCode == 200) {
+        debugPrint("AAAAAAAAAAAAAAAAAişlem basarılı");
+      } else {
+        debugPrint("işlem basarısız:" + response.statusCode.toString());
+      }
+    }
+
+    return temp;
   }
 
   @override
