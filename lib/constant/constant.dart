@@ -6,6 +6,7 @@ const kCreamColor = Color(0xFFF5F5DC);
 const kWineRedColor = Color(0xFF800000);
 const kBlackColor = Color(0xFF000000);
 const kWhiteColor = Color(0xFFFFFFFF);
+const orengeButtonColor = Color(0xFFFF9F1C);
 
 // ! const Font Size
 
