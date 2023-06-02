@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
+import 'screens/onboard/onboard_page.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -23,7 +24,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
 
   setupLocator();
   runApp(const MyApp());
@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
             color: kWineRedColor,
           ),
         ),
-        home: LandingPage(),
+        home: const OnboardPage(),
       ),
     );
   }
