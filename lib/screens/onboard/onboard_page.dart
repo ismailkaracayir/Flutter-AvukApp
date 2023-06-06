@@ -1,85 +1,138 @@
+import 'package:avukapp/constant/constant.dart';
+import 'package:avukapp/screens/login/login.dart';
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:introduction_screen/introduction_screen.dart';
+import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'pages/intro_page_1.dart';
-import 'pages/intro_page_2.dart';
-import 'pages/intro_page_3.dart';
+class OnBoardingPage extends StatelessWidget {
+  const OnBoardingPage({super.key});
+  _storeOnboardInfo() async {
+    print("Shared pref called");
+    int isViewed = 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('onBoard', isViewed);
+    print(prefs.getInt('onBoard'));
+  }
 
-class OnboardPage extends StatefulWidget {
-  const OnboardPage({super.key});
-
-  @override
-  State<OnboardPage> createState() => _OnboardPageState();
-}
-
-class _OnboardPageState extends State<OnboardPage> {
-  final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          PageView(
-            controller: _pageController,
-            children: const [
-              IntroPage1(),
-              IntroPage2(),
-              IntroPage3(),
-            ],
-          ),
-          Container(
-            alignment: const Alignment(0, 0.70),
-            child: SmoothPageIndicator(
-              controller: _pageController,
-              count: 3,
-              effect: CustomizableEffect(
-                activeDotDecoration: DotDecoration(
-                  width: 32,
-                  height: 12,
-                  color: Colors.orange,
-                  rotationAngle: 180,
-                  verticalOffset: -10,
-                  borderRadius: BorderRadius.circular(24),
-                  // dotBorder: DotBorder(
-                  //   padding: 2,
-                  //   width: 2,
-                  //   color: Colors.indigo,
-                  // ),
-                ),
-                dotDecoration: DotDecoration(
-                  width: 24,
-                  height: 12,
-                  color: Colors.grey,
-                  // dotBorder: DotBorder(
-                  //   padding: 2,
-                  //   width: 2,
-                  //   color: Colors.grey,
-                  // ),
-                  // borderRadius: BorderRadius.only(
-                  //     topLeft: Radius.circular(2),
-                  //     topRight: Radius.circular(16),
-                  //     bottomLeft: Radius.circular(16),
-                  //     bottomRight: Radius.circular(2)),
-                  borderRadius: BorderRadius.circular(16),
-                  verticalOffset: 0,
-                ),
-                spacing: 6.0,
-                // activeColorOverride: (i) => colors[i],
-                inActiveColorOverride: (i) => colors[i],
+      body: IntroductionScreen(
+        globalBackgroundColor: Colors.white,
+        scrollPhysics: const BouncingScrollPhysics(),
+        pages: [
+          PageViewModel(
+              titleWidget: const Text(
+                "Hoşgeldiniz",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-            ),
-          ),
+              body:
+                  "AvukApp mobil uygulamasına hoşgeldiniz. Küçük bir tura çıkmak istiyorsan yana kaydır.",
+              image: Lottie.asset(
+                "assets/law.json",
+                height: 200,
+                width: 300,
+              )),
+          PageViewModel(
+              titleWidget: const Text(
+                "Anasayfa",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              body:
+                  "Anasayfada aktif avukat ilanlarını görebilir, arama yapabilirsiniz. ",
+              image: Image.asset(
+                "assets/images/page2.png",
+                height: 200,
+                width: 200,
+              )),
+          PageViewModel(
+              titleWidget: const Text(
+                "Profil Sayfası",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              body: "Bu sayfada profiliniz özelleştirebilirsiniz.",
+              image: Image.asset(
+                "assets/images/profil.png",
+                height: 200,
+                width: 200,
+              )),
+          PageViewModel(
+              titleWidget: const Text(
+                "Randevu Sayfası",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              body: "Bu sayfada randevu durumunuzu görebilrisiniz.",
+              image: Image.asset(
+                "assets/images/page3.png",
+                height: 200,
+                width: 200,
+              )),
+          PageViewModel(
+              titleWidget: const Text(
+                "Randevu Detay Sayfası",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              body:
+                  "Bu sayfada randevularınıza katılabiilir veya iptal edebilirsiniz.",
+              image: Image.asset(
+                "assets/images/page4.png",
+                height: 200,
+                width: 200,
+              )),
+          PageViewModel(
+              titleWidget: const Text(
+                "Hazırsanız başlayalım!",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              body: "Hadi avukatını bul!",
+              image: Lottie.asset(
+                "assets/ready.json",
+                height: 300,
+                width: 300,
+              )),
         ],
+        onDone: () async {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LoginScreen(),
+              ));
+          await _storeOnboardInfo();
+        },
+        onChange: (value) {},
+        onSkip: () async {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LoginScreen(),
+              ));
+          await _storeOnboardInfo();
+        },
+        showSkipButton: true,
+        skip: const Text(
+          "Atla",
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 18, color: kNavyBlueColor),
+        ),
+        next: const Icon(
+          Icons.arrow_forward,
+          color: kNavyBlueColor,
+        ),
+        done: const Text(
+          "Bitti",
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 18, color: kNavyBlueColor),
+        ),
+        dotsDecorator: DotsDecorator(
+            size: const Size.square(10),
+            activeSize: const Size(20, 10),
+            color: Colors.black26,
+            activeColor: kNavyBlueColor,
+            spacing: const EdgeInsets.symmetric(horizontal: 3),
+            activeShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10))),
       ),
     );
   }
 }
-
-final colors = [
-  Colors.orange,
-  Colors.orange,
-  Colors.orange,
-  Colors.orange,
-  Colors.orange,
-  Colors.orange,
-];
