@@ -39,6 +39,7 @@ dependencies:
   flutter_local_notifications: ^14.1.0
   http: ^0.13.6
   smooth_page_indicator: ^1.1.0
+  stripe_checkout: ^1.0.2
 
 
 
