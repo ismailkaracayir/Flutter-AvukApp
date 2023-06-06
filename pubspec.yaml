@@ -40,6 +40,8 @@ dependencies:
   http: ^0.13.6
   smooth_page_indicator: ^1.1.0
   stripe_checkout: ^1.0.2
+  introduction_screen: ^3.1.8
+  shared_preferences: ^2.1.1
 
 
 

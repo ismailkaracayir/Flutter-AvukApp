@@ -20,7 +20,7 @@ class StripeService {
       lineItems +=
           "&line_items[$index][price_data][product_data][name]=${val['productName']}";
       lineItems += "&line_items[$index][price_data][unit_amount]=$productPrice";
-      lineItems += "&line_items[$index][price_data][currency]=EUR";
+      lineItems += "&line_items[$index][price_data][currency]=TRY";
       lineItems += "&line_items[$index][quantity]=${val['qty'].toString()}";
       index++;
     });
