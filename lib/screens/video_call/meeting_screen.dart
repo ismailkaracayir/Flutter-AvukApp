@@ -80,18 +80,16 @@ class _MeetingScreenState extends State<MeetingScreen> {
     return Scaffold(
       appBar: const CustomAppBar(appTitle: "Görüntülü Görüşme"),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(0),
         child: Column(
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(0),
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    mainAxisExtent: 300,
+                    crossAxisCount: 1,
+                    childAspectRatio: 1,
                   ),
                   itemBuilder: (context, index) {
                     return ParticipantTile(
