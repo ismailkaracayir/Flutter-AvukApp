@@ -89,7 +89,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    childAspectRatio: 1,
+                    childAspectRatio: 1.25,
                   ),
                   itemBuilder: (context, index) {
                     return ParticipantTile(
@@ -110,6 +110,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
                 camEnabled = !camEnabled;
               },
               onLeaveButtonPressed: () {
+                Navigator.pop(context);
                 _room.leave();
               },
             ),
