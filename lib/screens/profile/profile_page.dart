@@ -143,8 +143,11 @@ class _ProfilePage extends State<ProfilePage> {
                     buttonHeight: 50,
                     buttonWidth: 250,
                     onPress: () async {
-                      var lawyer =
-                          await _lawyer.readLawyer(_user.user!.userID!);
+                      var lawyer;
+                      if (_user.user!.isLawyer == 1) {
+                        lawyer = await _lawyer.readLawyer(_user.user!.userID!);
+                        debugPrint(lawyer.email);
+                      }
 
                       bool? temp = await Navigator.of(context)
                           .push<bool>(MaterialPageRoute(

@@ -1,7 +1,11 @@
 // ignore_for_file: avoid_print
 
 import 'package:avukapp/constant/app_bar_widget.dart';
+import 'package:avukapp/screens/video_call/api_call.dart';
+import 'package:avukapp/screens/video_call/meeting_screen.dart';
+import 'package:avukapp/viewmodel/declare_view_model.dart';
 import 'package:avukapp/viewmodel/lawyer_view_model.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -229,8 +233,8 @@ class _MemberMeetingDetailScreenState extends State<MemberMeetingDetailScreen> {
                               ),
                               const Spacer(),
                               GestureDetector(
-                                onTap: () {
-                                  print(_lawyerModel.profilImgURL);
+                                onTap: () async {
+                                  await _getVideoCall(context);
                                 },
                                 child: Container(
                                   height: 40,
@@ -317,5 +321,51 @@ class _MemberMeetingDetailScreenState extends State<MemberMeetingDetailScreen> {
     setState(() {});
     print("getLawyer çıktı");
     print(_lawyerModel.userName);
+  }
+
+  Future<void> _getVideoCall(BuildContext context) async {
+    final appointment = Provider.of<DeclareViewModel>(context, listen: false);
+    var getAppo =
+        await appointment.getAppointmentDate(widget.model.appointmentID!);
+    if (getAppo.appointmentDate!.isBefore(DateTime.now())) {
+      // ignore: use_build_context_synchronously
+      await CoolAlert.show(
+          backgroundColor: kNavyBlueColor,
+          barrierDismissible: false,
+          title: 'Toplantı Zamanı Başlamadı',
+          context: context,
+          type: CoolAlertType.info,
+          textTextStyle:
+              const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          text:
+              '\nToplantı tarihi: ${getAppo.appointmentDate!.year}-${getAppo.appointmentDate!.month}-${getAppo.appointmentDate!.day} \nToplantı Saati: ${getAppo.appointmentDate!.hour}:${getAppo.appointmentDate!.minute} ',
+          autoCloseDuration: const Duration(seconds: 3),
+          confirmBtnText: ' ',
+          confirmBtnColor: Colors.white);
+    }
+    if (getAppo.meetingID == null) {
+      // ignore: use_build_context_synchronously
+      await CoolAlert.show(
+          backgroundColor: kNavyBlueColor,
+          barrierDismissible: false,
+          title: 'Toplantı Zamanı Başlamadı',
+          context: context,
+          type: CoolAlertType.info,
+          textTextStyle:
+              const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          text: 'Avukatın Toplantıyı Başlatması Bekleniyir...',
+          autoCloseDuration: const Duration(seconds: 3),
+          confirmBtnText: ' ',
+          confirmBtnColor: Colors.white);
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => MeetingScreen(
+            meetingId: getAppo.meetingID!,
+            token: token,
+          ),
+        ),
+      );
+    }
   }
 }

@@ -5,6 +5,7 @@ class AppointmentModel {
   String? userID;
   String? lawyerID;
   String? description;
+  String? meetingID;
   DateTime? createDate; // sistem saati alınacak
   DateTime? appointmentDate;
   bool? isActive;
@@ -18,6 +19,7 @@ class AppointmentModel {
       'userID': userID,
       'lawyerID': lawyerID,
       'description': description,
+      'meetingID': meetingID,
       'createDate': createDate ?? FieldValue.serverTimestamp(),
       'appointmentDate': appointmentDate ?? FieldValue.serverTimestamp(),
       'isActive': isActive ?? false
@@ -29,6 +31,7 @@ class AppointmentModel {
         userID = map['userID'],
         lawyerID = map['lawyerID'],
         description = map['description'],
+        meetingID = map['meetingID'],
         createDate = (map['createDate'] as Timestamp).toDate(),
         appointmentDate = (map['appointmentDate'] as Timestamp).toDate(),
         isActive = map['isActive'];
