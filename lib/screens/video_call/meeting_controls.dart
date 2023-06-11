@@ -1,3 +1,4 @@
+import 'package:avukapp/constant/constant.dart';
 import 'package:flutter/material.dart';
 
 class MeetingControls extends StatelessWidget {
@@ -17,12 +18,17 @@ class MeetingControls extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ElevatedButton(
-            onPressed: onLeaveButtonPressed, child: const Text('Leave')),
+            style: ElevatedButton.styleFrom(backgroundColor: kNavyBlueColor),
+            onPressed: onLeaveButtonPressed,
+            child: const Text('Çıkış')),
         ElevatedButton(
-            onPressed: onToggleMicButtonPressed, child: const Text('Toggle Mic')),
+            style: ElevatedButton.styleFrom(backgroundColor: kNavyBlueColor),
+            onPressed: onToggleMicButtonPressed,
+            child: const Text('Mikrofonu kapat')),
         ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: kNavyBlueColor),
             onPressed: onToggleCameraButtonPressed,
-            child: const Text('Toggle WebCam')),
+            child: const Text('Kamerayı kapat')),
       ],
     );
   }

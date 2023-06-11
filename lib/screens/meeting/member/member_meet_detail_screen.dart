@@ -327,7 +327,7 @@ class _MemberMeetingDetailScreenState extends State<MemberMeetingDetailScreen> {
     final appointment = Provider.of<DeclareViewModel>(context, listen: false);
     var getAppo =
         await appointment.getAppointmentDate(widget.model.appointmentID!);
-    if (getAppo.appointmentDate!.isBefore(DateTime.now())) {
+    if (getAppo.appointmentDate!.isAfter(DateTime.now())) {
       // ignore: use_build_context_synchronously
       await CoolAlert.show(
           backgroundColor: kNavyBlueColor,
@@ -353,7 +353,7 @@ class _MemberMeetingDetailScreenState extends State<MemberMeetingDetailScreen> {
           type: CoolAlertType.info,
           textTextStyle:
               const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-          text: 'Avukatın Toplantıyı Başlatması Bekleniyir...',
+          text: 'Avukatın Toplantıyı Başlatması Bekleniyor...',
           autoCloseDuration: const Duration(seconds: 3),
           confirmBtnText: ' ',
           confirmBtnColor: Colors.white);
