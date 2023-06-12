@@ -33,6 +33,8 @@ abstract class DBBaseDeclare {
   Future<List<DeclareModel>> getForIdDeclare(String lawyerId);
   Future<bool> updateDeclare(String declareId, String declareTitle,
       String declareContent, String declareCategory, String declarePrice);
+  Future<bool> favoriDeclare(DeclareModel declare, String userID);
+  Future<List<DeclareModel>> getForFavorieDeclare(String userID);
   Future<bool> saveAppointment(AppointmentModel appointment);
   Future<List<AppointmentModel>> getForIdAppointment(String userId);
   Future<List<AppointmentModel>> getForIdLwyerAppointment(String lawyerId);
@@ -40,5 +42,5 @@ abstract class DBBaseDeclare {
       DateTime appointmentDate, AppointmentModel appointment);
   Future<bool> deleteAppointment(String appointmentID);
   Future<AppointmentModel> getAppointmentDate(String appointmentID);
-  Future<bool> createMeetingLawyer(String appointmentID,String meetingID);
+  Future<bool> createMeetingLawyer(String appointmentID, String meetingID);
 }

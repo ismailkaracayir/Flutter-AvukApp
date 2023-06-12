@@ -82,4 +82,14 @@ class DeclareViewModel extends ChangeNotifier implements DBBaseDeclare {
     return await declareRepository.createMeetingLawyer(
         appointmentID, meetingID);
   }
+
+  @override
+  Future<bool> favoriDeclare(DeclareModel declare, String userID) async {
+    return declareRepository.favoriDeclare(declare, userID);
+  }
+
+  @override
+  Future<List<DeclareModel>> getForFavorieDeclare(String userID) async {
+    return declareRepository.getForFavorieDeclare(userID);
+  }
 }
