@@ -148,4 +148,14 @@ class DeclareRepository implements DBBaseDeclare {
     return await firestoreDbService.createMeetingLawyer(
         appointmentID, meetingID);
   }
+
+  @override
+  Future<bool> favoriDeclare(DeclareModel declare, String userID) async {
+    return await firestoreDbService.favoriDeclare(declare, userID);
+  }
+
+  @override
+  Future<List<DeclareModel>> getForFavorieDeclare(String userID) async {
+    return await firestoreDbService.getForFavorieDeclare(userID);
+  }
 }

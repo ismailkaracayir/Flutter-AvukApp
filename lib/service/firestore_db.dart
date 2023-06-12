@@ -67,8 +67,6 @@ class FirestoreDbService implements DBBase {
     return lawyer;
   }
 
-
-
   Future<List<LawyerModel>> getAllLawyer() async {
     QuerySnapshot querySnapshot =
         await firebaseFirestore.collection('lawyers').get();
@@ -144,7 +142,8 @@ class FirestoreDbService implements DBBase {
     }
     return true;
   }
-    Future<AppointmentModel> getAppointmentDate(String appointmentID) async {
+
+  Future<AppointmentModel> getAppointmentDate(String appointmentID) async {
     DocumentSnapshot readAppo = await firebaseFirestore
         .collection('appointment')
         .doc(appointmentID)
@@ -152,8 +151,10 @@ class FirestoreDbService implements DBBase {
     AppointmentModel appo = AppointmentModel.fromMap(readAppo.data() as Map);
     return appo;
   }
-    Future<bool> createMeetingLawyer(String appointmentID,String meetingID)async{
-          try {
+
+  Future<bool> createMeetingLawyer(
+      String appointmentID, String meetingID) async {
+    try {
       await firebaseFirestore
           .collection('appointment')
           .doc(appointmentID)
@@ -162,8 +163,7 @@ class FirestoreDbService implements DBBase {
     } catch (e) {
       return false;
     }
-    }
-
+  }
 
   Future<List<AppointmentModel>> getForIdAppointment(String userId) async {
     QuerySnapshot querySnapshot =
@@ -233,6 +233,26 @@ class FirestoreDbService implements DBBase {
     List<DeclareModel> allDeclare = [];
     for (DocumentSnapshot declare in querySnapshot.docs) {
       DeclareModel oneDeclare = DeclareModel.fromMap(declare.data() as Map);
+      allDeclare.add(oneDeclare);
+    }
+    return allDeclare;
+  }
+
+  Future<bool> favoriDeclare(DeclareModel declare, String userID) async {
+    await firebaseFirestore
+        .collection('favorideclare')
+        .doc(userID)
+        .set(declare.toMap());
+    return true;
+  }
+
+  Future<List<DeclareModel>> getForFavorieDeclare(String userID) async {
+    QuerySnapshot querySnapshot =
+        await firebaseFirestore.collection('favorideclare').where("userID",isEqualTo: userID).get();
+    List<DeclareModel> allDeclare = [];
+    for (DocumentSnapshot declare in querySnapshot.docs) {
+      DeclareModel oneDeclare = DeclareModel.fromMap(declare.data() as Map);
+
       allDeclare.add(oneDeclare);
     }
     return allDeclare;
