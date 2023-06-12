@@ -156,7 +156,7 @@ class _LawyerMeetRequestDetailScreenState
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
-                      vertical: 2,
+                      vertical: 8,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -332,35 +332,36 @@ class _LawyerMeetRequestDetailScreenState
                             )
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            _getMeeting();
-                            debugPrint('avukat görüşmeye katıl tıklandı');
-                          },
-                          child: Container(
-                            height: 40,
-                            width: double.infinity,
-                            margin: const EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                              color: kNavyBlueColor,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Görüşmeye Katıl",
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.cutiveMono(
-                                    color: kCreamColor,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                        if (widget.model.isActive!)
+                          GestureDetector(
+                            onTap: () {
+                              _getMeeting();
+                              debugPrint('avukat görüşmeye katıl tıklandı');
+                            },
+                            child: Container(
+                              height: 40,
+                              width: double.infinity,
+                              margin: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                color: kNavyBlueColor,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "Görüşmeye Katıl",
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.cutiveMono(
+                                      color: kCreamColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
                       ],
                     ),
                   ),

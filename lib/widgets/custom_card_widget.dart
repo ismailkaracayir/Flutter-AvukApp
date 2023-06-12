@@ -51,17 +51,17 @@ class CustomCardWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        for (int i = 0; i < 5; i++)
-                          const Icon(
-                            Icons.star,
-                            size: 19,
-                            color: Colors.amber,
-                          ),
-                      ],
-                    )
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     for (int i = 0; i < 5; i++)
+                    //       const Icon(
+                    //         Icons.star,
+                    //         size: 19,
+                    //         color: Colors.amber,
+                    //       ),
+                    //   ],
+                    // )
                   ],
                 ),
               ),
