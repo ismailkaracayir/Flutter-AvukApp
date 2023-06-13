@@ -1,3 +1,4 @@
+import 'package:avukapp/screens/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -34,14 +35,19 @@ class _CustomAppBarState extends State<CustomAppBar> {
         color: kCreamColor,
         fontSize: 18,
       ),
-      leading: IconButton( 
+      leading: IconButton(
         icon: const Icon(
-          Icons.arrow_back_rounded,
+          Icons.exit_to_app,
           size: 24,
         ),
         color: kCreamColor,
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginScreen(),
+            ),
+          );
         },
       ),
       shape: const RoundedRectangleBorder(

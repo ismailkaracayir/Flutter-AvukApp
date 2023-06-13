@@ -1,16 +1,13 @@
 import 'package:avukapp/constant/constant.dart';
-import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/user.dart';
 import 'package:avukapp/screens/exception/login-exception.dart';
 import 'package:avukapp/screens/login/forgot_password_page.dart';
 import 'package:avukapp/screens/register/registration.dart';
-import 'package:cool_alert/cool_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
-import '../../admin/admin_login/admin_page.dart';
 import '../../viewmodel/user_view_model.dart';
 import '../../widgets/social_button.dart';
 import '../landing_screen.dart';
@@ -187,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    TextButton(
+                    /*  TextButton(
                       onPressed: () {
                         NavigatorManager()
                             .navigatToWidget(context, const AdminLoginPage());
@@ -200,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                    )
+                    ) */
                   ],
                 ),
               ),
