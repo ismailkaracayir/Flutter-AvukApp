@@ -7,9 +7,7 @@ import '../screens/home/home_page.dart';
 import '../screens/meeting/lawyer/lawyer_meet_request_screen.dart';
 import '../screens/meeting/member/member_meeting_screen.dart';
 import '../screens/message/message_page.dart';
-import '../screens/notification/notification_page.dart';
 import '../screens/profile/profile_detail/about_detail/about.dart';
-import '../screens/profile/profile_detail/notification_detail/notification.dart';
 import '../screens/profile/profile_detail/profile_pages/place_an_ad/place_an_ad_body.dart';
 import '../screens/profile/profile_detail/terms_conditions_detail/terms_conditions.dart';
 import '../screens/profile/profile_page.dart';
@@ -41,12 +39,9 @@ class _MyPageManagerState extends State<MyPageManager> {
         return "Ana Sayfa";
 
       case 1:
-        return "Mesajlar";
+        return "Favoriler";
 
       case 2:
-        return "Bildirimler";
-
-      case 3:
         return "Profil Sayfası";
       default:
         return "-";
@@ -95,7 +90,6 @@ class _MyPageManagerState extends State<MyPageManager> {
         children: const [
           MyHomePage(),
           MyMessagePage(),
-          MyNotificationPage(),
           ProfilePage(),
         ],
       ),
@@ -168,37 +162,6 @@ class _MyPageManagerState extends State<MyPageManager> {
                 ),
               ),
             ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: Container(
-              decoration: BoxDecoration(
-                color: kNavyBlueColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ListTile(
-                leading: const Icon(
-                  Icons.edit_notifications_sharp,
-                  color: kCreamColor,
-                ),
-                title: const Text(
-                  "Bildirim Ayarları",
-                  style: TextStyle(
-                    color: kCreamColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const NotificationPage(),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Container(
@@ -293,37 +256,6 @@ class _MyPageManagerState extends State<MyPageManager> {
                   pagePushManager.navigatToWidget(
                     context,
                     const TermsConditionsPage(),
-                  );
-                },
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: Container(
-              decoration: BoxDecoration(
-                color: kNavyBlueColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ListTile(
-                leading: const Icon(
-                  Icons.settings,
-                  color: kCreamColor,
-                ),
-                title: const Text(
-                  "Ayarlar",
-                  style: TextStyle(
-                    color: kCreamColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const NotificationPage(),
-                    ),
                   );
                 },
               ),
@@ -480,34 +412,55 @@ class _MyPageManagerState extends State<MyPageManager> {
                           });
                         },
                         icon: Icon(
-                          Icons.message,
+                          Icons.favorite,
                           color:
                               selectinIndex == 1 ? kNavyBlueColor : kCreamColor,
                           size: 32,
                         ),
                       ),
-                      Positioned(
-                        bottom: 26,
-                        left: 50,
-                        child: Container(
-                          width: 22,
-                          height: 22,
-                          decoration: BoxDecoration(
-                            color: kWineRedColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "1",
-                              style: TextStyle(color: kCreamColor),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      )
+                      // Positioned(
+                      //   bottom: 26,
+                      //   left: 50,
+                      //   child: Container(
+                      //     width: 22,
+                      //     height: 22,
+                      //     decoration: BoxDecoration(
+                      //       color: kWineRedColor,
+                      //       borderRadius: BorderRadius.circular(10),
+                      //     ),
+                      //     child: const Center(
+                      //       child: Text(
+                      //         "1",
+                      //         style: TextStyle(color: kCreamColor),
+                      //         textAlign: TextAlign.center,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),
+                // AnimatedContainer(
+                //   duration: Duration(milliseconds: _duration),
+                //   width: _animateContainerWitdth,
+                //   decoration: BoxDecoration(
+                //     color: selectinIndex == 2 ? kCreamColor : null,
+                //     borderRadius: BorderRadius.circular(36),
+                //   ),
+                //   child: IconButton(
+                //     onPressed: () {
+                //       setState(() {
+                //         selectinIndex = 2;
+                //         myPage.jumpToPage(selectinIndex);
+                //       });
+                //     },
+                //     icon: Icon(
+                //       Icons.notifications,
+                //       color: selectinIndex == 2 ? kNavyBlueColor : kCreamColor,
+                //       size: 32,
+                //     ),
+                //   ),
+                // ),
                 AnimatedContainer(
                   duration: Duration(milliseconds: _duration),
                   width: _animateContainerWitdth,
@@ -523,29 +476,8 @@ class _MyPageManagerState extends State<MyPageManager> {
                       });
                     },
                     icon: Icon(
-                      Icons.notifications,
-                      color: selectinIndex == 2 ? kNavyBlueColor : kCreamColor,
-                      size: 32,
-                    ),
-                  ),
-                ),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: _duration),
-                  width: _animateContainerWitdth,
-                  decoration: BoxDecoration(
-                    color: selectinIndex == 3 ? kCreamColor : null,
-                    borderRadius: BorderRadius.circular(36),
-                  ),
-                  child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        selectinIndex = 3;
-                        myPage.jumpToPage(selectinIndex);
-                      });
-                    },
-                    icon: Icon(
                       Icons.person,
-                      color: selectinIndex == 3 ? kNavyBlueColor : kCreamColor,
+                      color: selectinIndex == 2 ? kNavyBlueColor : kCreamColor,
                       size: 32,
                     ),
                   ),
