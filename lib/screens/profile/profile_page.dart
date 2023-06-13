@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:avukapp/screens/meeting/lawyer/lawyer_meet_request_screen.dart';
 import 'package:avukapp/screens/profile/lawyer_profile_edit.dart';
 import 'package:avukapp/screens/profile/profile_detail/profile_pages/place_an_ad/screens/place_an_ad_list_page.dart';
 import 'package:avukapp/screens/profile/user_profile_edit_page.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../constant/constant.dart';
+import '../meeting/member/member_meeting_screen.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -46,9 +48,10 @@ class _ProfilePage extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _user = Provider.of<UserViewModel>(context);
-    final _lawyer = Provider.of<LawyerViewModel>(context);
-
+    var _user = Provider.of<UserViewModel>(context);
+    var _lawyer = Provider.of<LawyerViewModel>(context);
+    debugPrint('STATE TETİKLENDİ');
+    debugPrint(_user.user!.userName);
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -56,6 +59,13 @@ class _ProfilePage extends State<ProfilePage> {
             padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
+                _user.user!.isLawyer == 1
+                    ? const SizedBox(
+                        height: 0,
+                      )
+                    : const SizedBox(
+                        height: 30,
+                      ),
                 Stack(
                   children: [
                     CircleAvatar(
@@ -156,28 +166,12 @@ class _ProfilePage extends State<ProfilePage> {
                             : LawyerProfileEditPage(lawyer: lawyer),
                       ));
                       if (temp == true) {
-                        debugPrint('**************');
-                        setState(() {});
+                        debugPrint('PROFİL DÜZENLE GELEN DEGER TRUE');
+
+                        setState(()  {});
+                        debugPrint(_user.user!.userName);
                       }
                     },
-                  ),
-                ),
-                SizedBox(
-                  width: 300,
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.settings,
-                        color: Colors.black,
-                      ),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                      title: const Text(
-                        "AYARLAR",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      onTap: () {},
-                    ),
                   ),
                 ),
                 SizedBox(
@@ -213,25 +207,62 @@ class _ProfilePage extends State<ProfilePage> {
                               "RANDEVULARIM",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MemberMeetingScreen()));
+                            },
                           ),
                   ),
                 ),
+                _user.user!.isLawyer == 1
+                    ? SizedBox(
+                        width: 300,
+                        child: Padding(
+                          padding: const EdgeInsets.all(0),
+                          child: ListTile(
+                            leading: const Icon(
+                              Icons.add_chart,
+                              color: Colors.black,
+                            ),
+                            trailing: const Icon(Icons.arrow_forward_ios),
+                            title: const Text(
+                              "RANDEVULARIM",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          LawyerMeetRewuestScreen(
+                                            avukatName:
+                                                _lawyer.lawyer!.userName!,
+                                          )));
+                            },
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
                 SizedBox(
                   width: 300,
                   child: Padding(
                     padding: const EdgeInsets.all(0),
                     child: ListTile(
                       leading: const Icon(
-                        Icons.edit_notifications_sharp,
+                        Icons.logout,
                         color: Colors.black,
                       ),
-                      trailing: const Icon(Icons.arrow_forward_ios),
+                      trailing: const Icon(Icons.close),
                       title: const Text(
-                        "BİLDİRİMLER",
+                        "ÇIKIŞ",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        _logout();
+                      },
                     ),
                   ),
                 ),
@@ -280,6 +311,13 @@ class _ProfilePage extends State<ProfilePage> {
           confirmBtnText: ' ',
           confirmBtnColor: Colors.white);
       debugPrint('profik fotografı kayıt oldu sadece avukat');
+    }
+  }
+
+  void _logout() async {
+    final user = Provider.of<UserViewModel>(context, listen: false);
+    if (await user.singOut()) {
+      debugPrint('ÇIKIŞ YAPILDI');
     }
   }
 }

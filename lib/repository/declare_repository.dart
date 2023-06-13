@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:avukapp/model/appointment.dart';
 import 'package:avukapp/model/declare.dart';
+import 'package:avukapp/model/fav_declare.dart';
 import 'package:avukapp/service/db_base.dart';
 import 'package:flutter/foundation.dart';
 import '../lacator.dart';
@@ -155,7 +156,7 @@ class DeclareRepository implements DBBaseDeclare {
   }
 
   @override
-  Future<List<DeclareModel>> getForFavorieDeclare(String userID) async {
+  Future<List<FavDeclareModel>> getForFavorieDeclare(String userID) async {
     return await firestoreDbService.getForFavorieDeclare(userID);
   }
 }

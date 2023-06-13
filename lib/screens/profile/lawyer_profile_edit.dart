@@ -244,28 +244,32 @@ class _LawyerProfileEditPageState extends State<LawyerProfileEditPage> {
                     const SizedBox(
                       width: 20,
                     ),
-                    PressButtonWidget(
-                      buttonText: 'Vazgeç',
-                      buttonColor: kNavyBlueColor,
-                      textColor: kCreamColor,
-                      buttonHeight: 40,
-                      buttonWeight: 150,
-                      onPress: () {
-                        Navigator.pop(context);
-                      },
+                    Expanded(
+                      child: PressButtonWidget(
+                        buttonText: 'Vazgeç',
+                        buttonColor: kNavyBlueColor,
+                        textColor: kCreamColor,
+                        buttonHeight: 40,
+                        buttonWeight: 150,
+                        onPress: () {
+                          Navigator.pop(context);
+                        },
+                      ),
                     ),
                     const SizedBox(
                       width: 40,
                     ),
-                    PressButtonWidget(
-                      buttonText: 'Onayla',
-                      buttonColor: kNavyBlueColor,
-                      textColor: kCreamColor,
-                      buttonHeight: 40,
-                      buttonWeight: 150,
-                      onPress: () {
-                        _formSubmit();
-                      },
+                    Expanded(
+                      child: PressButtonWidget(
+                        buttonText: 'Onayla',
+                        buttonColor: kNavyBlueColor,
+                        textColor: kCreamColor,
+                        buttonHeight: 40,
+                        buttonWeight: 150,
+                        onPress: () {
+                          _formSubmit();
+                        },
+                      ),
                     )
                   ],
                 )

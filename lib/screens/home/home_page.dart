@@ -2,6 +2,7 @@
 
 import 'package:avukapp/manager/navigator_manager.dart';
 import 'package:avukapp/model/declare.dart';
+import 'package:avukapp/model/fav_declare.dart';
 import 'package:avukapp/viewmodel/declare_view_model.dart';
 import 'package:avukapp/viewmodel/lawyer_view_model.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -139,7 +140,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: CustomCardWidget(
                                   moodel: declareModel,
                                   sagButton: GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      _saveFav(declareModel);
+                                    },
                                     child: const CustomCardWidgetButton(
                                       buttonTitle: "Kaydet",
                                     ),
@@ -280,4 +283,36 @@ class _MyHomePageState extends State<MyHomePage> {
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: darwinNotificationDetails);
   }
+
+  Future<void> _saveFav(DeclareModel declareModel) async {
+    final user = Provider.of<UserViewModel>(context, listen: false);
+    final dec = Provider.of<DeclareViewModel>(context, listen: false);
+    List<FavDeclareModel> dec1 =
+        await dec.getForFavorieDeclare(user.user!.userID!);
+    dec1.forEach((element) {
+      debugPrint(element.declareId);
+    });
+  }
 }
+/*
+FAVORİ EKLEMEK İÇİN 
+
+  final user = Provider.of<UserViewModel>(context, listen: false);
+    final dec = Provider.of<DeclareViewModel>(context, listen: false);
+    dec.favoriDeclare(declareModel, user.user!.userID!);
+
+ */
+
+/*
+FAVORİ GETİRMEK İÇİN 
+
+    final user = Provider.of<UserViewModel>(context, listen: false);
+    final dec = Provider.of<DeclareViewModel>(context, listen: false);
+    List<FavDeclareModel> dec1 =
+        await dec.getForFavorieDeclare(user.user!.userID!);
+    dec1.forEach((element) {
+      debugPrint(element.declareId);
+    });
+
+
+ */

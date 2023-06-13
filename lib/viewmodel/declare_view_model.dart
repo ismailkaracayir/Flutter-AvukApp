@@ -1,5 +1,6 @@
 import 'package:avukapp/model/appointment.dart';
 import 'package:avukapp/model/declare.dart';
+import 'package:avukapp/model/fav_declare.dart';
 import 'package:avukapp/model/lawyer.dart';
 import 'package:avukapp/repository/declare_repository.dart';
 import 'package:avukapp/service/db_base.dart';
@@ -89,7 +90,7 @@ class DeclareViewModel extends ChangeNotifier implements DBBaseDeclare {
   }
 
   @override
-  Future<List<DeclareModel>> getForFavorieDeclare(String userID) async {
+  Future<List<FavDeclareModel>> getForFavorieDeclare(String userID) async {
     return declareRepository.getForFavorieDeclare(userID);
   }
 }

@@ -21,13 +21,7 @@ class FireBaseAuthService implements AuthBase {
   @override
   Future<UserModel> currentUser() async {
     // O ANKİ OTURUM AÇMIŞ KULLANICI BİLGİSİNİ BİZE VERİR (KULLANICI OTURM KAPATMADIGI SÜRECE ACIKDIR)
-    try {
-      debugPrint(' FİREBASEAUTH SERVİS OTURUM AÇAN USER-LAWYER  ${user!.uid} ');
-      return _userModelFromFirebase(user);
-    } catch (e) {
-      debugPrint('hata cıktı currentuser ${e.toString()}');
-      return UserModel(userID: null, email: null, userName: null);
-    }
+    return _userModelFromFirebase(user);
   }
 
   @override
