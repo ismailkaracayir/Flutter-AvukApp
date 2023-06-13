@@ -6,6 +6,7 @@ import 'package:avukapp/screens/register/registration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lottie/lottie.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import '../../viewmodel/user_view_model.dart';
@@ -42,7 +43,16 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          Lottie.asset(
+            "assets/login.json",
+            height: 200,
+            width: 200,
+          ),
+          Text(
+            "Giriş Yap",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          ),
+          /* Container(
             width: width / 2,
             height: height / 7,
             decoration: BoxDecoration(
@@ -55,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
               "Login",
               style: TextStyle(fontWeight: FontWeight.bold),
             )),
-          ),
+          ),*/
           Form(
             key: _formKey,
             child: SingleChildScrollView(
