@@ -268,12 +268,6 @@ class _LoginScreenState extends State<LoginScreen> {
         var userModel = Provider.of<UserViewModel>(context, listen: false);
         final UserModel user = await userModel.singInWithEmailAndPass(
             emailController.text, passwordController.text);
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => LandingPage(),
-          ),
-        );
       } on FirebaseAuthException catch (e) {
         String temp = LoginException.exception(e.toString());
         Fluttertoast.showToast(

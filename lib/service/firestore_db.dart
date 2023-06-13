@@ -1,5 +1,6 @@
 import 'package:avukapp/model/appointment.dart';
 import 'package:avukapp/model/declare.dart';
+import 'package:avukapp/model/fav_declare.dart';
 import 'package:avukapp/model/lawyer.dart';
 import 'package:avukapp/model/user.dart';
 import 'package:avukapp/service/db_base.dart';
@@ -239,21 +240,35 @@ class FirestoreDbService implements DBBase {
   }
 
   Future<bool> favoriDeclare(DeclareModel declare, String userID) async {
+    var appID = firebaseFirestore.collection('favorideclare').doc().id;
+    FavDeclareModel fav = FavDeclareModel(
+        declareId: declare.declareId,
+        lawyerId: declare.lawyerId,
+        declareDate: declare.declareDate,
+        declareTitle: declare.declareTitle,
+        declareContent: declare.declareContent,
+        declareCategory: declare.declareCategory,
+        declarePrice: declare.declarePrice,
+        lawyerProfilUrl: declare.lawyerProfilUrl,
+        isActive: declare.isActive,
+        userID: userID);
     await firebaseFirestore
         .collection('favorideclare')
-        .doc(userID)
-        .set(declare.toMap());
+        .doc(appID)
+        .set(fav.toMap());
     return true;
   }
 
-  Future<List<DeclareModel>> getForFavorieDeclare(String userID) async {
+  Future<List<FavDeclareModel>> getForFavorieDeclare(String userID) async {
     QuerySnapshot querySnapshot =
-        await firebaseFirestore.collection('favorideclare').where("userID",isEqualTo: userID).get();
-    List<DeclareModel> allDeclare = [];
+        await firebaseFirestore.collection('favorideclare').get();
+    List<FavDeclareModel> allDeclare = [];
     for (DocumentSnapshot declare in querySnapshot.docs) {
-      DeclareModel oneDeclare = DeclareModel.fromMap(declare.data() as Map);
-
-      allDeclare.add(oneDeclare);
+      FavDeclareModel oneDeclare =
+          FavDeclareModel.fromMap(declare.data() as Map);
+      if (oneDeclare.userID == userID) {
+        allDeclare.add(oneDeclare);
+      }
     }
     return allDeclare;
   }

@@ -1,5 +1,6 @@
 import 'package:avukapp/model/appointment.dart';
 import 'package:avukapp/model/declare.dart';
+import 'package:avukapp/model/fav_declare.dart';
 
 import '../model/lawyer.dart';
 import '../model/user.dart';
@@ -34,7 +35,7 @@ abstract class DBBaseDeclare {
   Future<bool> updateDeclare(String declareId, String declareTitle,
       String declareContent, String declareCategory, String declarePrice);
   Future<bool> favoriDeclare(DeclareModel declare, String userID);
-  Future<List<DeclareModel>> getForFavorieDeclare(String userID);
+  Future<List<FavDeclareModel>> getForFavorieDeclare(String userID);
   Future<bool> saveAppointment(AppointmentModel appointment);
   Future<List<AppointmentModel>> getForIdAppointment(String userId);
   Future<List<AppointmentModel>> getForIdLwyerAppointment(String lawyerId);

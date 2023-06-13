@@ -12,6 +12,7 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
   UserModel? _user;
 
   UserModel? get user => _user;
+
   UserViewModel() {
     currentUser();
   }
@@ -55,7 +56,7 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
     try {
       state = ViewState.Busy;
       _user = await _userRepository.singInWithEmailAndPass(email, pass);
-      debugPrint('USERROPOSİTORY EMAİL İLE KAYIT OLMA TETİKLENDİ');
+      debugPrint('USERVİEWMODEL EMAİL İLE GİRİŞ YAPMA ÇALIŞTI');
 
       return user!;
     } finally {
@@ -127,18 +128,21 @@ class UserViewModel extends ChangeNotifier implements AuthBase {
     bool temp =
         await _userRepository.updateUserProfileImageUrl(userId, imageUrl);
     currentUserRefresh();
+
     return temp;
   }
 
   Future<bool> updateEmail(String userID, String newEmail) async {
     bool temp = await _userRepository.updateEmail(userID, newEmail);
     currentUserRefresh();
+
     return temp;
   }
 
   Future<bool> updateUserName(String userID, String newUserName) async {
     bool temp = await _userRepository.updateUserName(userID, newUserName);
     currentUserRefresh();
+
     return temp;
   }
 
