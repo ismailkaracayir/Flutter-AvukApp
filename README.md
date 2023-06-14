@@ -1,17 +1,11 @@
 # avukapp
 
-A new Flutter project.
+This project has been developed for the purpose of providing legal consultancy.
 
-## Getting Started
+![Proje Logo](ic_launcher.png)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Project Description
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+AvukApp is a platform that enables users to access legal consultancy services online. The project facilitates interaction between lawyers and users and offers solutions to legal issues.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-ismailssssss
