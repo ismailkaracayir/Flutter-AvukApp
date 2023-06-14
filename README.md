@@ -19,6 +19,7 @@ Appointment Calendar: Users can schedule and manage appointments with lawyers us
 
 
 <div style="display:flex;">
-<img src="assets/proje_img/1.png" alt=" " width="200" height="400" style="margin-right: 10px;">
-<img src="assets/proje_img/2.png" alt=" " width="200" height="400">
+<img src="assets/proje_img/1.png" alt=" " width="200" height="400" style="margin-right: 20px;">
+<img src="assets/proje_img/2.png" alt=" " width="200" height="400" style="margin-right: 20px;">
+<img src="assets/proje_img/3.png" alt=" " width="200" height="400" style="margin-right: 20px;">
 </div>
