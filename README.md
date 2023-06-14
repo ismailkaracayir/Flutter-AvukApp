@@ -17,4 +17,4 @@ User Membership: Users can share their legal problems, search for lawyers, and r
 Video Call: Enables video call functionality between lawyers and users through the platform.
 Appointment Calendar: Users can schedule and manage appointments with lawyers using the calendar feature.
 
-![Fotoğraf Açıklaması](assets/images/proje_img/1.png)
+![ ](assets/proje_img/1.png)
