@@ -2,7 +2,7 @@
 
 This project has been developed for the purpose of providing legal consultancy.
 
-![Proje Logo](ic_launcher.png)
+![Proje Logo](assets/images/ic_launcher.png)
 
 
 ## Project Description
