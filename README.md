@@ -25,4 +25,8 @@ Appointment Calendar: Users can schedule and manage appointments with lawyers us
 <img src="assets/proje_img/5.png" alt=" " width="200" height="400" style=" margin-right: 110px;"> | 
 <img src="assets/proje_img/6.png" alt=" " width="200" height="400" style=" margin-right: 110px;"> |  
 
-![Video](assets/proje_img/video.mp4)
+
+
+https://github.com/Bitirme-Calismasi/avukapp/assets/83426543/1907f270-d7cd-4104-a346-8f1641d6e7dc
+
+
