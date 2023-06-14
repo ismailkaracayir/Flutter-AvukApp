@@ -18,3 +18,5 @@ Video Call: Enables video call functionality between lawyers and users through t
 Appointment Calendar: Users can schedule and manage appointments with lawyers using the calendar feature.
 
 <img src="assets/proje_img/1.png" alt=" " width="200" height="400">
+<img src="assets/proje_img/2.png" alt=" " width="200" height="400">
+
